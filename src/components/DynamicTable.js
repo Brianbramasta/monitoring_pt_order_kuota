@@ -11,8 +11,10 @@ import CustomDropdown from './CustomDropdown';
  * - onSearch: function (opsional)
  * - filters: array {label, options:array, value, onChange} (opsional, bisa lebih dari satu)
  * - pagination: {page, totalPages, onPageChange, pageSize, onPageSizeChange, totalData}
+ * - actions: array {label, onClick, icon} (opsional, tombol di kanan atas)
+ * - rowActions: function(row) => array of ReactNode (opsional, untuk kolom Action)
  */
-export default function DynamicTable({ columns, data, searchPlaceholder, onSearch, filters, pagination }) {
+export default function DynamicTable({ columns, data, searchPlaceholder, onSearch, filters, pagination, actions = [], rowActions }) {
   const [search, setSearch] = useState('');
 
   // Handler search
@@ -23,29 +25,46 @@ export default function DynamicTable({ columns, data, searchPlaceholder, onSearc
 
   return (
     <div className="bg-white border-t border-[#E0E0E0] p-3 sm:p-5 w-full" style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
-      {/* Filter & Search */}
+      {/* Filter, Search & Actions */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4 items-start sm:items-center justify-between">
-        {onSearch && (
-          <input
-            type="text"
-            className="border border-[#BDBDBD] rounded-full px-3 py-1.5 text-sm w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-[#177F7E]"
-            placeholder={searchPlaceholder || 'Cari...'}
-            value={search}
-            onChange={handleSearch}
-            style={{fontFamily: 'Poppins, Arial, sans-serif'}}
-          />
-        )}
-        <div className="flex flex-wrap gap-2 w-full sm:w-auto">
-          {filters && filters.map((filter, idx) => (
-            <CustomDropdown
-              key={idx}
-              label={filter.label}
-              options={filter.options}
-              value={filter.value}
-              onChange={filter.onChange}
+        <div className="flex-1 flex justify-between items-center">
+          {onSearch && (
+            <input
+              type="text"
+              className="border border-[#BDBDBD] rounded-full px-3 py-1.5 text-sm w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-[#177F7E]"
+              placeholder={searchPlaceholder || 'Cari...'}
+              value={search}
+              onChange={handleSearch}
+              style={{fontFamily: 'Poppins, Arial, sans-serif'}}
             />
-          ))}
+          )}
+          <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+            {filters && filters.map((filter, idx) => (
+              <CustomDropdown
+                key={idx}
+                label={filter.label}
+                options={filter.options}
+                value={filter.value}
+                onChange={filter.onChange}
+              />
+            ))}
+          </div>
         </div>
+        {/* Actions Button */}
+        {actions.length > 0 && (
+          <div className="flex gap-2 items-center">
+            {actions.map((action, idx) => (
+              <button
+                key={idx}
+                onClick={action.onClick}
+                className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#1EC98B] text-[#1EC98B] bg-white hover:bg-[#F6FFFC] font-medium text-sm transition"
+              >
+                {action.icon && <span>{action.icon}</span>}
+                {action.label}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Table dengan scroll horizontal di mobile */}
@@ -57,17 +76,27 @@ export default function DynamicTable({ columns, data, searchPlaceholder, onSearc
                 {columns.map((col, idx) => (
                   <th key={idx} className="px-2 sm:px-4 py-2 text-left font-semibold text-xs sm:text-sm whitespace-nowrap  border-[#BDBDBD]">{col.label}</th>
                 ))}
+                {rowActions && <th className="px-2 sm:px-4 py-2 text-left font-semibold text-xs sm:text-sm whitespace-nowrap border-[#BDBDBD]">Action</th>}
               </tr>
             </thead>
             <tbody>
               {data.length === 0 ? (
-                <tr><td colSpan={columns.length} className="text-center py-6 text-gray-400 text-sm">Tidak ada data</td></tr>
+                <tr><td colSpan={columns.length + (rowActions ? 1 : 0)} className="text-center py-6 text-gray-400 text-sm">Tidak ada data</td></tr>
               ) : (
                 data.map((row, i) => (
                   <tr key={i} className={i%2===1 ? 'bg-[#F8FAFB]' : ''}>
                     {columns.map((col, j) => (
                       <td key={j} className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm text-[#222]  border-[#E0E0E0] whitespace-nowrap">{row[col.key]}</td>
                     ))}
+                    {rowActions && (
+                      <td className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm text-[#222] border-[#E0E0E0] whitespace-nowrap">
+                        <div className="flex gap-2 items-center">
+                          {rowActions(row).map((action, idx) => (
+                            <span key={idx}>{action}</span>
+                          ))}
+                        </div>
+                      </td>
+                    )}
                   </tr>
                 ))
               )}

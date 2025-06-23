@@ -25,7 +25,7 @@ const icons = [
   'icon-6.svg',
   'icon-7.svg',
   'icon-8.svg',
-  'icon-8.svg',
+  'icon-9.svg',
 ];
 
 export default function RootLayout({ children }) {
