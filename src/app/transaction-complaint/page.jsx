@@ -1,20 +1,10 @@
 'use client'
 import Card from '../../components/Card';
 import DynamicTable from '../../components/DynamicTable';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getComplaintTransactions } from '@/services/transactions';
 
-// Dummy data card
-const cards = [
-  {
-    icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EAF6F6] flex items-center justify-center'><img src='/icon/card/success/icon-1.svg'/></div>,
-    title: 'Total Komplain Transaksi',
-    value: <span className="text-[#222222] font-bold">4</span>,
-  }, {
-    icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EAF6F6] flex items-center justify-center'><img src='/icon/card/success/icon-3.svg'/></div>,
-    title: 'Total Nominal Komplain',
-    value: <span className="text-[#222222] font-bold">Rp 4.000.000</span>,
-  }
-];
+
 
 // Dummy data table
 const columns = [
@@ -26,12 +16,6 @@ const columns = [
   { key: 'harga', label: 'Harga' },
   { key: 'jumlah', label: 'Jumlah Transaksi' },
 ];
-const data = [
-  { no: '01', tanggal: '14 Juni 2025', nama_produk: 'Pulsa Telkomsel 5rb', nama_supplier: 'PT. Mulya Kencana', kode_produk: 'GA0001', harga: 'Rp 5.000', jumlah: 20 },
-  { no: '02', tanggal: '14 Juni 2025', nama_produk: 'Pulsa Telkomsel 10rb', nama_supplier: 'PT. Mulya Kencana', kode_produk: 'QW0008', harga: 'Rp 12.000', jumlah: 40 },
-  { no: '03', tanggal: '14 Juni 2025', nama_produk: 'Pulsa Telkomsel 15rb', nama_supplier: 'PT. Mulya Kencana', kode_produk: 'AB0004', harga: 'Rp 17.000', jumlah: 23 },
-  { no: '04', tanggal: '14 Juni 2025', nama_produk: 'Pulsa Telkomsel 20rb', nama_supplier: 'PT. Mulya Kencana', kode_produk: 'PC0002', harga: 'Rp 22.000', jumlah: 49 },
-];
 
 /**
  * Halaman Transaksi Gagal
@@ -39,8 +23,55 @@ const data = [
  */
 export default function TransactionComplaintPage() {
   const [search, setSearch] = useState('');
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [data, setData] = useState([]);
+  const [totalData, setTotalData] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [recap, setRecap] = useState({});
+
+  useEffect(() => {
+    setLoading(true);
+    getComplaintTransactions({
+      search,
+      page,
+      limit: pageSize,
+    })
+      .then(res => {
+        const arr = res.data.data?.transactions || [];
+        setData(arr.map((item, idx) => ({
+          no: item.no,
+          tanggal: item.date || '-',
+          nama_produk: item.product_name || '-',
+          nama_supplier: item.supplier_name || '-',
+          kode_produk: item.product_code || '-',
+          harga: item.price || '-',
+          jumlah: item.quantity || '-',
+        })));
+        setTotalData(res.data.data?.pagination?.total_data || arr.length);
+        setRecap(res.data.data?.recap || {});
+      })
+      .catch(() => {
+        setData([]);
+        setTotalData(0);
+        setRecap({});
+      })
+      .finally(() => setLoading(false));
+  }, [search, page, pageSize]);
+
+  // Dummy data card
+const cards = [
+  {
+    icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EAF6F6] flex items-center justify-center'><img src='/icon/card/success/icon-1.svg'/></div>,
+    title: 'Total Komplain Transaksi',
+    value: <span className="text-[#222222] font-bold">{recap.total_complaint_transactions || 0}</span>,
+  },
+  {
+    icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EAF6F6] flex items-center justify-center'><img src='/icon/card/success/icon-3.svg'/></div>,
+    title: 'Total Nominal Komplain',
+    value: <span className="text-[#222222] font-bold">Rp {recap.total_complaint_nominal?.toLocaleString('id-ID') || 0}</span>,
+  }
+];
 
   // Filter dummy
   const filters = [
@@ -79,12 +110,13 @@ export default function TransactionComplaintPage() {
           filters={filters}
           pagination={{
             page,
-            totalPages: 5,
+            totalPages: Math.ceil(totalData / pageSize),
             onPageChange: setPage,
             pageSize,
             onPageSizeChange: setPageSize,
-            totalData: 40,
+            totalData,
           }}
+          loading={loading}
         />
       </div>
     </div>

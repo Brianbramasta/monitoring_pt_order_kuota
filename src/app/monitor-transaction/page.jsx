@@ -1,25 +1,14 @@
 'use client'
 import AreaGrafik from "@/components/AreaGrafik";
-import { useState } from "react";
-
-const data = [
-  { x: "Jan", y: 20 },
-  { x: "Feb", y: 30 },
-  { x: "Mar", y: 50 },
-  { x: "Apr", y: 70 },
-  { x: "May", y: 80 },
-  { x: "Jun", y: 90 },
-  { x: "Jul", y: 90 },
-  { x: "Aug", y: 85 },
-  { x: "Sep", y: 90 },
-  { x: "Oct", y: 80 },
-  { x: "Nov", y: 70 },
-  { x: "Dec", y: 40 },
-];
+import { useState, useEffect } from "react";
+import { getTransactionChart } from "@/services/monitor";
 
 export default function MonitorTransactionPage() {
   const [periode, setPeriode] = useState("bulan");
   const [produk, setProduk] = useState("telkomsel");
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [totalValue, setTotalValue] = useState(0);
 
   const filters = [
     {
@@ -42,12 +31,27 @@ export default function MonitorTransactionPage() {
     },
   ];
 
+  useEffect(() => {
+    setLoading(true);
+    getTransactionChart({ period: periode, product_id: produk })
+      .then(res => {
+        const arr = res.data.data?.chart_data || [];
+        setData(arr.map(item => ({ x: item.label, y: item.value })));
+        setTotalValue(arr.reduce((sum, item) => sum + (item.value || 0), 0));
+      })
+      .catch(() => {
+        setData([]);
+        setTotalValue(0);
+      })
+      .finally(() => setLoading(false));
+  }, [periode, produk]);
+
   return (
     <div className="px-8 py-8">
       <h1 className="text-2xl font-bold mb-8">Monitor Transaksi</h1>
       <AreaGrafik
         totalLabel="NOMINAL TOTAL PENJUALAN"
-        totalValue={<span style={{ color: '#1EC98B' }}>Rp 1.200.000.000</span>}
+        totalValue={<span style={{ color: '#1EC98B' }}>Rp {Number(totalValue).toLocaleString('id-ID')}</span>}
         filters={filters}
         data={data}
         dataKeyX="x"
@@ -56,6 +60,7 @@ export default function MonitorTransactionPage() {
           `Rp ${Number(value).toLocaleString('id-ID')}.000.000`,
           props && props.payload && props.payload.x ? props.payload.x : name
         ]}
+        loading={loading}
       />
     </div>
   );

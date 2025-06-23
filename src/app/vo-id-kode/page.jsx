@@ -1,7 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CustomModal from "../../components/customModal";
 import DynamicTable from "../../components/DynamicTable";
+import { getVoidKodes, addVoidKode, editVoidKode, deleteVoidKode } from "@/services/voidkode";
 
 const JENIS_PRODUK_OPTIONS = [
   { label: "Telkomsel", value: "Telkomsel" },
@@ -10,40 +11,43 @@ const JENIS_PRODUK_OPTIONS = [
   { label: "Smartfren", value: "Smartfren" },
 ];
 
-const initialData = [
-  { id: 1, jenisProduk: "Telkomsel", namaProduk: "Pulsa Telkomsel 5rb", voIdKode: "TRX001" },
-  { id: 2, jenisProduk: "Telkomsel", namaProduk: "Pulsa Telkomsel 10rb", voIdKode: "TRX002" },
-  { id: 3, jenisProduk: "Telkomsel", namaProduk: "Pulsa Telkomsel 15rb", voIdKode: "TRX003" },
-  { id: 4, jenisProduk: "Telkomsel", namaProduk: "Pulsa Telkomsel 20rb", voIdKode: "TRX004" },
-  { id: 5, jenisProduk: "XL", namaProduk: "Pulsa XL 5rb", voIdKode: "ABC001" },
-  { id: 6, jenisProduk: "XL", namaProduk: "Pulsa XL 10rb", voIdKode: "ABC002" },
-  { id: 7, jenisProduk: "XL", namaProduk: "Pulsa XL 15rb", voIdKode: "ABC003" },
-  { id: 8, jenisProduk: "XL", namaProduk: "Pulsa XL 20rb", voIdKode: "ABC004" },
-];
-
 export default function VoIdKodePage() {
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState("tambah"); // "tambah" | "edit"
   const [editId, setEditId] = useState(null);
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(8);
+  const [totalData, setTotalData] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   // State input modal
   const [jenisProduk, setJenisProduk] = useState("");
   const [namaProduk, setNamaProduk] = useState("");
   const [voIdKode, setVoIdKode] = useState("");
 
-  // Pagination
-  const [page, setPage] = useState(2);
-  const pageSize = 8;
-  const totalPages = 5;
-
-  // Filter data by search
-  const filteredData = data.filter(
-    (row) =>
-      row.voIdKode.toLowerCase().includes(search.toLowerCase()) ||
-      row.namaProduk.toLowerCase().includes(search.toLowerCase())
-  );
+  useEffect(() => {
+    setLoading(true);
+    getVoidKodes({
+      search,
+      page,
+      limit: pageSize,
+    })
+      .then(res => {
+        const arr = res.data.data?.void_codes || [];
+        setData(arr.map((row, idx) => ({
+          ...row,
+          no: row.no || ((page - 1) * pageSize + idx + 1).toString().padStart(2, "0"),
+        })));
+        setTotalData(res.data.data?.pagination?.total_data || arr.length);
+      })
+      .catch(() => {
+        setData([]);
+        setTotalData(0);
+      })
+      .finally(() => setLoading(false));
+  }, [search, page, pageSize]);
 
   // Modal open handler
   const openTambah = () => {
@@ -57,40 +61,68 @@ export default function VoIdKodePage() {
   const openEdit = (row) => {
     setModalMode("edit");
     setEditId(row.id);
-    setJenisProduk(row.jenisProduk);
-    setNamaProduk(row.namaProduk);
-    setVoIdKode(row.voIdKode);
+    setJenisProduk(row.jenisProduk || row.product_type || "");
+    setNamaProduk(row.namaProduk || row.product_name || "");
+    setVoIdKode(row.voIdKode || row.vd_id_code || "");
     setModalOpen(true);
   };
   const closeModal = () => setModalOpen(false);
 
   // Simpan handler
-  const handleSimpan = () => {
+  const handleSimpan = async () => {
     if (!jenisProduk || !namaProduk || !voIdKode) return;
-    if (modalMode === "tambah") {
-      setData([
-        ...data,
-        {
-          id: data.length ? Math.max(...data.map((d) => d.id)) + 1 : 1,
-          jenisProduk,
-          namaProduk,
-          voIdKode,
-        },
-      ]);
-    } else if (modalMode === "edit") {
-      setData(
-        data.map((d) =>
-          d.id === editId ? { ...d, jenisProduk, namaProduk, voIdKode } : d
-        )
-      );
+    try {
+      if (modalMode === "tambah") {
+        await addVoidKode({ product_type: jenisProduk, product_name: namaProduk, vd_id_code: voIdKode });
+      } else if (modalMode === "edit") {
+        await editVoidKode(editId, { product_type: jenisProduk, product_name: namaProduk, vd_id_code: voIdKode });
+      }
+      setModalOpen(false);
+      // Refresh data
+      setLoading(true);
+      getVoidKodes({ search, page, limit: pageSize })
+        .then(res => {
+          const arr = res.data.data?.void_codes || [];
+          setData(arr.map((row, idx) => ({
+            ...row,
+            no: row.no || ((page - 1) * pageSize + idx + 1).toString().padStart(2, "0"),
+          })));
+          setTotalData(res.data.data?.pagination?.total_data || arr.length);
+        })
+        .catch(() => {
+          setData([]);
+          setTotalData(0);
+        })
+        .finally(() => setLoading(false));
+    } catch (e) {
+      alert("Gagal menyimpan data");
     }
-    setModalOpen(false);
   };
 
   // Hapus handler
-  const handleHapus = (id) => {
+  const handleHapus = async (id) => {
     if (window.confirm("Yakin hapus data ini?")) {
-      setData(data.filter((d) => d.id !== id));
+      try {
+        await deleteVoidKode(id);
+        // Refresh data
+        setLoading(true);
+        getVoidKodes({ search, page, limit: pageSize })
+          .then(res => {
+            const arr = res.data.data?.void_codes || [];
+            setData(arr.map((row, idx) => ({
+              ...row,
+              no: row.no || ((page - 1) * pageSize + idx + 1).toString().padStart(2, "0"),
+            })));
+            setTotalData(res.data.data?.pagination?.total_data || arr.length);
+          })
+          .catch(() => {
+            setData([]);
+            setTotalData(0);
+          })
+          .finally(() => setLoading(false));
+      } catch (e) {
+        alert("Gagal menghapus data");
+      }
     }
   };
 
@@ -102,10 +134,12 @@ export default function VoIdKodePage() {
     { key: "voIdKode", label: "VO ID Kode" },
   ];
 
-  // Table data with numbering
-  const tableData = filteredData.map((row, idx) => ({
+  // Table data with mapping
+  const tableData = data.map(row => ({
     ...row,
-    no: (idx + 1).toString().padStart(2, "0"),
+    jenisProduk: row.jenisProduk || row.product_type || '-',
+    namaProduk: row.namaProduk || row.product_name || '-',
+    voIdKode: row.voIdKode || row.vd_id_code || '-',
   }));
 
   // Modal input config
@@ -165,11 +199,11 @@ export default function VoIdKodePage() {
         onSearch={setSearch}
         pagination={{
           page,
-          totalPages,
+          totalPages: Math.ceil(totalData / pageSize),
           onPageChange: setPage,
           pageSize,
-          onPageSizeChange: () => {},
-          totalData: data.length,
+          onPageSizeChange: setPageSize,
+          totalData,
         }}
         actions={[{
           label: 'Tambah VO ID Kode',
@@ -192,6 +226,7 @@ export default function VoIdKodePage() {
             {DeleteIcon} Hapus
           </button>,
         ]}
+        loading={loading}
       />
       <CustomModal
         open={modalOpen}
