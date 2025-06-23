@@ -59,7 +59,7 @@ export default function Sidebar({ menus, user, logoSrc }) {
               {menus.map((menu, idx) => (
                 <li key={idx}>
                   <button
-                    className={`flex items-center gap-3 w-full px-4 py-2 rounded-[8px] transition-colors text-[14px] leading-[22px] font-light
+                    className={`flex items-center gap-3 w-full px-4 py-2 rounded-[8px] transition-colors text-[14px] leading-[22px] font-light cursor-pointer
                       ${menu.active ? 'bg-[#177F7E] text-white font-medium' : 'hover:bg-[#F0F0F0] text-[#222]'}
                     `}
                     style={{
@@ -87,10 +87,10 @@ export default function Sidebar({ menus, user, logoSrc }) {
             <div className="text-xs text-[#4F4F4F] mb-2">{user.email}</div>
             <div className="flex gap-2">
               <button onClick={user.onSetting} className="w-9 h-9 flex items-center justify-center rounded-[8px] bg-white border border-[#E0E0E0] hover:bg-gray-100">
-                <svg width="20" height="20" fill="none" stroke="#222" strokeWidth="1.6"><circle cx="10" cy="10" r="7"/><path d="M10 7v3l2 2"/></svg>
+                <img src="/icon/login information/settings.svg"/>
               </button>
               <button onClick={user.onLogout} className="w-9 h-9 flex items-center justify-center rounded-[8px] bg-white border border-[#E0E0E0] hover:bg-red-50">
-                <svg width="20" height="20" fill="none" stroke="#EB5757" strokeWidth="1.6"><path d="M6 10h8M10 7l3 3-3 3"/><circle cx="10" cy="10" r="9" stroke="#EB5757" strokeWidth="1.6"/></svg>
+                <img src="/icon/login information/log-in.svg"/>
               </button>
             </div>
           </div>

@@ -6,24 +6,24 @@ import { useState } from 'react';
 // Dummy data card
 const cards = [
   {
-    icon: <svg width="28" height="28" fill="none" stroke="#F87171"><rect x="4" y="4" width="20" height="20" rx="6" strokeWidth="2"/><path d="M14 10v4" strokeWidth="2" strokeLinecap="round"/><circle cx="14" cy="18" r="1" fill="#F87171"/></svg>,
+    icon: <div className='w-[34px] h-[34px] rounded-full bg-[#FFEAEA] flex items-center justify-center'><img src='/icon/card/fail/icon-1.svg'/></div>,
     title: 'Produk yang sering gagal',
     value: <span className="text-[#F87171] font-bold">Topup Game</span>,
   },
   {
-    icon: <svg width="28" height="28" fill="none" stroke="#F87171"><circle cx="14" cy="14" r="10" strokeWidth="2"/><path d="M14 10v4" strokeWidth="2" strokeLinecap="round"/><circle cx="14" cy="18" r="1" fill="#F87171"/></svg>,
+    icon: <div className='w-[34px] h-[34px] rounded-full bg-[#FFEAEA] flex items-center justify-center'><img src='/icon/card/fail/icon-2.svg'/></div>,
     title: 'Total Transaksi Gagal',
-    value: 8,
+    value:<span className="text-[#F87171] font-bold">8</span>,
   },
   {
-    icon: <svg width="28" height="28" fill="none" stroke="#F87171"><rect x="4" y="4" width="20" height="20" rx="6" strokeWidth="2"/><path d="M10 14h8" strokeWidth="2"/></svg>,
+    icon: <div className='w-[34px] h-[34px] rounded-full bg-[#FFEAEA] flex items-center justify-center'><img src='/icon/card/fail/icon-3.svg'/></div>,
     title: 'Total Nominal Transaksi Gagal',
     value: <span className="text-[#F87171] font-bold">Rp 4.000.000</span>,
   },
   {
-    icon: <svg width="28" height="28" fill="none" stroke="#F87171"><rect x="4" y="4" width="20" height="20" rx="6" strokeWidth="2"/><path d="M14 10v8" strokeWidth="2"/></svg>,
+    icon: <div className='w-[34px] h-[34px] rounded-full bg-[#FFEAEA] flex items-center justify-center'><img src='/icon/card/fail/icon-1.svg'/></div>,
     title: 'Total Produk',
-    value: 4,
+    value: <span className="text-[#F87171] font-bold">4</span>,
   },
 ];
 
