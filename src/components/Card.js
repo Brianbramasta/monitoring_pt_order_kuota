@@ -11,8 +11,8 @@ import Image from 'next/image';
 export default function Card({ icon, title, value }) {
   return (
     <div
-      className="bg-white border border-[#E0E0E0] rounded-[8px] flex flex-col justify-between p-0"
-      style={{ width: 255, height: 130, fontFamily: 'Poppins, Arial, sans-serif' }}
+      className="bg-white border border-[#E0E0E0] rounded-[8px] flex flex-col justify-between p-0 transition-all duration-200 ease-in-out hover:shadow-lg hover:-translate-y-1 cursor-pointer"
+      style={{ width: '100%', height: 130, fontFamily: 'Poppins, Arial, sans-serif' }}
     >
       <div className="flex items-center gap-3 px-5 pt-4">
         <div className="w-[34px] h-[34px] rounded-full bg-[#EEEEEE] flex items-center justify-center">
