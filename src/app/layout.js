@@ -2,6 +2,7 @@
 import './globals.css';
 import Sidebar from '../components/Sidebar';
 import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const menuList = [
   { label: 'Transaksi Gagal', path: '/transaction-fail' },
@@ -28,6 +29,18 @@ const icons = [
 export default function RootLayout({ children }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Cek status login
+    const loginStatus = localStorage.getItem('isLoggedIn') === 'true';
+    setIsLoggedIn(loginStatus);
+
+    // Jika belum login dan bukan di halaman login, redirect ke login
+    if (!loginStatus && pathname !== '/') {
+      router.push('/');
+    }
+  }, [pathname]);
 
   const menus = menuList.map((menu, idx) => {
     const isActive = pathname.startsWith(menu.path);
@@ -43,10 +56,13 @@ export default function RootLayout({ children }) {
   });
 
   const user = {
-    name: 'Gilang Ilham',
-    email: 'gilangilham@gmail.com',
+    name: 'Admin',
+    email: 'admin@gmail.com',
     onSetting: () => {},
-    onLogout: () => {},
+    onLogout: () => {
+      localStorage.removeItem('isLoggedIn');
+      router.push('/');
+    },
   };
   const logoSrc = '/logo_order_kuota.png';
 
@@ -54,8 +70,12 @@ export default function RootLayout({ children }) {
     <html lang="id">
       <body className="antialiased bg-[#F8FAFB]">
         <div className="flex min-h-screen">
-          <Sidebar menus={menus} user={user} logoSrc={logoSrc} />
-          <main className="flex-1 p-8 w-full">{children}</main>
+          {isLoggedIn && pathname !== '/' && (
+            <Sidebar menus={menus} user={user} logoSrc={logoSrc} />
+          )}
+          <main className={`flex-1 ${isLoggedIn && pathname !== '/' ? 'p-8' : ''} w-full`}>
+            {children}
+          </main>
         </div>
       </body>
     </html>
