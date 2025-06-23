@@ -1,0 +1,39 @@
+{
+  "code": 200,
+  "status": "success",
+  "message": "Data transaksi gagal berhasil diambil",
+  "data": {
+    "recap": {
+      "most_failed_product_name": "Pulsa Indosat 5rb",
+      "total_failed_transactions": 150,
+      "total_failed_nominal": 750000.0,
+      "total_products": 25
+    },
+    "transactions": [
+      {
+        "no": 1,
+        "date": "2025-06-22",
+        "product_name": "Pulsa Indosat 5rb",
+        "supplier_name": "Supplier A",
+        "product_code": "IND5K",
+        "price": 5200.0,
+        "quantity": 10
+      },
+      {
+        "no": 2,
+        "date": "2025-06-22",
+        "product_name": "Paket Data XL 1GB",
+        "supplier_name": "Supplier B",
+        "product_code": "XL1GB",
+        "price": 11000.0,
+        "quantity": 5
+      }
+    ],
+    "pagination": {
+      "total_data": 150,
+      "total_pages": 15,
+      "current_page": 1,
+      "limit": 10
+    }
+  }
+} 

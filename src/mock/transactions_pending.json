@@ -1,0 +1,39 @@
+{
+  "code": 200,
+  "status": "success",
+  "message": "Data transaksi pending berhasil diambil",
+  "data": {
+    "recap": {
+      "most_pending_product_name": "Token PLN 50rb",
+      "total_pending_transactions": 80,
+      "total_pending_nominal": 4000000.0,
+      "total_products": 15
+    },
+    "transactions": [
+      {
+        "no": 1,
+        "date": "2025-06-22",
+        "product_name": "Token PLN 50rb",
+        "supplier_name": "Supplier C",
+        "product_code": "PLN50K",
+        "price": 50500.0,
+        "quantity": 5
+      },
+      {
+        "no": 2,
+        "date": "2025-06-22",
+        "product_name": "Pembayaran BPJS",
+        "supplier_name": "Supplier D",
+        "product_code": "BPJS001",
+        "price": 25000.0,
+        "quantity": 2
+      }
+    ],
+    "pagination": {
+      "total_data": 80,
+      "total_pages": 8,
+      "current_page": 1,
+      "limit": 10
+    }
+  }
+} 

@@ -1,0 +1,29 @@
+{
+  "code": 200,
+  "status": "success",
+  "message": "Data supplier berhasil diambil",
+  "data": {
+    "suppliers": [
+      {
+        "no": 1,
+        "supplier_name": "Telkomsel API",
+        "supplier_code": "TSL001",
+        "supplier_status": "Aktif",
+        "server_status": "Online"
+      },
+      {
+        "no": 2,
+        "supplier_name": "Indosat Ooredoo API",
+        "supplier_code": "IDS002",
+        "supplier_status": "Aktif",
+        "server_status": "Online"
+      }
+    ],
+    "pagination": {
+      "total_data": 50,
+      "total_pages": 5,
+      "current_page": 1,
+      "limit": 10
+    }
+  }
+} 

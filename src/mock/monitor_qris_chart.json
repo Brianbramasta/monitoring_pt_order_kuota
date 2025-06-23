@@ -1,0 +1,15 @@
+{
+  "code": 200,
+  "status": "success",
+  "message": "Data monitor QRIS berhasil diambil",
+  "data": {
+    "chart_data": [
+      { "label": "Jan 2025", "value": 5000000.0 },
+      { "label": "Feb 2025", "value": 6500000.0 },
+      { "label": "Mar 2025", "value": 6000000.0 },
+      { "label": "Apr 2025", "value": 7000000.0 },
+      { "label": "Mei 2025", "value": 7800000.0 },
+      { "label": "Jun 2025", "value": 7200000.0 }
+    ]
+  }
+} 

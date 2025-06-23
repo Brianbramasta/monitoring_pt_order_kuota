@@ -1,0 +1,39 @@
+{
+  "code": 200,
+  "status": "success",
+  "message": "Data transaksi sukses berhasil diambil",
+  "data": {
+    "recap": {
+      "most_successful_product_name": "Pulsa Telkomsel 10rb",
+      "total_successful_transactions": 5000,
+      "total_successful_nominal": 50000000.0,
+      "total_products": 100
+    },
+    "transactions": [
+      {
+        "no": 1,
+        "date": "2025-06-22",
+        "product_name": "Pulsa Telkomsel 10rb",
+        "supplier_name": "Supplier E",
+        "product_code": "TSEL10K",
+        "price": 10500.0,
+        "quantity": 50
+      },
+      {
+        "no": 2,
+        "date": "2025-06-22",
+        "product_name": "Game Voucher Mobile Legends 50Diamonds",
+        "supplier_name": "Supplier F",
+        "product_code": "ML50D",
+        "price": 15000.0,
+        "quantity": 10
+      }
+    ],
+    "pagination": {
+      "total_data": 5000,
+      "total_pages": 500,
+      "current_page": 1,
+      "limit": 10
+    }
+  }
+} 

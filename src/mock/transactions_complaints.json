@@ -1,0 +1,37 @@
+{
+  "code": 200,
+  "status": "success",
+  "message": "Data komplain transaksi berhasil diambil",
+  "data": {
+    "recap": {
+      "total_complaint_transactions": 20,
+      "total_complaint_nominal": 150000.0
+    },
+    "transactions": [
+      {
+        "no": 1,
+        "date": "2025-06-21",
+        "product_name": "Pulsa Indosat 10rb",
+        "supplier_name": "Supplier A",
+        "product_code": "IND10K",
+        "price": 10200.0,
+        "quantity": 1
+      },
+      {
+        "no": 2,
+        "date": "2025-06-20",
+        "product_name": "Paket Data Telkomsel 2GB",
+        "supplier_name": "Supplier E",
+        "product_code": "TSEL2GB",
+        "price": 22000.0,
+        "quantity": 1
+      }
+    ],
+    "pagination": {
+      "total_data": 20,
+      "total_pages": 2,
+      "current_page": 1,
+      "limit": 10
+    }
+  }
+} 

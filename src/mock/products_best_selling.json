@@ -1,0 +1,23 @@
+{
+  "code": 200,
+  "status": "success",
+  "message": "Data produk terlaris berhasil diambil",
+  "data": {
+    "products": [
+      {
+        "id": 1,
+        "icon_diamond": "https://example.com/icons/diamond.png",
+        "icon_product": "https://example.com/icons/pulsa.png",
+        "product_name": "Pulsa Telkomsel 10rb",
+        "nominal_sold": 10000000.0
+      },
+      {
+        "id": 2,
+        "icon_diamond": "https://example.com/icons/diamond.png",
+        "icon_product": "https://example.com/icons/data.png",
+        "product_name": "Paket Data XL 5GB",
+        "nominal_sold": 8000000.0
+      }
+    ]
+  }
+} 

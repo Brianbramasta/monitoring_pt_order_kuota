@@ -1,0 +1,27 @@
+{
+  "code": 200,
+  "status": "success",
+  "message": "Data produk berhasil diambil",
+  "data": {
+    "products": [
+      {
+        "no": 1,
+        "product_type": "Pulsa",
+        "product_name": "Pulsa Telkomsel 5rb",
+        "vd_id_code": "PULSA001"
+      },
+      {
+        "no": 2,
+        "product_type": "Paket Data",
+        "product_name": "Paket Data XL 1GB",
+        "vd_id_code": "DATA002"
+      }
+    ],
+    "pagination": {
+      "total_data": 30,
+      "total_pages": 3,
+      "current_page": 1,
+      "limit": 10
+    }
+  }
+} 
