@@ -3,6 +3,7 @@ import Card from '../../components/Card';
 import DynamicTable from '../../components/DynamicTable';
 import { useState, useEffect } from 'react';
 import { getComplaintTransactions } from '@/services/transactions';
+import dayjs from 'dayjs';
 
 
 
@@ -29,13 +30,54 @@ export default function TransactionComplaintPage() {
   const [totalData, setTotalData] = useState(0);
   const [loading, setLoading] = useState(false);
   const [recap, setRecap] = useState({});
+  const [selectedFilter, setSelectedFilter] = useState('today');
 
+  /**
+   * Menghitung start_date dan end_date berdasarkan filter yang dipilih user.
+   * @param {string} filter - Nilai filter yang dipilih (today, last_3_days, this_week, this_month)
+   * @returns {{start_date: string, end_date: string}} - Objek berisi tanggal mulai dan akhir
+   */
+  const getDateRange = (filter) => {
+    const today = dayjs();
+    let start_date = null;
+    let end_date = null;
+    switch (filter) {
+      case 'today':
+        start_date = today.format('YYYY-MM-DD');
+        end_date = today.format('YYYY-MM-DD');
+        break;
+      case 'last_3_days':
+        start_date = today.subtract(2, 'day').format('YYYY-MM-DD');
+        end_date = today.format('YYYY-MM-DD');
+        break;
+      case 'this_week':
+        start_date = today.startOf('week').add(1, 'day').format('YYYY-MM-DD'); // Senin
+        end_date = today.format('YYYY-MM-DD');
+        break;
+      case 'this_month':
+        start_date = today.startOf('month').format('YYYY-MM-DD');
+        end_date = today.format('YYYY-MM-DD');
+        break;
+      default:
+        start_date = null;
+        end_date = null;
+    }
+    return { start_date, end_date };
+  };
+
+  /**
+   * Mengambil data komplain transaksi dari API sesuai filter, pencarian, dan pagination.
+   * Otomatis mengatur loading, data, totalData, dan recap.
+   */
   const fetchData = () => {
     setLoading(true);
+    const { start_date, end_date } = getDateRange(selectedFilter);
     getComplaintTransactions({
       search,
       page,
       limit: pageSize,
+      start_date,
+      end_date,
     })
       .then(res => {
         const arr = res.data.data?.transactions || [];
@@ -69,7 +111,7 @@ export default function TransactionComplaintPage() {
 
     // Cleanup interval saat component unmount atau dependency berubah
     return () => clearInterval(interval);
-  }, [search, page, pageSize]);
+  }, [search, page, pageSize, selectedFilter]);
 
   // Dummy data card
 const cards = [
@@ -85,16 +127,18 @@ const cards = [
   }
 ];
 
-  // Filter dummy
+  // Filter sesuai gambar
   const filters = [
     {
       label: 'Transaksi Hari ini',
       options: [
         { value: 'today', label: 'Transaksi Hari ini' },
-        { value: 'all', label: 'Semua' },
+        { value: 'last_3_days', label: '3 Hari terakhir' },
+        { value: 'this_week', label: 'Minggu ini' },
+        { value: 'this_month', label: 'Bulan ini' },
       ],
-      value: 'today',
-      onChange: () => {},
+      value: selectedFilter,
+      onChange: setSelectedFilter,
     },
   ];
 
