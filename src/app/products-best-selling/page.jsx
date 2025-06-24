@@ -15,7 +15,14 @@ export default function ProductsBestSellingPage() {
         const arr = res.data.data?.products || [];
         setProducts(arr.map((item, idx) => ({
           nomor: (idx + 1).toString().padStart(2, "0"),
-          iconDiamond: item.icon_diamond || { show: false },
+          iconDiamond:
+            idx === 0
+              ? { show: true, iconUrl: "/icon/card product/diamond/red.svg" }
+              : idx === 1
+              ? { show: true, iconUrl: "/icon/card product/diamond/green.svg" }
+              : idx === 2
+              ? { show: true, iconUrl: "/icon/card product/diamond/blue.svg" }
+              : { show: false },
           namaProduk: item.product_name || '-',
           nominalTerjual: item.nominal_sold || '-',
           iconProduk: item.icon_product || '',
