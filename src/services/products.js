@@ -45,4 +45,24 @@ export const deleteProduct = (id) =>
  *   - limit: Jumlah data produk terlaris yang ingin ditampilkan (opsional, default 5)
  */
 export const getBestSellingProducts = (params) =>
-  apiClient.get('/api/v1/products/best-selling', { params }); 
+  apiClient.get('/api/v1/products/best-selling', { params });
+
+/**
+ * Ambil opsi jenis produk untuk dropdown (Pengelolaan VO ID Kode)
+ * Endpoint: /api/v1/options/product-types
+ * @returns {Promise} Response berisi array product_types
+ */
+export const getProductTypesOptions = () =>
+  apiClient.get('/api/v1/options/product-types');
+
+/**
+ * Ambil opsi produk untuk dropdown/filter monitor transaksi
+ * Endpoint: /api/v1/options/products
+ * @param {Object} params
+ *   - search: Kata kunci pencarian nama produk (opsional)
+ *   - limit: Jumlah data per halaman (opsional, default 100)
+ *   - page: Nomor halaman (opsional, default 1)
+ * @returns {Promise} Response berisi array products dan pagination
+ */
+export const getProductsOptions = (params) =>
+  apiClient.get('/api/v1/options/products', { params }); 

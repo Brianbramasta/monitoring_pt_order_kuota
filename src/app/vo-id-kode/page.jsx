@@ -3,13 +3,7 @@ import React, { useState, useEffect } from "react";
 import CustomModal from "../../components/customModal";
 import DynamicTable from "../../components/DynamicTable";
 import { getVoidKodes, addVoidKode, editVoidKode, deleteVoidKode } from "@/services/voidkode";
-
-const JENIS_PRODUK_OPTIONS = [
-  { label: "Telkomsel", value: "Telkomsel" },
-  { label: "Indosat Ooredoo", value: "Indosat Ooredoo" },
-  { label: "XL", value: "XL" },
-  { label: "Smartfren", value: "Smartfren" },
-];
+import { getProductTypesOptions } from '@/services/products';
 
 export default function VoIdKodePage() {
   const [data, setData] = useState([]);
@@ -26,6 +20,7 @@ export default function VoIdKodePage() {
   const [jenisProduk, setJenisProduk] = useState("");
   const [namaProduk, setNamaProduk] = useState("");
   const [voIdKode, setVoIdKode] = useState("");
+  const [jenisProdukOptions, setJenisProdukOptions] = useState([]);
 
   const fetchData = () => {
     setLoading(true);
@@ -51,6 +46,11 @@ export default function VoIdKodePage() {
 
   useEffect(() => {
     fetchData();
+    // Ambil opsi jenis produk dari API
+    getProductTypesOptions().then(res => {
+      const arr = res.data.data?.product_types || [];
+      setJenisProdukOptions(arr.map(opt => ({ label: opt.name, value: opt.name })));
+    });
     
     // Auto refresh setiap 10 detik
     const interval = setInterval(() => {
@@ -161,7 +161,7 @@ export default function VoIdKodePage() {
       label: "Jenis Produk",
       placeholder: "Pilih jenis produk",
       value: jenisProduk,
-      options: JENIS_PRODUK_OPTIONS,
+      options: jenisProdukOptions,
       onChange: setJenisProduk,
     },
     {

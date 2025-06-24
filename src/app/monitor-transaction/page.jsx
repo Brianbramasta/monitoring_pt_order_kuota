@@ -2,13 +2,27 @@
 import AreaGrafik from "@/components/AreaGrafik";
 import { useState, useEffect } from "react";
 import { getTransactionChart } from "@/services/monitor";
+import { getProductsOptions } from '@/services/products';
 
 export default function MonitorTransactionPage() {
   const [periode, setPeriode] = useState("bulan");
-  const [produk, setProduk] = useState("telkomsel");
+  const [produk, setProduk] = useState("");
+  const [produkOptions, setProdukOptions] = useState([]);
+  const [produkReady, setProdukReady] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [totalValue, setTotalValue] = useState(0);
+
+  useEffect(() => {
+    getProductsOptions({ limit: 100 }).then(res => {
+      const arr = res.data.data?.products || [];
+      setProdukOptions(arr.map(opt => ({ label: opt.name, value: opt.id })));
+      if (arr.length > 0) {
+        setProduk(arr[0].id);
+        setProdukReady(true);
+      }
+    });
+  }, []);
 
   const filters = [
     {
@@ -20,16 +34,16 @@ export default function MonitorTransactionPage() {
       value: periode,
       onChange: setPeriode,
     },
-    {
-      label: "Pulsa Telkomsel",
-      options: [
-        { label: "Pulsa Telkomsel", value: "telkomsel" },
-        { label: "Pulsa XL", value: "xl" },
-      ],
+  ];
+
+  if (produkReady) {
+    filters.push({
+      label: produkOptions.find(opt => opt.value === produk)?.label || "Pilih Produk",
+      options: produkOptions,
       value: produk,
       onChange: setProduk,
-    },
-  ];
+    });
+  }
 
   const fetchData = () => {
     setLoading(true);
@@ -47,16 +61,12 @@ export default function MonitorTransactionPage() {
   };
 
   useEffect(() => {
-    fetchData();
-    
-    // Auto refresh setiap 10 detik
+    if (produkReady && produk) fetchData();
     const interval = setInterval(() => {
-      fetchData();
+      if (produkReady && produk) fetchData();
     }, 10000);
-
-    // Cleanup interval saat component unmount atau dependency berubah
     return () => clearInterval(interval);
-  }, [periode, produk]);
+  }, [periode, produk, produkReady]);
 
   return (
     <div className="px-8 py-8">
