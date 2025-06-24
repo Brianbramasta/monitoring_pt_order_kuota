@@ -22,13 +22,13 @@ const AreaGrafik = ({
   tooltipFormatter,
 }) => {
   return (
-    <div style={{ background: "#fff", borderRadius: 16, padding: 24, boxShadow: "0 2px 8px #0001", width: "100%" }}>
+    <div style={{ background: "#fff", borderRadius: 16, padding: "clamp(12px, 3vw, 24px)", boxShadow: "0 2px 8px #0001", width: "100%", maxWidth: 900, margin: "0 auto" }}>
       {/* Header */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-        <div style={{ fontFamily: 'Poppins, Arial, sans-serif', fontSize: 14, color: '#222', fontWeight: 400 }}>
+      <div className="area-grafik-header" style={{ display: "flex", flexWrap: 'wrap', justifyContent: "space-between", alignItems: "center", marginBottom: 16, gap: 12 }}>
+        <div style={{ fontFamily: 'Poppins, Arial, sans-serif', fontSize: 'clamp(12px, 2vw, 14px)', color: '#222', fontWeight: 400 }}>
           {totalLabel} : <span style={{ color: '#009688', fontWeight: 700 }}>{totalValue}</span>
         </div>
-        <div style={{ display: 'flex', gap: 12 }}>
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
           {filters.map((filter, idx) => (
             <CustomDropdown
               key={idx}
@@ -41,7 +41,7 @@ const AreaGrafik = ({
         </div>
       </div>
       {/* Grafik Area */}
-      <div style={{ width: '100%', height: 300 }}>
+      <div style={{ width: '100%', height: 'min(300px, 50vw)', minHeight: 180 }}>
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 16, right: 24, left: 0, bottom: 0 }}>
             <defs>
@@ -61,6 +61,16 @@ const AreaGrafik = ({
           </AreaChart>
         </ResponsiveContainer>
       </div>
+      {/* Style responsif tambahan */}
+      <style>{`
+        @media (max-width: 600px) {
+          .area-grafik-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+          }
+        }
+      `}</style>
     </div>
   );
 };

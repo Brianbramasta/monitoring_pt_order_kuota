@@ -27,7 +27,7 @@ export default function DynamicTable({ columns, data, searchPlaceholder, onSearc
     <div className="bg-white border-t border-[#E0E0E0] p-3 sm:p-5 w-full" style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
       {/* Filter, Search & Actions */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4 items-start sm:items-center justify-between">
-        <div className="flex-1 flex justify-between items-center">
+        <div className="flex-1 flex justify-between items-center gap-2" style={{'flexWrap':'wrap'}}>
           {onSearch && (
             <input
               type="text"

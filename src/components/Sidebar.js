@@ -42,7 +42,7 @@ export default function Sidebar({ menus, user, logoSrc }) {
         fixed top-0 left-0 h-screen z-40 
         bg-[#F8F8F8] 
         transition-transform duration-300 ease-in-out
-        w-[220px] sm:w-[270px] lg:translate-x-0 lg:static
+        w-full sm:w-[270px] lg:translate-x-0 lg:static
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         flex flex-col
         shadow-none
