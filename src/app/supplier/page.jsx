@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import DynamicTable from '../../components/DynamicTable';
 import { getSuppliers } from '@/services/suppliers';
+import { formatRupiah } from '@/utils/formatRupiah';
 
 const columns = [
   { key: 'no', label: 'No.' },
@@ -30,10 +31,10 @@ export default function SupplierPage() {
           no: item.no,
           nama_supplier: item.supplier_name || '-',
           kode_supplier: item.supplier_code || '-',
-          saldo_supplier: '',
-          status_server: item.server_status === 'Online'
-            ? <span className="text-[#177F7E] font-medium">Online</span>
-            : <span className="text-[#E53935] font-medium">Offline</span>
+          saldo_supplier: formatRupiah(item.supplier_balance||0),
+          status_server: item.server_status.toLowerCase() === 'stabil'
+            ? <span className="text-[#177F7E] font-medium">Stabil</span>
+            : <span className="text-[#E53935] font-medium">Down</span>
         })));
         setTotalData(res.data.data?.pagination?.total_data || arr.length);
       })
