@@ -7,7 +7,7 @@ export default function ProductsBestSellingPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  const fetchData = () => {
     setLoading(true);
     getBestSellingProducts({ limit: 10 })
       .then(res => {
@@ -22,6 +22,18 @@ export default function ProductsBestSellingPage() {
       })
       .catch(() => setProducts([]))
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchData();
+    
+    // Auto refresh setiap 10 detik
+    const interval = setInterval(() => {
+      fetchData();
+    }, 10000);
+
+    // Cleanup interval saat component unmount
+    return () => clearInterval(interval);
   }, []);
 
   return (

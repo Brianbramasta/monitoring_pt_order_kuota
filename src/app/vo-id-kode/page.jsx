@@ -27,7 +27,7 @@ export default function VoIdKodePage() {
   const [namaProduk, setNamaProduk] = useState("");
   const [voIdKode, setVoIdKode] = useState("");
 
-  useEffect(() => {
+  const fetchData = () => {
     setLoading(true);
     getVoidKodes({
       search,
@@ -47,6 +47,18 @@ export default function VoIdKodePage() {
         setTotalData(0);
       })
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchData();
+    
+    // Auto refresh setiap 10 detik
+    const interval = setInterval(() => {
+      fetchData();
+    }, 10000);
+
+    // Cleanup interval saat component unmount atau dependency berubah
+    return () => clearInterval(interval);
   }, [search, page, pageSize]);
 
   // Modal open handler

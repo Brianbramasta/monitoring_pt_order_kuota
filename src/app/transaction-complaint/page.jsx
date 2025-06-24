@@ -30,7 +30,7 @@ export default function TransactionComplaintPage() {
   const [loading, setLoading] = useState(false);
   const [recap, setRecap] = useState({});
 
-  useEffect(() => {
+  const fetchData = () => {
     setLoading(true);
     getComplaintTransactions({
       search,
@@ -57,6 +57,18 @@ export default function TransactionComplaintPage() {
         setRecap({});
       })
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchData();
+    
+    // Auto refresh setiap 10 detik
+    const interval = setInterval(() => {
+      fetchData();
+    }, 10000);
+
+    // Cleanup interval saat component unmount atau dependency berubah
+    return () => clearInterval(interval);
   }, [search, page, pageSize]);
 
   // Dummy data card

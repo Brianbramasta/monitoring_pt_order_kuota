@@ -21,7 +21,7 @@ export default function MonitorQrisPage() {
     },
   ];
 
-  useEffect(() => {
+  const fetchData = () => {
     setLoading(true);
     getQrisChart({ period: periode })
       .then(res => {
@@ -34,6 +34,18 @@ export default function MonitorQrisPage() {
         setTotalValue(0);
       })
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchData();
+    
+    // Auto refresh setiap 10 detik
+    const interval = setInterval(() => {
+      fetchData();
+    }, 10000);
+
+    // Cleanup interval saat component unmount atau dependency berubah
+    return () => clearInterval(interval);
   }, [periode]);
 
   return (

@@ -18,7 +18,7 @@ export default function SupplierPage() {
   const [totalData, setTotalData] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  const fetchData = () => {
     setLoading(true);
     getSuppliers({
       page,
@@ -42,6 +42,18 @@ export default function SupplierPage() {
         setTotalData(0);
       })
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchData();
+    
+    // Auto refresh setiap 10 detik
+    const interval = setInterval(() => {
+      fetchData();
+    }, 10000);
+
+    // Cleanup interval saat component unmount atau dependency berubah
+    return () => clearInterval(interval);
   }, [page, pageSize]);
 
   return (

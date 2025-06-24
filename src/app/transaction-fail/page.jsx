@@ -31,7 +31,7 @@ export default function TransactionFailPage() {
   const [loading, setLoading] = useState(false);
   const [recap, setRecap] = useState({});
 
-  useEffect(() => {
+  const fetchData = () => {
     setLoading(true);
     getFailedTransactions({
       search,
@@ -58,6 +58,18 @@ export default function TransactionFailPage() {
         setRecap({});
       })
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchData();
+    
+    // Auto refresh setiap 10 detik
+    const interval = setInterval(() => {
+      fetchData();
+    }, 10000);
+
+    // Cleanup interval saat component unmount atau dependency berubah
+    return () => clearInterval(interval);
   }, [search, page, pageSize]);
 
   const cards = [
