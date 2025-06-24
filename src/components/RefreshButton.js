@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function RefreshButton({ onClick, disabled, loading }) {
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.head?.insertAdjacentHTML?.('beforeend', `<style>@keyframes spin-slow{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}.animate-spin-slow{animation:spin-slow 1.2s linear infinite;}</style>`);
+    }
+  }, []);
   return (
     <button
       onClick={onClick}
@@ -28,7 +33,4 @@ export default function RefreshButton({ onClick, disabled, loading }) {
       </svg>
     </button>
   );
-}
-
-// Tambahkan animasi spin custom jika belum ada di global css
-document?.head?.insertAdjacentHTML?.('beforeend', `<style>@keyframes spin-slow{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}.animate-spin-slow{animation:spin-slow 1.2s linear infinite;}</style>`); 
+} 
