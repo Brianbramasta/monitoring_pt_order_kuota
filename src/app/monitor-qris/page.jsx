@@ -2,6 +2,7 @@
 import AreaGrafik from "@/components/AreaGrafik";
 import { useState, useEffect } from "react";
 import { getQrisChart } from "@/services/monitor";
+import RefreshButton from '@/components/RefreshButton';
 
 export default function MonitorQrisPage() {
   const [periode, setPeriode] = useState("bulan");
@@ -50,7 +51,10 @@ export default function MonitorQrisPage() {
 
   return (
     <div className="px-8 py-8">
-      <h1 className="text-2xl font-bold mb-8">Monitor QRIS</h1>
+      <div className="flex flex-row justify-between items-center mb-8">
+        <h1 className="text-2xl font-bold">Monitor QRIS</h1>
+        <RefreshButton onClick={fetchData} disabled={loading} loading={loading} />
+      </div>
       <AreaGrafik
         totalLabel="NOMINAL TRANSAKSI QRIS"
         totalValue={<span style={{ color: '#1EC98B' }}>Rp {Number(totalValue).toLocaleString('id-ID')}</span>}

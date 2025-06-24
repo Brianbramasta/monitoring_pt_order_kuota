@@ -3,6 +3,7 @@ import AreaGrafik from "@/components/AreaGrafik";
 import { useState, useEffect } from "react";
 import { getTransactionChart } from "@/services/monitor";
 import { getProductsOptions } from '@/services/products';
+import RefreshButton from '@/components/RefreshButton';
 
 export default function MonitorTransactionPage() {
   const [periode, setPeriode] = useState("bulan");
@@ -70,7 +71,10 @@ export default function MonitorTransactionPage() {
 
   return (
     <div className="px-8 py-8">
-      <h1 className="text-2xl font-bold mb-8">Monitor Transaksi</h1>
+      <div className="flex flex-row justify-between items-center mb-8">
+        <h1 className="text-2xl font-bold">Monitor Transaksi</h1>
+        <RefreshButton onClick={fetchData} disabled={loading} loading={loading} />
+      </div>
       <AreaGrafik
         totalLabel="NOMINAL TOTAL PENJUALAN"
         totalValue={<span style={{ color: '#1EC98B' }}>Rp {Number(totalValue).toLocaleString('id-ID')}</span>}

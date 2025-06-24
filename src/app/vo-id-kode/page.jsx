@@ -4,6 +4,7 @@ import CustomModal from "../../components/customModal";
 import DynamicTable from "../../components/DynamicTable";
 import { getVoidKodes, addVoidKode, editVoidKode, deleteVoidKode } from "@/services/voidkode";
 import { getProductTypesOptions } from '@/services/products';
+import RefreshButton from '@/components/RefreshButton';
 
 export default function VoIdKodePage() {
   const [data, setData] = useState([]);
@@ -203,7 +204,10 @@ export default function VoIdKodePage() {
 
   return (
     <div className="w-full" style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
-      <h1 className="text-2xl font-bold text-[#222] mb-6">VO ID Kode</h1>
+      <div className="flex flex-row justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold text-[#222]">VO ID Kode</h1>
+        <RefreshButton onClick={fetchData} disabled={loading} loading={loading} />
+      </div>
       <DynamicTable
         columns={columns}
         data={tableData}

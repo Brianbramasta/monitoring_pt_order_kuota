@@ -2,6 +2,7 @@
 import CardProduct from "@/components/CardProduct";
 import { useEffect, useState } from "react";
 import { getBestSellingProducts } from "@/services/products";
+import RefreshButton from '@/components/RefreshButton';
 
 export default function ProductsBestSellingPage() {
   const [products, setProducts] = useState([]);
@@ -38,7 +39,10 @@ export default function ProductsBestSellingPage() {
 
   return (
     <div className="px-8 py-8">
-      <h1 className="text-2xl font-bold mb-8">Produk Terlaris</h1>
+      <div className="flex flex-row justify-between items-center mb-8">
+        <h1 className="text-2xl font-bold">Produk Terlaris</h1>
+        <RefreshButton onClick={fetchData} disabled={loading} loading={loading} />
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         {loading ? (
           <div className="col-span-full text-center">Loading...</div>

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import DynamicTable from '../../components/DynamicTable';
 import { getSuppliers } from '@/services/suppliers';
 import { formatRupiah } from '@/utils/formatRupiah';
+import RefreshButton from '@/components/RefreshButton';
 
 const columns = [
   { key: 'no', label: 'No.' },
@@ -59,7 +60,10 @@ export default function SupplierPage() {
 
   return (
     <div className="w-full max-w-6xl mx-auto mt-8">
-      <h1 className="text-2xl font-bold mb-6">Supplier</h1>
+      <div className="flex flex-row justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">Supplier</h1>
+        <RefreshButton onClick={fetchData} disabled={loading} loading={loading} />
+      </div>
       <DynamicTable
         columns={columns}
         data={data}

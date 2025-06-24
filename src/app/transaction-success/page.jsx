@@ -4,6 +4,7 @@ import DynamicTable from '../../components/DynamicTable';
 import { useState, useEffect } from 'react';
 import { getSuccessTransactions } from '@/services/transactions';
 import dayjs from 'dayjs';
+import RefreshButton from '@/components/RefreshButton';
 
 // Dummy data card (bisa diganti dengan data summary dari API jika ada endpointnya)
 const columns = [
@@ -150,6 +151,9 @@ export default function TransactionSuccessPage() {
     <div className="flex flex-col gap-4 sm:gap-8 px-4 sm:px-0">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
         <h1 className="text-xl sm:text-2xl font-bold">Transaksi Sukses</h1>
+        <div className="flex-1 flex justify-end">
+          <RefreshButton onClick={fetchData} disabled={loading} loading={loading} />
+        </div>
         {/* Tambahan filter di atas untuk mobile jika diperlukan */}
       </div>
 
