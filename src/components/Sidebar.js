@@ -9,8 +9,10 @@ import { useState } from 'react';
  * - menus: array menu {icon, label, active, onClick}
  * - user: {name, email, onSetting, onLogout}
  * - logoSrc: path logo
+ * - isVisible: boolean untuk mengontrol visibility sidebar di desktop
+ * - onToggle: function untuk toggle sidebar
  */
-export default function Sidebar({ menus, user, logoSrc }) {
+export default function Sidebar({ menus, user, logoSrc, isVisible = true, onToggle }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -41,13 +43,14 @@ export default function Sidebar({ menus, user, logoSrc }) {
       <aside className={`
         fixed top-0 left-0 h-screen z-40 
         bg-[#F8F8F8] 
-        transition-transform duration-300 ease-in-out
+        transition-all duration-300 ease-in-out
         w-full sm:w-[270px] lg:translate-x-0 lg:static
-        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+        ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+        ${!isVisible ? 'lg:w-0 lg:overflow-hidden lg:border-r-0' : 'lg:w-[270px] lg:border-r lg:border-gray-200'}
         flex flex-col
         shadow-none
       `} style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
-        <div className="flex flex-col h-full px-6 pt-8 pb-6">
+        <div className={`flex flex-col h-full px-6 pt-8 pb-6 transition-all duration-300 ${!isVisible ? 'lg:opacity-0 lg:pointer-events-none lg:transform lg:translate-x-[-100%]' : 'lg:opacity-100 lg:transform lg:translate-x-0'}`}>
           {/* Logo */}
           <div className="flex items-center gap-2 mb-10 flex-shrink-0">
             <Image src={logoSrc} alt="Logo" width={140} height={32} priority />
