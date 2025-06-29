@@ -13,7 +13,7 @@ const menuList = [
   { label: 'Supplier', path: '/supplier' },
   { label: 'Monitor Transaksi', path: '/monitor-transaction' },
   { label: 'Monitor QRIS', path: '/monitor-qris' },
-  { label: 'VO ID Kode', path: '/vo-id-kode' },
+  // { label: 'VO ID Kode', path: '/vo-id-kode' },
 ];
 
 const icons = [
@@ -25,7 +25,7 @@ const icons = [
   'icon-6.svg',
   'icon-7.svg',
   'icon-8.svg',
-  'icon-9.svg',
+  // 'icon-9.svg',
 ];
 
 export default function RootLayout({ children }) {

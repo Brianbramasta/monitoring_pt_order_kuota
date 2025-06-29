@@ -29,8 +29,8 @@ export default function MonitorTransactionPage() {
     {
       label: "Bulanan",
       options: [
-        { label: "Bulanan", value: "bulan" },
-        { label: "Mingguan", value: "minggu" },
+        { label: "Bulanan", value: "monthly" },
+        { label: "Mingguan", value: "weekly" },
       ],
       value: periode,
       onChange: setPeriode,
