@@ -13,8 +13,10 @@ import CustomDropdown from './CustomDropdown';
  * - pagination: {page, totalPages, onPageChange, pageSize, onPageSizeChange, totalData}
  * - actions: array {label, onClick, icon} (opsional, tombol di kanan atas)
  * - rowActions: function(row) => array of ReactNode (opsional, untuk kolom Action)
+ * - headerClass: string/className (opsional, custom className untuk baris header)
+ * - rowClass: function(row, idx) => string/className (opsional, custom className untuk baris tr data)
  */
-export default function DynamicTable({ columns, data, searchPlaceholder, onSearch, filters, pagination, actions = [], rowActions }) {
+export default function DynamicTable({ columns, data, searchPlaceholder, onSearch, filters, pagination, actions = [], rowActions, headerClass = "bg-[#E6F4F1]", rowClass }) {
   const [search, setSearch] = useState('');
 
   // Handler search
@@ -72,7 +74,7 @@ export default function DynamicTable({ columns, data, searchPlaceholder, onSearc
         <div className="min-w-[640px] p-3 sm:p-0">
           <table className="w-full border-collapse" style={{fontFamily: 'Poppins, Arial, sans-serif', fontSize: 14}}>
             <thead>
-              <tr className="bg-[#E6F4F1] ">
+              <tr className={headerClass}>
                 {columns.map((col, idx) => (
                   <th key={idx} className="px-2 sm:px-4 py-2 text-left font-semibold text-xs sm:text-sm whitespace-nowrap  border-[#BDBDBD]">{col.label}</th>
                 ))}
@@ -84,7 +86,7 @@ export default function DynamicTable({ columns, data, searchPlaceholder, onSearc
                 <tr><td colSpan={columns.length + (rowActions ? 1 : 0)} className="text-center py-6 text-gray-400 text-sm">Tidak ada data</td></tr>
               ) : (
                 data.map((row, i) => (
-                  <tr key={i} className={i%2===1 ? 'bg-[#F8FAFB]' : ''}>
+                  <tr key={i} className={rowClass ? rowClass(row, i) : (i%2===1 ? 'bg-[#F8FAFB]' : '')}>
                     {columns.map((col, j) => (
                       <td key={j} className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm text-[#222]  border-[#E0E0E0] whitespace-nowrap">{row[col.key]}</td>
                     ))}

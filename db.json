@@ -71,38 +71,103 @@
   "products_best_selling": [
     {
       "id": 1,
-      "icon_diamond": "https://example.com/icons/diamond.png",
-      "icon_product": "https://example.com/icons/pulsa.png",
-      "product_name": "Pulsa Telkomsel 10rb",
-      "nominal_sold": 10000000.0
+      "icon_diamond": "/icon/card product/diamond/green.svg",
+      "icon_product": "/icon/card product/icon/atm-card.png",
+      "product_name": "Topup E-toll",
+      "category": "E-Toll",
+      "sales": 15000,
+      "revenue": 12000000,
+      "growth": 0.3
     },
     {
       "id": 2,
-      "icon_diamond": "https://example.com/icons/diamond.png",
-      "icon_product": "https://example.com/icons/data.png",
-      "product_name": "Paket Data XL 5GB",
-      "nominal_sold": 8000000.0
+      "icon_diamond": "/icon/card product/diamond/red.svg",
+      "icon_product": "/icon/card product/icon/atm-card.png",
+      "product_name": "Topup E-toll",
+      "category": "E-Toll",
+      "sales": 15000,
+      "revenue": 12000000,
+      "growth": 0.3
     },
     {
       "id": 3,
-      "icon_diamond": "https://example.com/icons/diamond.png",
-      "icon_product": "https://example.com/icons/token.png",
-      "product_name": "Token PLN 50rb",
-      "nominal_sold": 6000000.0
+      "icon_diamond": "/icon/card product/diamond/blue.svg",
+      "icon_product": "/icon/card product/icon/atm-card.png",
+      "product_name": "Topup E-toll",
+      "category": "E-Toll",
+      "sales": 15000,
+      "revenue": 12000000,
+      "growth": 0.3
     },
     {
       "id": 4,
-      "icon_diamond": "https://example.com/icons/diamond.png",
-      "icon_product": "https://example.com/icons/pulsa.png",
-      "product_name": "Pulsa Indosat 5rb",
-      "nominal_sold": 5000000.0
+      "icon_diamond": "",
+      "icon_product": "/icon/card product/icon/atm-card.png",
+      "product_name": "Topup E-toll",
+      "category": "E-Toll",
+      "sales": 15000,
+      "revenue": 12000000,
+      "growth": -0.3
     },
     {
       "id": 5,
-      "icon_diamond": "https://example.com/icons/diamond.png",
-      "icon_product": "https://example.com/icons/game.png",
-      "product_name": "Game Voucher Mobile Legends 100Diamonds",
-      "nominal_sold": 4000000.0
+      "icon_diamond": "",
+      "icon_product": "/icon/card product/icon/atm-card.png",
+      "product_name": "Topup E-toll",
+      "category": "E-Toll",
+      "sales": 15000,
+      "revenue": 12000000,
+      "growth": 0.3
+    },
+    {
+      "id": 6,
+      "icon_diamond": "",
+      "icon_product": "/icon/card product/icon/atm-card.png",
+      "product_name": "Topup E-toll",
+      "category": "E-Toll",
+      "sales": 15000,
+      "revenue": 12000000,
+      "growth": 0.3
+    },
+    {
+      "id": 7,
+      "icon_diamond": "",
+      "icon_product": "/icon/card product/icon/atm-card.png",
+      "product_name": "Topup E-toll",
+      "category": "E-Toll",
+      "sales": 15000,
+      "revenue": 12000000,
+      "growth": -0.3
+    },
+    {
+      "id": 8,
+      "icon_diamond": "",
+      "icon_product": "/icon/card product/icon/atm-card.png",
+      "product_name": "Topup E-toll",
+      "category": "E-Toll",
+      "sales": 15000,
+      "revenue": 12000000,
+      "growth": 0.3
+    },
+    {
+      "id": 9,
+      "icon_diamond": "",
+      "icon_product": "/icon/card product/icon/atm-card.png",
+      "product_name": "Topup E-toll",
+      "category": "E-Toll",
+      "sales": 15000,
+      "revenue": 12000000,
+      "growth": -0.3
+    },
+    {
+      "id": 10,
+      "icon_diamond": "",
+      "icon_product": "/icon/card product/icon/atm-card.png",
+      "product_name": "Topup E-toll",
+      "category": "E-Toll",
+      "sales": 15000,
+      "revenue": 12000000,
+      "growth": 0.3
     }
   ],
   "suppliers": [

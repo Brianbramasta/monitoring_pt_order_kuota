@@ -1,32 +1,28 @@
 'use client'
-import CardProduct from "@/components/CardProduct";
 import { useEffect, useState } from "react";
 import { getBestSellingProducts } from "@/services/products";
+import DynamicTable from "@/components/DynamicTable";
 import RefreshButton from '@/components/RefreshButton';
+
+const kategoriOptions = [
+  { label: "Semua kategori", value: "all" },
+  { label: "E-Toll", value: "E-Toll" },
+  // Tambahkan kategori lain jika ada di data
+];
+
+const rankColors = ["#00D89E", "#FF414D", "#5CE5DF"];
 
 export default function ProductsBestSellingPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
+  const [kategori, setKategori] = useState("all");
 
   const fetchData = () => {
     setLoading(true);
-    getBestSellingProducts({ limit: 10 })
+    getBestSellingProducts({ search, category: kategori })
       .then(res => {
-        const arr = res.data.data?.products || [];
-        setProducts(arr.map((item, idx) => ({
-          nomor: (idx + 1).toString().padStart(2, "0"),
-          iconDiamond:
-            idx === 0
-              ? { show: true, iconUrl: "/icon/card product/diamond/red.svg" }
-              : idx === 1
-              ? { show: true, iconUrl: "/icon/card product/diamond/green.svg" }
-              : idx === 2
-              ? { show: true, iconUrl: "/icon/card product/diamond/blue.svg" }
-              : { show: false },
-          namaProduk: item.product_name || '-',
-          nominalTerjual: item.nominal_sold || '-',
-          iconProduk: item.icon_product || '',
-        })));
+        setProducts(res.data.data?.products || []);
       })
       .catch(() => setProducts([]))
       .finally(() => setLoading(false));
@@ -34,15 +30,72 @@ export default function ProductsBestSellingPage() {
 
   useEffect(() => {
     fetchData();
-    
-    // Auto refresh setiap 10 detik
     const interval = setInterval(() => {
       fetchData();
     }, 10000);
-
-    // Cleanup interval saat component unmount
     return () => clearInterval(interval);
-  }, []);
+  }, [search, kategori]);
+
+  const columns = [
+    { key: "rank", label: "Peringkat" },
+    { key: "product_name", label: "Nama Produk" },
+    { key: "sales", label: "Penjualan" },
+    { key: "revenue", label: "Revenue" },
+    { key: "growth", label: "Pertumbuhan" },
+    { key: "diamond", label: "" },
+  ];
+
+  // Mapping data untuk table
+  const tableData = products.map((item, idx) => ({
+    rank: (
+      <span style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 32,
+        height: 32,
+        borderRadius: '50%',
+        background: rankColors[idx] || '',
+        color: idx<3?'#fff':'#ABABAB',
+        fontWeight: 700,
+        fontSize: 16,
+      }}>{item.rank}</span>
+    ),
+    product_name: (
+      <div className="flex items-center gap-2">
+        <img src={item.icon_product} alt="produk" className="w-8 h-8" />
+        <div>
+          <div className="font-semibold">{item.product_name}</div>
+          <div className="text-xs text-gray-400">{item.category}</div>
+        </div>
+      </div>
+    ),
+    sales: item.sales.toLocaleString("id-ID"),
+    revenue: `Rp ${item.revenue.toLocaleString("id-ID")}`,
+    growth: (
+      <span className={item.growth >= 0 ? "text-green-600 flex items-center gap-1" : "text-red-500 flex items-center gap-1"}>
+        {item.growth >= 0 ? (
+          <>
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 5L5 1L1 5" stroke="#177F7E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            +{Math.round(item.growth * 100)}%
+          </>
+        ) : (
+          <>
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 1L5 5L1 1" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            {Math.round(item.growth * 100)}%
+          </>
+        )}
+      </span>
+    ),
+    diamond: item.icon_diamond ? <img src={item.icon_diamond} alt="diamond" className="w-7 h-7 mx-auto" /> : null,
+  }));
+
+  // Semua baris data warna biru muda opacity 5%
+  const rowClass = () => 'bg-[#00B3FF]/[.05]';
 
   return (
     <div className="px-8 py-8">
@@ -50,22 +103,20 @@ export default function ProductsBestSellingPage() {
         <h1 className="text-2xl font-bold">Produk Terlaris</h1>
         <RefreshButton onClick={fetchData} disabled={loading} loading={loading} />
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-        {loading ? (
-          <div className="col-span-full text-center">Loading...</div>
-        ) : (
-          products.map((p, i) => (
-            <CardProduct
-              key={i}
-              nomor={p.nomor}
-              iconDiamond={p.iconDiamond}
-              namaProduk={p.namaProduk}
-              nominalTerjual={p.nominalTerjual}
-              iconProduk={p.iconProduk}
-            />
-          ))
-        )}
-      </div>
+      <DynamicTable
+        columns={columns}
+        data={tableData}
+        searchPlaceholder="Cari produk terlaris"
+        onSearch={setSearch}
+        filters={[{
+          label: "Semua kategori",
+          options: kategoriOptions,
+          value: kategori,
+          onChange: setKategori,
+        }]}
+        headerClass="bg-white"
+        rowClass={rowClass}
+      />
     </div>
   );
 } 
