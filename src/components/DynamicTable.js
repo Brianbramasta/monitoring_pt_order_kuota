@@ -14,7 +14,8 @@ import CustomDropdown from './CustomDropdown';
  * - actions: array {label, onClick, icon} (opsional, tombol di kanan atas)
  * - rowActions: function(row) => array of ReactNode (opsional, untuk kolom Action)
  * - headerClass: string/className (opsional, custom className untuk baris header)
- * - rowClass: function(row, idx) => string/className (opsional, custom className untuk baris tr data)
+ * - rowClass: function(row, idx) => string/className (opsional, custom className untuk baris tr data, bisa berbeda tiap baris)
+ *   Contoh: rowClass={(row, idx) => idx === 0 ? 'bg-red-100' : idx === 1 ? 'bg-green-100' : ''}
  */
 export default function DynamicTable({ columns, data, searchPlaceholder, onSearch, filters, pagination, actions = [], rowActions, headerClass = "bg-[#E6F4F1]", rowClass }) {
   const [search, setSearch] = useState('');
@@ -37,8 +38,7 @@ export default function DynamicTable({ columns, data, searchPlaceholder, onSearc
               placeholder={searchPlaceholder || 'Cari...'}
               value={search}
               onChange={handleSearch}
-              style={{fontFamily: 'Poppins, Arial, sans-serif'}}
-            />
+              style={{fontFamily: 'Poppins, Arial, sans-serif'}} />
           )}
           <div className="flex flex-wrap gap-2 w-full sm:w-auto">
             {filters && filters.map((filter, idx) => (
@@ -117,8 +117,7 @@ export default function DynamicTable({ columns, data, searchPlaceholder, onSearc
               className="border border-[#BDBDBD] rounded-[6px] px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#177F7E]"
               value={pagination.pageSize}
               onChange={e => pagination.onPageSizeChange(Number(e.target.value))}
-              style={{fontFamily: 'Poppins, Arial, sans-serif'}}
-            >
+              style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
               {[10, 20, 50].map(size => (
                 <option key={size} value={size}>{size}</option>
               ))}
@@ -130,22 +129,22 @@ export default function DynamicTable({ columns, data, searchPlaceholder, onSearc
               onClick={() => pagination.onPageChange(pagination.page-1)} 
               disabled={pagination.page===1} 
               className="px-3 py-1 border border-[#BDBDBD] rounded-[6px] text-sm disabled:opacity-50 bg-white text-[#BDBDBD] font-normal"
-              style={{fontFamily: 'Poppins, Arial, sans-serif'}}
-            >&lt;</button>
+              style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
+              &lt;</button>
             {[...Array(pagination.totalPages)].map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => pagination.onPageChange(idx+1)}
                 className={`px-3 py-1 border rounded-[6px] text-sm font-normal ${pagination.page===idx+1 ? 'bg-[#177F7E] text-white border-[#177F7E]' : 'bg-white text-[#BDBDBD] border-[#BDBDBD]'}`}
-                style={{fontFamily: 'Poppins, Arial, sans-serif'}}
-              >{idx+1}</button>
+                style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
+                {idx+1}</button>
             ))}
             <button 
               onClick={() => pagination.onPageChange(pagination.page+1)} 
               disabled={pagination.page===pagination.totalPages} 
               className="px-3 py-1 border border-[#BDBDBD] rounded-[6px] text-sm disabled:opacity-50 bg-white text-[#BDBDBD] font-normal"
-              style={{fontFamily: 'Poppins, Arial, sans-serif'}}
-            >&gt;</button>
+              style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
+              &gt;</button>
           </div>
         </div>
       )}

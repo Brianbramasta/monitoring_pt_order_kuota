@@ -94,8 +94,8 @@ export default function ProductsBestSellingPage() {
     diamond: item.icon_diamond ? <img src={item.icon_diamond} alt="diamond" className="w-7 h-7 mx-auto" /> : null,
   }));
 
-  // Semua baris data warna biru muda opacity 5%
-  const rowClass = () => 'bg-[#00B3FF]/[.05]';
+  // Baris 1-3 biru muda, lainnya default
+  const rowClass = (row, idx) => idx < 3 ? 'bg-[#00B3FF]/[.05]' : '';
 
   return (
     <div className="px-8 py-8">
