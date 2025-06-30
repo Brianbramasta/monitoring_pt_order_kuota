@@ -70,9 +70,9 @@ export default function DynamicTable({ columns, data, searchPlaceholder, onSearc
       </div>
 
       {/* Table dengan scroll horizontal di mobile */}
-      <div className="overflow-x-auto -mx-3 sm:mx-0">
-        <div className="min-w-[640px] p-3 sm:p-0">
-          <table className="w-full border-collapse" style={{fontFamily: 'Poppins, Arial, sans-serif', fontSize: 14}}>
+      <div className="w-full">
+        <div className="overflow-x-auto w-full">
+          <table className="w-full min-w-[640px] border-collapse" style={{fontFamily: 'Poppins, Arial, sans-serif', fontSize: 14}}>
             <thead>
               <tr className={headerClass}>
                 {columns.map((col, idx) => (
