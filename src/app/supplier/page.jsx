@@ -10,7 +10,7 @@ export default function SupplierPage() {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
-  const [pageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(10);
   const [totalData, setTotalData] = useState(0);
   const router = useRouter();
 
@@ -32,6 +32,10 @@ export default function SupplierPage() {
   useEffect(() => {
     fetchData();
   }, [search, page, pageSize]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [pageSize]);
 
   const handleCompare = () => {
     if (mode === 'normal') {
@@ -69,20 +73,12 @@ export default function SupplierPage() {
         onSelect={setSelected}
         selected={selected}
         loading={loading}
+        page={page}
+        setPage={setPage}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
+        totalData={totalData}
       />
-      {/* Pagination (opsional) */}
-      <div className="flex justify-end mt-4">
-        <span className="mr-2">Halaman:</span>
-        {[...Array(Math.ceil(totalData / pageSize)).keys()].map(i => (
-          <button
-            key={i}
-            className={`px-2 py-1 mx-1 rounded ${page === i + 1 ? 'bg-teal-600 text-white' : 'bg-gray-100'}`}
-            onClick={() => setPage(i + 1)}
-          >
-            {i + 1}
-          </button>
-        ))}
-      </div>
     </div>
   );
 } 

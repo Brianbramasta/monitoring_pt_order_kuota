@@ -4,6 +4,9 @@ export default function TableSupplier({
   data = [],
   mode = 'normal',
   onCompare, onCancelCompare, onDetail, onSearch, onSelect, selected = [], loading,
+  page = 1, setPage = () => {},
+  pageSize = 10, setPageSize = () => {},
+  totalData = 0,
 }) {
   const [search, setSearch] = React.useState('');
 
@@ -124,6 +127,49 @@ export default function TableSupplier({
               ))}
             </tbody>
           </table>
+        </div>
+      </div>
+      {/* Show Data & Pagination */}
+      <div className="flex flex-col sm:flex-row gap-3 items-center justify-between mt-4 text-sm">
+        {/* Show Data */}
+        <div className="flex items-center gap-2">
+          <span>Tampilkan</span>
+          <select
+            className="border border-[#BDBDBD] rounded px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#177F7E]"
+            value={pageSize}
+            onChange={e => setPageSize(Number(e.target.value))}
+            style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
+            {[10, 20, 50].map(size => (
+              <option key={size} value={size}>{size}</option>
+            ))}
+          </select>
+          <span>data per halaman</span>
+        </div>
+        {/* Pagination */}
+        <div className="flex gap-1 items-center">
+          <button
+            onClick={() => setPage(page-1)}
+            disabled={page === 1}
+            className="px-3 py-1 border border-[#BDBDBD] rounded text-sm disabled:opacity-50 bg-white text-[#BDBDBD] font-normal"
+            style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
+            &lt;
+          </button>
+          {[...Array(Math.ceil(totalData / pageSize)).keys()].map(i => (
+            <button
+              key={i}
+              onClick={() => setPage(i+1)}
+              className={`px-3 py-1 border rounded text-sm font-normal ${page === i+1 ? 'bg-[#177F7E] text-white border-[#177F7E]' : 'bg-white text-[#BDBDBD] border-[#BDBDBD]'}`}
+              style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
+              {i+1}
+            </button>
+          ))}
+          <button
+            onClick={() => setPage(page+1)}
+            disabled={page === Math.ceil(totalData / pageSize) || totalData === 0}
+            className="px-3 py-1 border border-[#BDBDBD] rounded text-sm disabled:opacity-50 bg-white text-[#BDBDBD] font-normal"
+            style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
+            &gt;
+          </button>
         </div>
       </div>
     </div>
