@@ -263,7 +263,8 @@
       "supplier_name": "Supplier A",
       "product_code": "IND10K",
       "price": 10200.0,
-      "quantity": 1
+      "quantity": 1,
+      "void": "PULSA004"
     },
     {
       "no": 2,
@@ -272,7 +273,8 @@
       "supplier_name": "Supplier E",
       "product_code": "TSEL2GB",
       "price": 22000.0,
-      "quantity": 1
+      "quantity": 1,
+      "void": "DATA005"
     },
     {
       "no": 3,
@@ -281,7 +283,8 @@
       "supplier_name": "Supplier C",
       "product_code": "PLN50K",
       "price": 50500.0,
-      "quantity": 2
+      "quantity": 2,
+      "void": "PLN003"
     },
     {
       "no": 4,
@@ -290,7 +293,8 @@
       "supplier_name": "Supplier B",
       "product_code": "XL5K",
       "price": 5200.0,
-      "quantity": 3
+      "quantity": 3,
+      "void": null
     },
     {
       "no": 5,
@@ -299,7 +303,8 @@
       "supplier_name": "Tri API",
       "product_code": "PULSA006",
       "price": 10500.0,
-      "quantity": 2
+      "quantity": 2,
+      "void": "PULSA006"
     }
   ],
   "transactions_success": [
@@ -310,7 +315,8 @@
       "supplier_name": "Supplier E",
       "product_code": "TSEL10K",
       "price": 10500.0,
-      "quantity": 50
+      "quantity": 50,
+      "void": "PULSA006"
     },
     {
       "no": 2,
@@ -319,7 +325,8 @@
       "supplier_name": "Supplier F",
       "product_code": "ML50D",
       "price": 15000.0,
-      "quantity": 10
+      "quantity": 10,
+      "void": null
     },
     {
       "no": 3,
@@ -328,7 +335,8 @@
       "supplier_name": "Supplier B",
       "product_code": "XL5GB",
       "price": 25000.0,
-      "quantity": 25
+      "quantity": 25,
+      "void": "DATA002"
     },
     {
       "no": 4,
@@ -337,7 +345,8 @@
       "supplier_name": "Supplier C",
       "product_code": "PLN20K",
       "price": 20200.0,
-      "quantity": 15
+      "quantity": 15,
+      "void": "PLN003"
     },
     {
       "no": 5,
@@ -346,7 +355,8 @@
       "supplier_name": "Supplier A",
       "product_code": "IND5K",
       "price": 5200.0,
-      "quantity": 30
+      "quantity": 30,
+      "void": "PULSA001"
     },
     {
       "no": 6,
@@ -355,7 +365,8 @@
       "supplier_name": "Tri API",
       "product_code": "PULSA006",
       "price": 10500.0,
-      "quantity": 100
+      "quantity": 100,
+      "void": "PULSA006"
     }
   ],
   "transactions_pending": [
@@ -366,7 +377,8 @@
       "supplier_name": "Supplier C",
       "product_code": "PLN50K",
       "price": 50500.0,
-      "quantity": 5
+      "quantity": 5,
+      "void": "PLN003"
     },
     {
       "no": 2,
@@ -375,7 +387,8 @@
       "supplier_name": "Supplier D",
       "product_code": "BPJS001",
       "price": 25000.0,
-      "quantity": 2
+      "quantity": 2,
+      "void": null
     },
     {
       "no": 3,
@@ -384,7 +397,8 @@
       "supplier_name": "Supplier G",
       "product_code": "SMF10K",
       "price": 10200.0,
-      "quantity": 8
+      "quantity": 8,
+      "void": null
     },
     {
       "no": 4,
@@ -393,7 +407,8 @@
       "supplier_name": "Supplier E",
       "product_code": "TSEL1GB",
       "price": 12000.0,
-      "quantity": 12
+      "quantity": 12,
+      "void": "DATA005"
     },
     {
       "no": 5,
@@ -402,7 +417,8 @@
       "supplier_name": "Tri API",
       "product_code": "PULSA006",
       "price": 10500.0,
-      "quantity": 5
+      "quantity": 5,
+      "void": "PULSA006"
     }
   ],
   "transactions_failed": [
@@ -413,7 +429,8 @@
       "supplier_name": "Supplier A",
       "product_code": "IND5K",
       "price": 5200.0,
-      "quantity": 10
+      "quantity": 10,
+      "void": "PULSA001"
     },
     {
       "no": 2,
@@ -422,7 +439,8 @@
       "supplier_name": "Supplier B",
       "product_code": "XL1GB",
       "price": 11000.0,
-      "quantity": 5
+      "quantity": 5,
+      "void": null
     },
     {
       "no": 3,
@@ -431,7 +449,8 @@
       "supplier_name": "Supplier C",
       "product_code": "PLN100K",
       "price": 101000.0,
-      "quantity": 2
+      "quantity": 2,
+      "void": null
     },
     {
       "no": 4,
@@ -440,7 +459,8 @@
       "supplier_name": "Supplier E",
       "product_code": "TSEL25K",
       "price": 25500.0,
-      "quantity": 7
+      "quantity": 7,
+      "void": null
     },
     {
       "no": 5,
@@ -449,7 +469,8 @@
       "supplier_name": "Supplier H",
       "product_code": "FF100D",
       "price": 30000.0,
-      "quantity": 3
+      "quantity": 3,
+      "void": null
     },
     {
       "no": 6,
@@ -458,7 +479,8 @@
       "supplier_name": "Tri API",
       "product_code": "PULSA006",
       "price": 10500.0,
-      "quantity": 1
+      "quantity": 1,
+      "void": "PULSA006"
     }
   ],
   "product_types": [

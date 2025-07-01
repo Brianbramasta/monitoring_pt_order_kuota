@@ -35,6 +35,7 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
     - `product_code`: Kode produk (string)
     - `price`: Harga (decimal)
     - `quantity`: Jumlah transaksi (integer)
+    - `void`: Kode void (string, opsional, null jika tidak ada)
   - `pagination`: Objek informasi pagination
     - `total_data`: Total seluruh data (integer)
     - `total_pages`: Total halaman (integer)
@@ -61,7 +62,8 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
           "supplier_name": "Supplier A",
           "product_code": "IND5K",
           "price": 5200.0,
-          "quantity": 10
+          "quantity": 10,
+          "void": "PULSA001"
         },
         {
           "no": 2,
@@ -70,7 +72,8 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
           "supplier_name": "Supplier B",
           "product_code": "XL1GB",
           "price": 11000.0,
-          "quantity": 5
+          "quantity": 5,
+          "void": null
         }
       ],
       "pagination": {
@@ -109,6 +112,7 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
     - `product_code`: Kode produk (string)
     - `price`: Harga (decimal)
     - `quantity`: Jumlah transaksi (integer)
+    - `void`: Kode void (string, opsional, null jika tidak ada)
   - `pagination`: Objek informasi pagination
     - `total_data`: Total seluruh data (integer)
     - `total_pages`: Total halaman (integer)
@@ -135,7 +139,8 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
           "supplier_name": "Supplier C",
           "product_code": "PLN50K",
           "price": 50500.0,
-          "quantity": 5
+          "quantity": 5,
+          "void": "PLN003"
         },
         {
           "no": 2,
@@ -144,7 +149,8 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
           "supplier_name": "Supplier D",
           "product_code": "BPJS001",
           "price": 25000.0,
-          "quantity": 2
+          "quantity": 2,
+          "void": null
         }
       ],
       "pagination": {
@@ -183,6 +189,7 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
     - `product_code`: Kode produk (string)
     - `price`: Harga (decimal)
     - `quantity`: Jumlah transaksi (integer)
+    - `void`: Kode void (string, opsional, null jika tidak ada)
   - `pagination`: Objek informasi pagination
     - `total_data`: Total seluruh data (integer)
     - `total_pages`: Total halaman (integer)
@@ -209,7 +216,8 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
           "supplier_name": "Supplier E",
           "product_code": "TSEL10K",
           "price": 10500.0,
-          "quantity": 50
+          "quantity": 50,
+          "void": "PULSA006"
         },
         {
           "no": 2,
@@ -218,7 +226,8 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
           "supplier_name": "Supplier F",
           "product_code": "ML50D",
           "price": 15000.0,
-          "quantity": 10
+          "quantity": 10,
+          "void": null
         }
       ],
       "pagination": {
@@ -255,6 +264,7 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
     - `product_code`: Kode produk (string)
     - `price`: Harga (decimal)
     - `quantity`: Jumlah transaksi (integer)
+    - `void`: Kode void (string, opsional, null jika tidak ada)
   - `pagination`: Objek informasi pagination
     - `total_data`: Total seluruh data (integer)
     - `total_pages`: Total halaman (integer)
@@ -279,7 +289,8 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
           "supplier_name": "Supplier A",
           "product_code": "IND10K",
           "price": 10200.0,
-          "quantity": 1
+          "quantity": 1,
+          "void": "PULSA004"
         },
         {
           "no": 2,
@@ -288,7 +299,8 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
           "supplier_name": "Supplier E",
           "product_code": "TSEL2GB",
           "price": 22000.0,
-          "quantity": 1
+          "quantity": 1,
+          "void": "DATA005"
         }
       ],
       "pagination": {

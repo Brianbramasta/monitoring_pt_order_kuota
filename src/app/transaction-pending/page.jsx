@@ -17,6 +17,7 @@ const columns = [
   { key: 'kode_produk', label: 'Kode Produk' },
   { key: 'harga', label: 'Harga' },
   { key: 'jumlah', label: 'Jumlah Transaksi' },
+  { key: 'void', label: 'Void' },
 ];
 
 /**
@@ -90,6 +91,7 @@ export default function TransactionPendingPage() {
           kode_produk: item.product_code || '-',
           harga: item.price || '-',
           jumlah: item.quantity || '-',
+          void: item.void || '-',
         })));
         setTotalData(res.data.data?.pagination?.total_data || arr.length);
         setRecap(res.data.data?.recap || {});
