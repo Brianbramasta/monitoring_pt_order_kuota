@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import DonutChart from '@/components/charts/DonutChart';
 import BarChart from '@/components/charts/BarChart';
-import HorizontalBarChart from '@/components/charts/HorizontalBarChart';
 import LineChart from '@/components/charts/LineChart';
+import BestSellingProductList from '@/components/BestSellingProductList';
 
 export default function SupplierDetailPage() {
   const { supplier_code } = useParams();
@@ -47,23 +47,39 @@ export default function SupplierDetailPage() {
     <div className="w-full max-w-5xl mx-auto mt-8">
       <h1 className="text-2xl font-bold mb-6">{supplierName}</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <DonutChart
-          data={[
-            { name: 'Transaksi Berhasil', value: data.product_transaction_analysis.success },
-            { name: 'Transaksi Pending', value: data.product_transaction_analysis.pending },
-            { name: 'Transaksi Gagal', value: data.product_transaction_analysis.failed },
-          ]}
-          title="Analisis Transaksi Produk"
-        />
+        <div>
+          <DonutChart
+            data={[
+              { name: 'Transaksi Berhasil', value: data.product_transaction_analysis.success },
+              { name: 'Transaksi Pending', value: data.product_transaction_analysis.pending },
+              { name: 'Transaksi Gagal', value: data.product_transaction_analysis.failed },
+            ]}
+            title="Analisis Transaksi Produk"
+          />
+          <div className="flex flex-row justify-center items-center gap-8 mt-8 flex-wrap">
+            <div className="flex items-center gap-2">
+              <span className="inline-block w-5 h-5 rounded-full" style={{ backgroundColor: '#177F7E' }}></span>
+              <span className="text-gray-500 font-medium text-base">Transaksi Berhasil</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="inline-block w-5 h-5 rounded-full" style={{ backgroundColor: '#FFD600' }}></span>
+              <span className="text-gray-500 font-medium text-base">Transaksi Pending</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="inline-block w-5 h-5 rounded-full" style={{ backgroundColor: '#E53935' }}></span>
+              <span className="text-gray-500 font-medium text-base">Transaksi Gagal</span>
+            </div>
+          </div>
+        </div>
         <BarChart
           data={data.total_revenue}
           title="Total Revenue"
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <HorizontalBarChart
-          data={data.best_selling_products}
+        <BestSellingProductList
           title="Produk Terlaris"
+          products={data.best_selling_products}
         />
         <LineChart
           data={data.product_sales}
