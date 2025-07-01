@@ -199,21 +199,69 @@
       "supplier_name": "Telkomsel API",
       "supplier_code": "TSL001",
       "supplier_balance": 100000.0,
-      "server_status": "Stabil"
+      "server_status": "Stabil",
+      "product_transaction_analysis": { "success": 120, "pending": 20, "failed": 5 },
+      "total_revenue": [
+        { "label": "Jan", "value": 10000000 },
+        { "label": "Feb", "value": 12000000 },
+        { "label": "Mar", "value": 9000000 }
+      ],
+      "best_selling_products": [
+        { "product_name": "Pulsa Telkomsel 5rb", "sales": 23400 },
+        { "product_name": "Pulsa Indosat 5rb", "sales": 12000 },
+        { "product_name": "Token PLN 20rb", "sales": 8000 }
+      ],
+      "product_sales": [
+        { "label": "Jan", "value": 5000 },
+        { "label": "Feb", "value": 6000 },
+        { "label": "Mar", "value": 4000 }
+      ]
     },
     {
       "no": 2,
       "supplier_name": "Indosat Ooredoo API",
       "supplier_code": "IDS002",
       "supplier_balance": 300000.0,
-      "server_status": "Down"
+      "server_status": "Down",
+      "product_transaction_analysis": { "success": 100, "pending": 35, "failed": 15 },
+      "total_revenue": [
+        { "label": "Jan", "value": 8000000 },
+        { "label": "Feb", "value": 9500000 },
+        { "label": "Mar", "value": 11000000 }
+      ],
+      "best_selling_products": [
+        { "product_name": "Pulsa Telkomsel 5rb", "sales": 18000 },
+        { "product_name": "Pulsa Indosat 5rb", "sales": 15000 },
+        { "product_name": "Token PLN 20rb", "sales": 10000 }
+      ],
+      "product_sales": [
+        { "label": "Jan", "value": 4000 },
+        { "label": "Feb", "value": 7000 },
+        { "label": "Mar", "value": 6500 }
+      ]
     },
     {
       "no": 3,
       "supplier_name": "XL Axiata API",
       "supplier_code": "XL003",
       "supplier_balance": 250000.0,
-      "server_status": "Stabil"
+      "server_status": "Stabil",
+      "product_transaction_analysis": { "success": 140, "pending": 25, "failed": 8 },
+      "total_revenue": [
+        { "label": "Jan", "value": 9500000 },
+        { "label": "Feb", "value": 10500000 },
+        { "label": "Mar", "value": 10000000 }
+      ],
+      "best_selling_products": [
+        { "product_name": "Pulsa Telkomsel 5rb", "sales": 21000 },
+        { "product_name": "Pulsa Indosat 5rb", "sales": 17000 },
+        { "product_name": "Token PLN 20rb", "sales": 9000 }
+      ],
+      "product_sales": [
+        { "label": "Jan", "value": 6000 },
+        { "label": "Feb", "value": 5500 },
+        { "label": "Mar", "value": 7000 }
+      ]
     },
     {
       "no": 4,
