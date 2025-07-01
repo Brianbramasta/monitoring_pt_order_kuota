@@ -3,6 +3,7 @@ import './globals.css';
 import Sidebar from '../components/Sidebar';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Header from '../components/Header';
 
 const menuList = [
   { label: 'Transaksi Gagal', path: '/transaction-fail' },
@@ -82,24 +83,14 @@ export default function RootLayout({ children }) {
               onToggle={() => setSidebarVisible(!sidebarVisible)}
             />
           )}
-          <main className={`flex-1 transition-all duration-300 ${isLoggedIn && pathname !== '/' ? 'p-8' : ''} w-full`}>
-            {/* Header dengan toggle button */}
+          <main className={`flex-1 transition-all duration-300 ${isLoggedIn && pathname !== '/' ? 'p-8 pt-24' : ''} w-full`}>
+            {/* Header dengan toggle button dan user info */}
             {isLoggedIn && pathname !== '/' && (
-              <div className="flex items-center justify-between mb-6">
-                <button
-                  onClick={() => setSidebarVisible(!sidebarVisible)}
-                  className="lg:block hidden p-2 rounded-lg bg-white shadow-md hover:bg-gray-100 transition-colors"
-                  title={sidebarVisible ? "Sembunyikan Sidebar" : "Tampilkan Sidebar"}
-                >
-                  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M4 6h16M4 12h16M4 18h16"/>
-                  </svg>
-                </button>
-                {/* <h1 className="text-2xl font-semibold text-gray-800">
-                  {menuList.find(menu => pathname.startsWith(menu.path))?.label || 'Dashboard'}
-                </h1>
-                <div className="w-10"></div> Spacer untuk balance */}
-              </div>
+              <Header 
+                sidebarVisible={sidebarVisible}
+                onToggleSidebar={() => setSidebarVisible(!sidebarVisible)}
+                user={user}
+              />
             )}
             {children}
           </main>
