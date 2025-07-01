@@ -34,6 +34,13 @@
       "product_name": "Paket Data Telkomsel 2GB",
       "vd_id_code": "DATA005",
       "date": "2025-06-18"
+    },
+    {
+      "no": 6,
+      "product_type": "Pulsa",
+      "product_name": "Pulsa Telkomsel 10rb",
+      "vd_id_code": "PULSA006",
+      "date": "2025-07-01"
     }
   ],
   "products": [
@@ -66,6 +73,12 @@
       "product_type": "Paket Data",
       "product_name": "Paket Data Telkomsel 2GB",
       "vd_id_code": "DATA005"
+    },
+    {
+      "no": 6,
+      "product_type": "Pulsa",
+      "product_name": "Pulsa Telkomsel 10rb",
+      "vd_id_code": "PULSA006"
     }
   ],
   "products_best_selling": [
@@ -168,6 +181,16 @@
       "sales": 15000,
       "revenue": 12000000,
       "growth": 0.3
+    },
+    {
+      "id": 11,
+      "icon_diamond": "/icon/card product/diamond/green.svg",
+      "icon_product": "/icon/card product/icon/atm-card.png",
+      "product_name": "Pulsa Telkomsel 10rb",
+      "category": "Pulsa",
+      "sales": 20000,
+      "revenue": 21000000,
+      "growth": 0.15
     }
   ],
   "suppliers": [
@@ -205,6 +228,13 @@
       "supplier_code": "PLN005",
       "supplier_balance": 500000.0,
       "server_status": "Down"
+    },
+    {
+      "no": 6,
+      "supplier_name": "Tri API",
+      "supplier_code": "TRI006",
+      "supplier_balance": 200000.0,
+      "server_status": "Stabil"
     }
   ],
   "monitor_qris_chart": [
@@ -213,7 +243,8 @@
     { "label": "Mar 2025", "value": 6000000.0 },
     { "label": "Apr 2025", "value": 7000000.0 },
     { "label": "Mei 2025", "value": 7800000.0 },
-    { "label": "Jun 2025", "value": 7200000.0 }
+    { "label": "Jun 2025", "value": 7200000.0 },
+    { "label": "Jul 2025", "value": 8000000.0 }
   ],
   "monitor_transactions_chart": [
     { "label": "Jan 2025", "value": 15000000.0 },
@@ -221,7 +252,8 @@
     { "label": "Mar 2025", "value": 17500000.0 },
     { "label": "Apr 2025", "value": 20000000.0 },
     { "label": "Mei 2025", "value": 22000000.0 },
-    { "label": "Jun 2025", "value": 19500000.0 }
+    { "label": "Jun 2025", "value": 19500000.0 },
+    { "label": "Jul 2025", "value": 21000000.0 }
   ],
   "transactions_complaints": [
     {
@@ -259,6 +291,15 @@
       "product_code": "XL5K",
       "price": 5200.0,
       "quantity": 3
+    },
+    {
+      "no": 5,
+      "date": "2025-07-01",
+      "product_name": "Pulsa Telkomsel 10rb",
+      "supplier_name": "Tri API",
+      "product_code": "PULSA006",
+      "price": 10500.0,
+      "quantity": 2
     }
   ],
   "transactions_success": [
@@ -306,6 +347,15 @@
       "product_code": "IND5K",
       "price": 5200.0,
       "quantity": 30
+    },
+    {
+      "no": 6,
+      "date": "2025-07-01",
+      "product_name": "Pulsa Telkomsel 10rb",
+      "supplier_name": "Tri API",
+      "product_code": "PULSA006",
+      "price": 10500.0,
+      "quantity": 100
     }
   ],
   "transactions_pending": [
@@ -344,6 +394,15 @@
       "product_code": "TSEL1GB",
       "price": 12000.0,
       "quantity": 12
+    },
+    {
+      "no": 5,
+      "date": "2025-07-01",
+      "product_name": "Pulsa Telkomsel 10rb",
+      "supplier_name": "Tri API",
+      "product_code": "PULSA006",
+      "price": 10500.0,
+      "quantity": 5
     }
   ],
   "transactions_failed": [
@@ -391,6 +450,15 @@
       "product_code": "FF100D",
       "price": 30000.0,
       "quantity": 3
+    },
+    {
+      "no": 6,
+      "date": "2025-07-01",
+      "product_name": "Pulsa Telkomsel 10rb",
+      "supplier_name": "Tri API",
+      "product_code": "PULSA006",
+      "price": 10500.0,
+      "quantity": 1
     }
   ],
   "product_types": [
@@ -412,6 +480,7 @@
     { "id": 7, "name": "Pulsa Smartfren 10rb" },
     { "id": 8, "name": "Token PLN 50rb" },
     { "id": 9, "name": "Pembayaran BPJS" },
-    { "id": 10, "name": "Game Voucher Free Fire 100Diamonds" }
+    { "id": 10, "name": "Game Voucher Free Fire 100Diamonds" },
+    { "id": 11, "name": "Pulsa Telkomsel 10rb" }
   ]
 }
