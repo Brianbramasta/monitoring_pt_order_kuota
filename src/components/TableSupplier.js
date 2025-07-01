@@ -38,7 +38,7 @@ export default function TableSupplier({
               />
             </div>
             <button
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#1EC98B] text-[#1EC98B] bg-white hover:bg-[#F6FFFC] font-medium text-sm transition"
+              className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#1EC98B] text-[#1EC98B] bg-white hover:bg-[#F6FFFC] font-medium text-sm transition cursor-pointer"
               onClick={onCompare}
             >
               Bandingkan Supplier
@@ -48,16 +48,22 @@ export default function TableSupplier({
           <>
             <div className="flex w-full gap-2 justify-between">
               <button
-                className="bg-[#177F7E] text-white px-4 py-2 rounded-full hover:bg-[#145e5d] font-medium text-sm transition"
+                className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#177F7E] text-[#177F7E] bg-white hover:bg-[#F6FFFC] font-medium text-sm transition cursor-pointer"
                 onClick={onCompare}
                 disabled={selected.length < 2}
               >
                 Lakukan Perbandingan
               </button>
               <button
-                className="border border-red-500 text-red-600 px-4 py-2 rounded-full hover:bg-red-50 font-medium text-sm transition"
+                className="border border-red-500 text-red-600 px-4 py-2 rounded-full hover:bg-red-50 font-medium text-sm transition cursor-pointer flex items-center gap-2"
                 onClick={onCancelCompare}
               >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M15 9L9 15" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 9L15 15" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              
                 Batalkan Perbandingan
               </button>
             </div>
@@ -108,7 +114,7 @@ export default function TableSupplier({
                   </td>
                   <td className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm border-[#E0E0E0] whitespace-nowrap">
                     <button
-                      className="text-[#177F7E] underline hover:text-[#145e5d] font-medium"
+                      className="text-[#177F7E] underline hover:text-[#145e5d] font-medium cursor-pointer"
                       onClick={() => onDetail && onDetail(item)}
                     >
                       Lihat Detail

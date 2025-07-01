@@ -37,33 +37,33 @@ export default function Header({ sidebarVisible, onToggleSidebar, user }) {
 
   return (
     <header
-      className={`fixed top-0 left-0 z-30 bg-white shadow flex items-center justify-between px-8 h-16 transition-all duration-300 ${marginLeftClass}`}
+      className={`fixed top-0 left-0 z-30 bg-white shadow flex items-center justify-between px-4 sm:px-6 lg:px-8 h-14 sm:h-16 transition-all duration-300 ${marginLeftClass}`}
       style={headerStyle}
     >
       {/* Toggle Sidebar Button */}
       <button
         onClick={onToggleSidebar}
-        className="p-2 rounded-lg bg-white shadow-md hover:bg-gray-100 transition-colors lg:block"
+        className="p-2 rounded-lg bg-white shadow-md hover:bg-gray-100 transition-colors block"
         title={sidebarVisible ? 'Sembunyikan Sidebar' : 'Tampilkan Sidebar'}
-        style={{ display: 'block' }}
+        style={{ minWidth: 36, minHeight: 36 }}
       >
-        <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
       {/* User Info & Profile */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 sm:gap-4">
         <div className="text-right hidden md:block">
-          <div className="font-semibold text-gray-800 text-sm">{user?.name}</div>
+          <div className="font-semibold text-gray-800 text-xs sm:text-sm">{user?.name}</div>
           <div className="text-xs text-gray-500">{user?.email}</div>
         </div>
         <div className="relative" ref={tooltipRef}>
           <button
             onClick={() => setShowTooltip((v) => !v)}
-            className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors focus:outline-none"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors focus:outline-none"
             title="Profil"
           >
-            <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="12" cy="8" r="4" />
               <path d="M4 20c0-4 8-4 8-4s8 0 8 4" />
             </svg>

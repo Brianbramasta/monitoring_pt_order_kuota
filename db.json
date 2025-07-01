@@ -353,6 +353,36 @@
       "price": 10500.0,
       "quantity": 2,
       "void": "PULSA006"
+    },
+    {
+      "no": 6,
+      "date": "2025-07-01",
+      "product_name": "Paket Data XL 1GB",
+      "supplier_name": "Supplier B",
+      "product_code": "XL1GB",
+      "price": 11000.0,
+      "quantity": 1,
+      "void": null
+    },
+    {
+      "no": 7,
+      "date": "2025-07-01",
+      "product_name": "Game Voucher Free Fire 100Diamonds",
+      "supplier_name": "Supplier H",
+      "product_code": "FF100D",
+      "price": 30000.0,
+      "quantity": 2,
+      "void": "FF100D"
+    },
+    {
+      "no": 8,
+      "date": "2025-07-01",
+      "product_name": "Pembayaran BPJS",
+      "supplier_name": "Supplier D",
+      "product_code": "BPJS001",
+      "price": 25000.0,
+      "quantity": 1,
+      "void": null
     }
   ],
   "transactions_success": [
@@ -415,6 +445,26 @@
       "price": 10500.0,
       "quantity": 100,
       "void": "PULSA006"
+    },
+    {
+      "no": 7,
+      "date": "2025-07-01",
+      "product_name": "Pulsa Smartfren 10rb",
+      "supplier_name": "Smartfren API",
+      "product_code": "SMF10K",
+      "price": 10200.0,
+      "quantity": 20,
+      "void": null
+    },
+    {
+      "no": 8,
+      "date": "2025-07-01",
+      "product_name": "Token PLN 50rb",
+      "supplier_name": "PLN API",
+      "product_code": "PLN50K",
+      "price": 50500.0,
+      "quantity": 10,
+      "void": "PLN003"
     }
   ],
   "transactions_pending": [
@@ -467,6 +517,26 @@
       "price": 10500.0,
       "quantity": 5,
       "void": "PULSA006"
+    },
+    {
+      "no": 6,
+      "date": "2025-07-01",
+      "product_name": "Pulsa Indosat 10rb",
+      "supplier_name": "Indosat Ooredoo API",
+      "product_code": "IND10K",
+      "price": 10200.0,
+      "quantity": 4,
+      "void": null
+    },
+    {
+      "no": 7,
+      "date": "2025-07-01",
+      "product_name": "Game Voucher Mobile Legends 50Diamonds",
+      "supplier_name": "Supplier F",
+      "product_code": "ML50D",
+      "price": 15000.0,
+      "quantity": 3,
+      "void": null
     }
   ],
   "transactions_failed": [
@@ -529,6 +599,26 @@
       "price": 10500.0,
       "quantity": 1,
       "void": "PULSA006"
+    },
+    {
+      "no": 7,
+      "date": "2025-07-01",
+      "product_name": "Pulsa Telkomsel 5rb",
+      "supplier_name": "Telkomsel API",
+      "product_code": "PULSA001",
+      "price": 5200.0,
+      "quantity": 2,
+      "void": null
+    },
+    {
+      "no": 8,
+      "date": "2025-07-01",
+      "product_name": "Paket Data Telkomsel 2GB",
+      "supplier_name": "Supplier E",
+      "product_code": "TSEL2GB",
+      "price": 22000.0,
+      "quantity": 1,
+      "void": "DATA005"
     }
   ],
   "product_types": [
