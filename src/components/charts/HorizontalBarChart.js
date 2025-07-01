@@ -4,7 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGri
 export default function HorizontalBarChart({ data = [], color = '#177F7E', title }) {
   return (
     <div className="w-full h-64 flex flex-col items-center justify-center">
-      <div className="font-semibold mb-2">{title}</div>
+      <div className="font-semibold mb-2 text-xl">{title}</div>
       {data.length === 0 ? (
         <div className="text-gray-400">Tidak ada data</div>
       ) : (
