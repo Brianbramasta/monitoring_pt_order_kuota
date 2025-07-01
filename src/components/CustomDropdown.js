@@ -31,7 +31,8 @@ function CustomDropdown({ label, options, value, onChange, type = "default" }) {
             {options.map(opt => (
               <button
                 key={opt.value}
-                className={`flex items-center w-full h-[34px] rounded-[4px] px-3 text-left text-[14px] font-light text-[#222] relative ${value === opt.value ? 'bg-[#F0F0F0]' : 'hover:bg-[#F0F0F0]'}`}
+                // change color to #000
+                className={`flex items-center w-full h-[34px] rounded-[4px] px-3 text-left text-[14px] font-light text-[#000] relative ${value === opt.value ? 'bg-[#F0F0F0]' : 'hover:bg-[#F0F0F0]'}`}
                 onClick={() => { onChange(opt.value); setOpen(false); }}
               >
                 <span className="flex-1">{opt.label}</span>
