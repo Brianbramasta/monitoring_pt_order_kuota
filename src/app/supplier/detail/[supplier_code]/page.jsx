@@ -43,34 +43,27 @@ export default function SupplierDetailPage() {
   if (error) return <div className="w-full max-w-5xl mx-auto mt-8 text-center text-red-500">{error}</div>;
   if (!data) return null;
 
+  // Ambil label legend dari data donut
+  const donutData = [
+    { name: 'Transaksi Berhasil', value: data.product_transaction_analysis.success },
+    { name: 'Transaksi Pending', value: data.product_transaction_analysis.pending },
+    { name: 'Transaksi Gagal', value: data.product_transaction_analysis.failed },
+  ];
+  const legendLabels = donutData.map((d, idx) => ({
+    label: d.name,
+    color: ["#177F7E", "#FFD600", "#E53935"][idx]
+  }));
+
   return (
     <div className="w-full max-w-5xl mx-auto mt-8">
       <h1 className="text-2xl font-bold mb-6">{supplierName}</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div>
-          <DonutChart
-            data={[
-              { name: 'Transaksi Berhasil', value: data.product_transaction_analysis.success },
-              { name: 'Transaksi Pending', value: data.product_transaction_analysis.pending },
-              { name: 'Transaksi Gagal', value: data.product_transaction_analysis.failed },
-            ]}
-            title="Analisis Transaksi Produk"
-          />
-          <div className="flex flex-row justify-center items-center gap-8 mt-8 flex-wrap">
-            <div className="flex items-center gap-2">
-              <span className="inline-block w-5 h-5 rounded-full" style={{ backgroundColor: '#177F7E' }}></span>
-              <span className="text-gray-500 font-medium text-base">Transaksi Berhasil</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="inline-block w-5 h-5 rounded-full" style={{ backgroundColor: '#FFD600' }}></span>
-              <span className="text-gray-500 font-medium text-base">Transaksi Pending</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="inline-block w-5 h-5 rounded-full" style={{ backgroundColor: '#E53935' }}></span>
-              <span className="text-gray-500 font-medium text-base">Transaksi Gagal</span>
-            </div>
-          </div>
-        </div>
+        <DonutChart
+          data={donutData}
+          title="Analisis Transaksi Produk"
+          showLegend={true}
+          legendLabels={legendLabels}
+        />
         <BarChart
           data={data.total_revenue}
           title="Total Revenue"

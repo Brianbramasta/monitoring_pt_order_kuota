@@ -5,7 +5,7 @@ const DEFAULT_COLORS = ['#177F7E', '#FFD600', '#E53935', '#6C63FF', '#00BFAE', '
 
 export default function BarChart({ data = [], barKeys = ['value'], colors = DEFAULT_COLORS, title }) {
   return (
-    <div className="w-full max-w-4xl mx-auto bg-white rounded-2xl p-8 flex flex-col items-center" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+    <div className="w-full max-w-4xl mx-auto bg-[#FAFAFB] rounded-2xl p-8 flex flex-col items-center" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
       <div className="text-3xl font-bold text-center mb-6">{title}</div>
       {data.length === 0 ? (
         <div className="text-gray-400">Tidak ada data</div>

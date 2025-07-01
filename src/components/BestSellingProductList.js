@@ -7,7 +7,7 @@ export default function BestSellingProductList({ title, products = [] }) {
   const maxSales = Math.max(...products.map(p => p.sales), 1);
 
   return (
-    <div className="w-full bg-white rounded-2xl p-6 flex flex-col items-start" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+    <div className="w-full bg-[#FAFAFB] rounded-2xl p-6 flex flex-col items-start" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
       <div className="text-xl font-bold mb-4 text-center w-full">{title}</div>
       <div className="w-full flex flex-col gap-4">
         {products.map((prod, idx) => (

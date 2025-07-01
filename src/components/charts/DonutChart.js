@@ -16,13 +16,21 @@ const CustomTooltip = ({ active, payload }) => {
   return null;
 };
 
-export default function DonutChart({ data = [], colors = ["#177F7E", "#FFD600", "#E53935"], title }) {
+export default function DonutChart({ data = [], colors = ["#177F7E", "#FFD600", "#E53935"], title, showLegend = false, legendLabels }) {
   const total = data.reduce((sum, d) => sum + d.value, 0);
   // Tambahkan total ke setiap data agar bisa diakses di tooltip
   const chartData = data.map(d => ({ ...d, total }));
 
+  // Default legend jika tidak ada legendLabels
+  const defaultLegend = [
+    { label: 'Transaksi Berhasil', color: '#177F7E' },
+    { label: 'Transaksi Pending', color: '#FFD600' },
+    { label: 'Transaksi Gagal', color: '#E53935' }
+  ];
+  const legend = legendLabels && legendLabels.length > 0 ? legendLabels : defaultLegend;
+
   return (
-    <div className="w-full max-w-md mx-auto bg-white rounded-2xl p-8 flex flex-col items-center" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+    <div className="w-full max-w-md mx-auto bg-[#FAFAFB] rounded-2xl p-8 flex flex-col items-center" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
       {title && <div className="text-2xl font-bold text-center mb-6">{title}</div>}
       <div className="relative w-full flex justify-center items-center" style={{ height: 260 }}>
         <ResponsiveContainer width={220} height={220}>
@@ -46,6 +54,16 @@ export default function DonutChart({ data = [], colors = ["#177F7E", "#FFD600", 
           </PieChart>
         </ResponsiveContainer>
       </div>
+      {showLegend && (
+        <div className="flex flex-row justify-center items-center gap-8 mt-8 flex-wrap">
+          {legend.map((item, idx) => (
+            <div key={item.label + idx} className="flex items-center gap-2">
+              <span className="inline-block w-5 h-5 rounded-full" style={{ backgroundColor: item.color }}></span>
+              <span className="text-gray-500 font-medium text-base">{item.label}</span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 } 
