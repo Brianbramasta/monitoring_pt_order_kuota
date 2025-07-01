@@ -381,7 +381,7 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
 
 ---
 
-## 6. Supplier
+## 6. Supplier (Update)
 
 - **Endpoint:** `/api/v1/suppliers`
 - **Method:** `GET`
@@ -394,8 +394,8 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
     - `no`: Nomor urut (integer)
     - `supplier_name`: Nama Supplier (string)
     - `supplier_code`: Kode Supplier (string)
-    - `supplier_status`: Status Supplier (string, misal: "Aktif", "Tidak Aktif")
-    - `server_status`: Status Server (string, misal: "Online", "Offline")
+    - `supplier_balance`: Saldo Supplier (integer)
+    - `server_status`: Status Server (string, misal: "Stabil", "Down")
   - `pagination`: Objek informasi pagination
     - `total_data`: Total seluruh data (integer)
     - `total_pages`: Total halaman (integer)
@@ -411,17 +411,17 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
       "suppliers": [
         {
           "no": 1,
-          "supplier_name": "Telkomsel API",
-          "supplier_code": "TSL001",
-          "supplier_status": "Aktif",
-          "server_status": "Online"
+          "supplier_name": "PT ABC Jaya",
+          "supplier_code": "TRX001",
+          "supplier_balance": 1200000,
+          "server_status": "Stabil"
         },
         {
           "no": 2,
-          "supplier_name": "Indosat Ooredoo API",
-          "supplier_code": "IDS002",
-          "supplier_status": "Aktif",
-          "server_status": "Online"
+          "supplier_name": "PT Maju Bersama",
+          "supplier_code": "TRX002",
+          "supplier_balance": 14000000,
+          "server_status": "Down"
         }
       ],
       "pagination": {
@@ -431,6 +431,105 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
         "limit": 10
       }
     }
+  }
+  ```
+
+---
+
+## 6a. Detail Supplier (Baru)
+
+- **Endpoint:** `/api/v1/suppliers/:supplier_code/detail`
+- **Method:** `GET`
+- **Parameter Request:**
+  - `period`: Filter periode (opsional, default 'monthly') untuk grafik revenue & penjualan produk
+- **Parameter Response:**
+  - `product_transaction_analysis`: Objek analisis transaksi produk (pie/donut chart)
+    - `success`: Jumlah transaksi sukses (integer)
+    - `pending`: Jumlah transaksi pending (integer)
+    - `failed`: Jumlah transaksi gagal (integer)
+  - `total_revenue`: Array data revenue per bulan (bar chart)
+    - `label`: Nama bulan/tahun (string)
+    - `value`: Nominal revenue (integer)
+  - `best_selling_products`: Array produk terlaris (max 5, horizontal bar)
+    - `product_name`: Nama produk (string)
+    - `sales`: Jumlah penjualan (integer)
+  - `product_sales`: Array penjualan produk per bulan (line chart)
+    - `label`: Nama bulan/tahun (string)
+    - `value`: Jumlah penjualan (integer)
+- **Example Response (JSON):**
+  ```json
+  {
+    "code": 200,
+    "status": "success",
+    "message": "Detail supplier berhasil diambil",
+    "data": {
+      "product_transaction_analysis": {
+        "success": 120,
+        "pending": 30,
+        "failed": 10
+      },
+      "total_revenue": [
+        { "label": "Jan", "value": 10000000 },
+        { "label": "Feb", "value": 12000000 }
+      ],
+      "best_selling_products": [
+        { "product_name": "Pulsa Telkomsel 5rb", "sales": 23400 },
+        { "product_name": "Pulsa Indosat 5rb", "sales": 15000 }
+      ],
+      "product_sales": [
+        { "label": "Jan", "value": 5000 },
+        { "label": "Feb", "value": 6000 }
+      ]
+    }
+  }
+  ```
+
+---
+
+## 6b. Perbandingan Supplier (Baru)
+
+- **Endpoint:** `/api/v1/suppliers/compare`
+- **Method:** `POST`
+- **Body:**
+  ```json
+  {
+    "supplier_codes": ["TRX001", "TRX003", "TRX004"]
+  }
+  ```
+- **Parameter Response:**
+  - Array data supplier (maksimal 3), masing-masing berisi struktur sama seperti detail supplier:
+    - `supplier_code`: Kode Supplier (string)
+    - `supplier_name`: Nama Supplier (string)
+    - `product_transaction_analysis`: Objek analisis transaksi produk
+    - `total_revenue`: Array data revenue per bulan
+    - `best_selling_products`: Array produk terlaris
+    - `product_sales`: Array penjualan produk per bulan
+- **Example Response (JSON):**
+  ```json
+  {
+    "code": 200,
+    "status": "success",
+    "message": "Data perbandingan supplier berhasil diambil",
+    "data": [
+      {
+        "supplier_code": "TRX001",
+        "supplier_name": "PT ABC Jaya",
+        "product_transaction_analysis": {
+          "success": 120,
+          "pending": 30,
+          "failed": 10
+        },
+        "total_revenue": [
+          { "label": "Jan", "value": 10000000 },
+          { "label": "Feb", "value": 12000000 }
+        ],
+        "best_selling_products": [
+          { "product_name": "Pulsa Telkomsel 5rb", "sales": 23400 }
+        ],
+        "product_sales": [{ "label": "Jan", "value": 5000 }]
+      }
+      // ... maksimal 3 supplier
+    ]
   }
   ```
 
