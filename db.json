@@ -642,5 +642,37 @@
     { "id": 9, "name": "Pembayaran BPJS" },
     { "id": 10, "name": "Game Voucher Free Fire 100Diamonds" },
     { "id": 11, "name": "Pulsa Telkomsel 10rb" }
+  ],
+  "transactions_failed_chart": [
+    { "label": "Jan 2025", "value": 120 },
+    { "label": "Feb 2025", "value": 90 },
+    { "label": "Mar 2025", "value": 150 },
+    { "label": "Apr 2025", "value": 80 },
+    { "label": "Mei 2025", "value": 200 },
+    { "label": "Jun 2025", "value": 170 }
+  ],
+  "transactions_pending_chart": [
+    { "label": "Jan 2025", "value": 100 },
+    { "label": "Feb 2025", "value": 80 },
+    { "label": "Mar 2025", "value": 130 },
+    { "label": "Apr 2025", "value": 70 },
+    { "label": "Mei 2025", "value": 160 },
+    { "label": "Jun 2025", "value": 140 }
+  ],
+  "transactions_success_chart": [
+    { "label": "Jan 2025", "value": 200 },
+    { "label": "Feb 2025", "value": 150 },
+    { "label": "Mar 2025", "value": 250 },
+    { "label": "Apr 2025", "value": 180 },
+    { "label": "Mei 2025", "value": 300 },
+    { "label": "Jun 2025", "value": 270 }
+  ],
+  "transactions_complaints_chart": [
+    { "label": "Jan 2025", "value": 50 },
+    { "label": "Feb 2025", "value": 40 },
+    { "label": "Mar 2025", "value": 60 },
+    { "label": "Apr 2025", "value": 30 },
+    { "label": "Mei 2025", "value": 80 },
+    { "label": "Jun 2025", "value": 70 }
   ]
 }

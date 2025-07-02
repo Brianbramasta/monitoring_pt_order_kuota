@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { getComplaintTransactions } from '@/services/transactions';
 import dayjs from 'dayjs';
 import RefreshButton from '@/components/RefreshButton';
+import AreaGrafik from '../../components/AreaGrafik';
 
 
 
@@ -33,6 +34,9 @@ export default function TransactionComplaintPage() {
   const [loading, setLoading] = useState(false);
   const [recap, setRecap] = useState({});
   const [selectedFilter, setSelectedFilter] = useState('today');
+  const [chartPeriod, setChartPeriod] = useState('monthly');
+  const [chartData, setChartData] = useState([]);
+  const [loadingChart, setLoadingChart] = useState(false);
 
   /**
    * Menghitung start_date dan end_date berdasarkan filter yang dipilih user.
@@ -106,15 +110,14 @@ export default function TransactionComplaintPage() {
 
   useEffect(() => {
     fetchData();
-    
+    fetchChart();
     // Auto refresh setiap 10 detik
     const interval = setInterval(() => {
       fetchData();
+      fetchChart();
     }, 10000);
-
-    // Cleanup interval saat component unmount atau dependency berubah
     return () => clearInterval(interval);
-  }, [search, page, pageSize, selectedFilter]);
+  }, [search, page, pageSize, selectedFilter, chartPeriod]);
 
   // Dummy data card
 const cards = [
@@ -145,6 +148,31 @@ const cards = [
     },
   ];
 
+  // Filter chart
+  const chartFilters = [
+    {
+      label: 'Periode',
+      options: [
+        { label: 'Harian', value: 'daily' },
+        { label: 'Mingguan', value: 'weekly' },
+        { label: 'Bulanan', value: 'monthly' },
+      ],
+      value: chartPeriod,
+      onChange: setChartPeriod,
+    },
+  ];
+
+  // Fetch chart data
+  const fetchChart = () => {
+    setLoadingChart(true);
+    fetch(`/api/v1/transactions/complaints/chart?period=${chartPeriod}`)
+      .then(res => res.json())
+      .then(json => setChartData(json.data.chart_data || []))
+      .catch(() => setChartData([]))
+      .finally(() => setLoadingChart(false));
+  };
+
+
   return (
     <div className="flex flex-col gap-4 sm:gap-8 px-4 sm:px-0">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
@@ -160,6 +188,20 @@ const cards = [
         {cards.map((card, idx) => (
           <Card key={idx} icon={card.icon} title={card.title} value={card.value} />
         ))}
+      </div>
+
+      {/* Grafik Area */}
+      <div className="my-4">
+        <AreaGrafik
+          totalLabel="TOTAL TRANSAKSI"
+          totalValue={chartData.reduce((a, b) => a + b.value, 0).toLocaleString('id-ID')}
+          filters={chartFilters}
+          data={chartData.map(d => ({ x: d.label, y: d.value }))}
+          dataKeyX="x"
+          dataKeyY="y"
+          tooltipFormatter={(value, name, props) => [value, props && props.payload && props.payload.x ? props.payload.x : name]}
+          loading={loadingChart}
+        />
       </div>
 
       {/* Table dan filter */}
