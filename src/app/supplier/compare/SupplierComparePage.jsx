@@ -8,6 +8,8 @@ import LineChart from '@/components/charts/LineChart';
 import BestSellingProductList from '@/components/BestSellingProductList';
 
 const COLORS = ['#177F7E', '#FFD600', '#E53935'];
+// Warna khusus untuk bar/line chart (Total Revenue & Penjualan Produk)
+const BAR_LINE_COLORS = ['#177F7E', '#049DD4', '#FFD66B'];
 
 export default function SupplierComparePage() {
   const searchParams = useSearchParams();
@@ -92,7 +94,7 @@ export default function SupplierComparePage() {
 
   // barKeys untuk chart multi-bar (pakai nama supplier)
   const barKeys = supplierNames;
-  const barColors = COLORS.slice(0, barKeys.length);
+  const barColors = BAR_LINE_COLORS.slice(0, barKeys.length);
 
   return (
     <div className="w-full max-w-6xl mx-auto mt-8">
