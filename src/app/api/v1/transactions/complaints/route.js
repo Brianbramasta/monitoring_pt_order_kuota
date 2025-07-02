@@ -1,13 +1,14 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
+import { promises as fs } from 'fs';
 import path from 'path';
 
-function readDbData() {
+async function readDbData() {
   try {
     const dbPath = path.join(process.cwd(), 'db.json');
-    const dbContent = fs.readFileSync(dbPath, 'utf8');
+    const dbContent = await fs.readFile(dbPath, 'utf8');
     return JSON.parse(dbContent);
   } catch (error) {
+    console.error('Error reading db.json:', error);
     return null;
   }
 }
@@ -54,13 +55,17 @@ function calculateRecap(data) {
   if (data.length === 0) {
     return {
       total_complaint_transactions: 0,
-      total_complaint_nominal: 0
+      total_complaint_nominal: 0,
+      total_unread_cs_messages: 0
     };
   }
   const totalNominal = data.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const totalUnreadMessages = data.filter(item => item.is_read === false).length;
+  
   return {
     total_complaint_transactions: data.reduce((sum, item) => sum + item.quantity, 0),
-    total_complaint_nominal: totalNominal
+    total_complaint_nominal: totalNominal,
+    total_unread_cs_messages: totalUnreadMessages
   };
 }
 
@@ -80,28 +85,39 @@ export async function GET(request) {
     const search = searchParams.get('search');
     const page = parseInt(searchParams.get('page')) || 1;
     const limit = parseInt(searchParams.get('limit')) || 10;
-    const dbData = readDbData();
+    
+    const dbData = await readDbData();
     if (!dbData) {
       const errorResponse = NextResponse.json({ code: 500, status: "error", message: "Gagal membaca data database" }, { status: 500 });
       return addCorsHeaders(errorResponse);
     }
+    
     let transactions = dbData.transactions_complaints || [];
     transactions = filterByDate(transactions, startDate, endDate);
     transactions = searchData(transactions, search);
+    
+    // Hitung recap langsung dari data transaksi
     const recap = calculateRecap(transactions);
+    
     const { data: paginatedTransactions, pagination } = paginateData(transactions, page, limit);
     const transactionsWithNo = paginatedTransactions.map((item, index) => ({
       no: (page - 1) * limit + index + 1,
       ...item
     }));
+    
     const response = NextResponse.json({
       code: 200,
       status: "success",
       message: "Data komplain transaksi berhasil diambil",
-      data: { recap, transactions: transactionsWithNo, pagination }
+      data: {
+        recap,
+        transactions: transactionsWithNo,
+        pagination
+      }
     });
     return addCorsHeaders(response);
   } catch (error) {
+    console.error('Error in complaints API:', error);
     const errorResponse = NextResponse.json({ code: 500, status: "error", message: "Terjadi kesalahan server" }, { status: 500 });
     return addCorsHeaders(errorResponse);
   }

@@ -130,6 +130,11 @@ const cards = [
     icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EAF6F6] flex items-center justify-center'><img src='/icon/card/success/icon-3.svg'/></div>,
     title: 'Total Nominal Komplain',
     value: <span className="text-[#222222] font-bold">Rp {recap.total_complaint_nominal?.toLocaleString('id-ID') || 0}</span>,
+  },
+  {
+    icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EAF6F6] flex items-center justify-center'><img src='/icon/card/success/icon-2.svg'/></div>,
+    title: 'Total pesan CS yang belum terbaca',
+    value: <span className="text-[#222222] font-bold">{recap.total_unread_cs_messages || 0} pesan.</span>,
   }
 ];
 

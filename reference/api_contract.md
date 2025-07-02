@@ -340,6 +340,7 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
   - `recap`: Objek rekapitulasi
     - `total_complaint_transactions`: Total komplain transaksi (integer)
     - `total_complaint_nominal`: Total nominal komplain (decimal)
+    - `total_unread_cs_messages`: Total pesan CS yang belum terbaca (integer)
   - `transactions`: Array komplain transaksi
     - `no`: Nomor urut (integer)
     - `date`: Tanggal transaksi (string, format `YYYY-MM-DD`)
@@ -349,6 +350,7 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
     - `price`: Harga (decimal)
     - `quantity`: Jumlah transaksi (integer)
     - `void`: Kode void (string, opsional, null jika tidak ada)
+    - `is_read`: Status pesan CS (boolean, true = sudah dibaca, false = belum dibaca)
   - `pagination`: Objek informasi pagination
     - `total_data`: Total seluruh data (integer)
     - `total_pages`: Total halaman (integer)
@@ -363,7 +365,8 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
     "data": {
       "recap": {
         "total_complaint_transactions": 20,
-        "total_complaint_nominal": 150000.0
+        "total_complaint_nominal": 150000.0,
+        "total_unread_cs_messages": 7
       },
       "transactions": [
         {
@@ -374,7 +377,8 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
           "product_code": "IND10K",
           "price": 10200.0,
           "quantity": 1,
-          "void": "PULSA004"
+          "void": "PULSA004",
+          "is_read": false
         },
         {
           "no": 2,
@@ -384,7 +388,8 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
           "product_code": "TSEL2GB",
           "price": 22000.0,
           "quantity": 1,
-          "void": "DATA005"
+          "void": "DATA005",
+          "is_read": true
         }
       ],
       "pagination": {

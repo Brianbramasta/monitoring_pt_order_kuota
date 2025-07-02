@@ -11,7 +11,7 @@ export default function Breadcrumb({ items = [] }) {
               {item.label}
             </Link>
           ) : (
-            <span className="text-black font-semibold">{item.label}</span>
+            <span className="text-[#868686] font-semibold">{item.label}</span>
           )}
           {idx < items.length - 1 && (
             <svg className="mx-2" width="16" height="16" fill="none" viewBox="0 0 16 16">
