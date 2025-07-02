@@ -55,7 +55,7 @@ export default function SupplierDetailPage() {
   }));
 
   return (
-    <div className="w-full max-w-5xl mx-auto mt-8">
+    <div className="w-full  mx-auto mt-8">
       <h1 className="text-2xl font-bold mb-6">{supplierName}</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <DonutChart

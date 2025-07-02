@@ -97,7 +97,7 @@ export default function SupplierComparePage() {
   const barColors = BAR_LINE_COLORS.slice(0, barKeys.length);
 
   return (
-    <div className="w-full max-w-6xl mx-auto mt-8">
+    <div className="w-full mx-auto mt-8">
       <h1 className="text-2xl font-bold mb-6">Perbandingan Supplier</h1>
       {/* Legend Global */}
       {/* <div className="flex gap-6 justify-center my-4">
@@ -111,7 +111,13 @@ export default function SupplierComparePage() {
       {/* Analisis Transaksi Produk */}
       <div className="mb-8 bg-[#FAFAFB] rounded-2xl p-8" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
         <div className="text-3xl font-bold text-center mb-8">Analisis Transaksi Produk</div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end justify-items-center">
+        <div
+          className={
+            data.length === 2
+              ? "grid grid-cols-1 md:grid-cols-2 gap-6 items-end justify-items-center justify-center"
+              : "grid grid-cols-1 md:grid-cols-3 gap-6 items-end justify-items-center"
+          }
+        >
           {data.map((sup, idx) => (
             <div key={sup.supplier_code} className="flex flex-col items-center">
               <div className="text-lg font-semibold mb-2 text-center">{sup.supplier_name}</div>
@@ -145,7 +151,13 @@ export default function SupplierComparePage() {
       {/* Produk Terlaris per supplier (bukan chart) */}
       <div className="mb-8 bg-[#FAFAFB] rounded-2xl p-8" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
         <div className="text-3xl font-bold text-center mb-8">Produk Terlaris</div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div
+          className={
+            data.length === 2
+              ? "grid grid-cols-1 md:grid-cols-2 gap-6 justify-center"
+              : "grid grid-cols-1 md:grid-cols-3 gap-6"
+          }
+        >
           {data.map(sup => (
             <BestSellingProductList
               key={sup.supplier_code}

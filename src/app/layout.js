@@ -4,6 +4,7 @@ import Sidebar from '../components/Sidebar';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Header from '../components/Header';
+import Breadcrumb from '../components/Breadcrumb';
 
 const menuList = [
   { label: 'Transaksi Gagal', path: '/transaction-fail' },
@@ -86,11 +87,16 @@ export default function RootLayout({ children }) {
           <main className={`flex-1 transition-all duration-300 ${isLoggedIn && pathname !== '/' ? 'p-8 pt-24' : ''} w-full`}>
             {/* Header dengan toggle button dan user info */}
             {isLoggedIn && pathname !== '/' && (
-              <Header 
-                sidebarVisible={sidebarVisible}
-                onToggleSidebar={() => setSidebarVisible(!sidebarVisible)}
-                user={user}
-              />
+              <>
+                <Header 
+                  sidebarVisible={sidebarVisible}
+                  onToggleSidebar={() => setSidebarVisible(!sidebarVisible)}
+                  user={user}
+                />
+                <div className="bg-[transparent] px-0 py-2 w-full">
+                  <Breadcrumb items={generateBreadcrumbItems(pathname)} />
+                </div>
+              </>
             )}
             {children}
           </main>
@@ -98,4 +104,35 @@ export default function RootLayout({ children }) {
       </body>
     </html>
   );
+}
+
+// Helper untuk generate breadcrumb dari pathname
+function generateBreadcrumbItems(pathname) {
+  if (!pathname || pathname === '/') return [];
+  const pathArr = pathname.split('/').filter(Boolean);
+  const mapping = {
+    'transaction-fail': 'Transaksi Gagal',
+    'transaction-pending': 'Transaksi Pending',
+    'transaction-success': 'Transaksi Sukses',
+    'transaction-complaint': 'Komplain Transaksi',
+    'products-best-selling': 'Produk Terlaris',
+    'monitor-transaction': 'Monitor Transaksi',
+    'monitor-qris': 'Monitor QRIS',
+    'supplier': 'Supplier',
+    'compare': 'Perbandingan',
+    'detail': 'Detail',
+    'vo-id-kode-(deleted)': 'VO ID Kode',
+  };
+  let href = '';
+  return pathArr.map((slug, idx) => {
+    href += '/' + slug;
+    const isLast = idx === pathArr.length - 1;
+    let label = mapping[slug] || slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    // Untuk dynamic route seperti [supplier_code], tampilkan kode as is
+    if (slug.startsWith('[') && slug.endsWith(']')) label = slug.slice(1, -1);
+    return {
+      label,
+      href: !isLast ? href : undefined,
+    };
+  });
 }

@@ -1,7 +1,13 @@
 import React from 'react';
-import { LineChart as RLineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
+import { LineChart as RLineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Area } from 'recharts';
 
 const DEFAULT_COLORS = ['#177F7E', '#FFD600', '#E53935', '#6C63FF', '#00BFAE', '#FF8A65'];
+
+const customTooltipStyle = {
+  fontFamily: 'Poppins',
+  borderRadius: 8,
+  fontSize: 14,
+};
 
 export default function LineChart({ data = [], lineKeys = ['value'], colors = DEFAULT_COLORS, title }) {
   return (
@@ -13,21 +19,33 @@ export default function LineChart({ data = [], lineKeys = ['value'], colors = DE
         <>
           <ResponsiveContainer width="100%" height={400}>
             <RLineChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 30 }}>
+              <defs>
+                <linearGradient id="colorArea" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#177F7E" stopOpacity={0.5}/>
+                  <stop offset="100%" stopColor="#177F7E" stopOpacity={0.1}/>
+                </linearGradient>
+              </defs>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
-              <XAxis dataKey="label" tick={{ fontSize: 18, fill: '#888' }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 16, fill: '#888' }} axisLine={false} tickLine={false} />
-              <Tooltip />
-              {lineKeys.map((key, idx) => (
-                <Line
-                  key={key}
-                  type="monotone"
-                  dataKey={key}
-                  stroke={colors[idx % colors.length]}
-                  strokeWidth={3}
-                  dot={false}
-                  activeDot={{ r: 7 }}
-                />
-              ))}
+              <XAxis dataKey="label" tick={{ fontFamily: 'Poppins', fontSize: 12, fill: '#222' }} axisLine={false} tickLine={false} />
+              <YAxis tick={{ fontFamily: 'Poppins', fontSize: 12, fill: '#222' }} axisLine={false} tickLine={false} />
+              <Tooltip contentStyle={customTooltipStyle} />
+              <Area
+                type="monotone"
+                dataKey={lineKeys[0]}
+                stroke="#177F7E"
+                fill="url(#colorArea)"
+                strokeWidth={3}
+                dot={false}
+                activeDot={{ r: 7 }}
+              />
+              <Line
+                type="monotone"
+                dataKey={lineKeys[0]}
+                stroke="#177F7E"
+                strokeWidth={3}
+                dot={false}
+                activeDot={{ r: 7 }}
+              />
             </RLineChart>
           </ResponsiveContainer>
           {/* Custom Legend */}

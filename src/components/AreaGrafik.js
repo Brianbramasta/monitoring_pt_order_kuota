@@ -22,7 +22,7 @@ const AreaGrafik = ({
   tooltipFormatter,
 }) => {
   return (
-    <div style={{ background: "#fff", borderRadius: 16, padding: "clamp(12px, 3vw, 24px)", boxShadow: "0 2px 8px #0001", width: "100%", maxWidth: 900, margin: "0 auto" }}>
+    <div style={{ background: "#fff", borderRadius: 16, padding: "clamp(12px, 3vw, 24px)", boxShadow: "0 2px 8px #0001", width: "100%",  margin: "0 auto" }}>
       {/* Header */}
       <div className="area-grafik-header" style={{ display: "flex", flexWrap: 'wrap', justifyContent: "space-between", alignItems: "center", marginBottom: 16, gap: 12 }}>
         <div style={{ fontFamily: 'Poppins, Arial, sans-serif', fontSize: 'clamp(12px, 2vw, 14px)', color: '#222', fontWeight: 400 }}>
