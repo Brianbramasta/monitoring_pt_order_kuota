@@ -682,5 +682,39 @@
     { "label": "Apr 2025", "value": 30 },
     { "label": "Mei 2025", "value": 80 },
     { "label": "Jun 2025", "value": 70 }
-  ]
+  ],
+  "monitor_transactions": {
+    "recap": {
+      "total_today_transaction": 4300000,
+      "total_retail_user": 120,
+      "total_h2h_user": 120,
+      "total_today_registration": 40
+    },
+    "transactions": [
+      {
+        "id": "8122434",
+        "user": "daniscalindra",
+        "server": "Telkomsel",
+        "provider": "Combo Sakti",
+        "nominal": "Rp 10.000",
+        "phone_or_pln": "081234569900",
+        "price": "Rp 10.000",
+        "payment": "Saldo Akun",
+        "purchase_date": "04/08/2025 09:52",
+        "status": "IP"
+      },
+      {
+        "id": "8122435",
+        "user": "daniscalindra",
+        "server": "Telkomsel",
+        "provider": "Combo Sakti",
+        "nominal": "Rp 10.000",
+        "phone_or_pln": "081234569900",
+        "price": "Rp 10.000",
+        "payment": "Saldo Akun",
+        "purchase_date": "04/08/2025 09:52",
+        "status": "IP"
+      }
+    ]
+  }
 }

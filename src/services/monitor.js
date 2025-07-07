@@ -15,4 +15,14 @@ export const getTransactionChart = (params) =>
  *   - period: Filter periode (opsional, default 'monthly'). Pilihan: 'daily', 'weekly', 'monthly', 'yearly'.
  */
 export const getQrisChart = (params) =>
-  apiClient.get('/api/v1/monitor/qris/chart', { params }); 
+  apiClient.get('/api/v1/monitor/qris/chart', { params });
+
+/**
+ * Ambil data rekap dan list transaksi monitoring
+ * @param {Object} params
+ *   - search: Kata kunci pencarian (opsional)
+ *   - limit: Jumlah data per halaman (opsional, default 10)
+ *   - page: Nomor halaman (opsional, default 1)
+ */
+export const getMonitorTransactionList = (params) =>
+  apiClient.get('/api/v1/monitor/transactions', { params }); 

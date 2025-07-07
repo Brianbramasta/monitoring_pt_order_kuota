@@ -711,3 +711,75 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
     }
   }
   ```
+
+---
+
+## 7b. Monitor Transaksi (Rekap & List)
+
+- **Endpoint:** `/api/v1/monitor/transactions`
+- **Method:** `GET`
+- **Parameter Request:**
+  - `search`: Kata kunci pencarian (opsional)
+  - `limit`: Jumlah data per halaman (opsional, default 10)
+  - `page`: Nomor halaman (opsional, default 1)
+- **Parameter Response:**
+  - `recap`: Objek rekapitulasi
+    - `total_today_transaction`: Total transaksi berhasil hari ini (integer/decimal)
+    - `total_retail_user`: Total pengguna retail (integer)
+    - `total_h2h_user`: Total pengguna H2H (integer)
+    - `total_today_registration`: Total pendaftar hari ini (integer)
+  - `transactions`: Array transaksi
+    - `no`: Nomor urut (integer)
+    - `id`: ID transaksi (string)
+    - `user`: Nama user (string)
+    - `server`: Nama server (string)
+    - `provider`: Nama provider (string)
+    - `nominal`: Nominal transaksi (string)
+    - `phone_or_pln`: No HP/ID PLN (string)
+    - `price`: Harga (string)
+    - `payment`: Pembayaran (string)
+    - `purchase_date`: Tanggal pembelian (string, format `DD/MM/YYYY HH:mm`)
+    - `status`: Status (string)
+  - `pagination`: Objek informasi pagination
+    - `total_data`: Total seluruh data (integer)
+    - `total_pages`: Total halaman (integer)
+    - `current_page`: Halaman saat ini (integer)
+    - `limit`: Batas data per halaman (integer)
+- **Example Response (JSON):**
+
+```json
+{
+  "code": 200,
+  "status": "success",
+  "message": "Data monitor transaksi berhasil diambil",
+  "data": {
+    "recap": {
+      "total_today_transaction": 4300000,
+      "total_retail_user": 120,
+      "total_h2h_user": 120,
+      "total_today_registration": 40
+    },
+    "transactions": [
+      {
+        "no": 1,
+        "id": "8122434",
+        "user": "daniscalindra",
+        "server": "Telkomsel",
+        "provider": "Combo Sakti",
+        "nominal": "Rp 10.000",
+        "phone_or_pln": "081234569900",
+        "price": "Rp 10.000",
+        "payment": "Saldo Akun",
+        "purchase_date": "04/08/2025 09:52",
+        "status": "IP"
+      }
+    ],
+    "pagination": {
+      "total_data": 2,
+      "total_pages": 1,
+      "current_page": 1,
+      "limit": 10
+    }
+  }
+}
+```
