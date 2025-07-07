@@ -119,6 +119,62 @@ export default function MonitorTransactionPage() {
     { key: 'status', label: 'Status' },
   ];
 
+  // Array cards rekap
+  const cards = [
+    {
+      icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EEEEEE] flex items-center justify-center'><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 4.5L6.75 12.75L3 9" stroke="#222222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      </div>,
+      title: 'Total Transaksi Berhasil Hari Ini',
+      value: <span className="text-[#000] font-bold">Rp {Number(rekap.total_today_transaction || 0).toLocaleString('id-ID')}</span>,
+    },
+    {
+      icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EEEEEE] flex items-center justify-center'><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0_276_56)">
+      <path d="M12.75 15.75V14.25C12.75 13.4544 12.4339 12.6913 11.8713 12.1287C11.3087 11.5661 10.5456 11.25 9.75 11.25H3.75C2.95435 11.25 2.19129 11.5661 1.62868 12.1287C1.06607 12.6913 0.75 13.4544 0.75 14.25V15.75" stroke="#222222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M6.75 8.25C8.40685 8.25 9.75 6.90685 9.75 5.25C9.75 3.59315 8.40685 2.25 6.75 2.25C5.09315 2.25 3.75 3.59315 3.75 5.25C3.75 6.90685 5.09315 8.25 6.75 8.25Z" stroke="#222222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M17.25 15.7502V14.2502C17.2495 13.5855 17.0283 12.9397 16.621 12.4144C16.2138 11.889 15.6436 11.5138 15 11.3477" stroke="#222222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 2.34766C12.6453 2.51288 13.2173 2.88818 13.6257 3.41439C14.0342 3.9406 14.2559 4.58778 14.2559 5.25391C14.2559 5.92003 14.0342 6.56722 13.6257 7.09342C13.2173 7.61963 12.6453 7.99493 12 8.16016" stroke="#222222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <defs>
+      <clipPath id="clip0_276_56">
+      <rect width="18" height="18" fill="white"/>
+      </clipPath>
+      </defs>
+      </svg>
+      </div>,
+      title: 'Total Pengguna Retail',
+      value: <span className="text-[#000] font-bold">{rekap.total_retail_user || 0}</span>,
+    },
+    {
+      icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EEEEEE] flex items-center justify-center'><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 15.75V14.25C15 13.4544 14.6839 12.6913 14.1213 12.1287C13.5587 11.5661 12.7956 11.25 12 11.25H6C5.20435 11.25 4.44129 11.5661 3.87868 12.1287C3.31607 12.6913 3 13.4544 3 14.25V15.75" stroke="#222222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9 8.25C10.6569 8.25 12 6.90685 12 5.25C12 3.59315 10.6569 2.25 9 2.25C7.34315 2.25 6 3.59315 6 5.25C6 6.90685 7.34315 8.25 9 8.25Z" stroke="#222222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      </div>,
+      title: 'Total Pengguna H2H',
+      value: <span className="text-[#000] font-bold">{rekap.total_h2h_user || 0}</span>,
+    },
+    {
+      icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EEEEEE] flex items-center justify-center'><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0_276_51)">
+      <path d="M12 15.75V14.25C12 13.4544 11.6839 12.6913 11.1213 12.1287C10.5587 11.5661 9.79565 11.25 9 11.25H3.75C2.95435 11.25 2.19129 11.5661 1.62868 12.1287C1.06607 12.6913 0.75 13.4544 0.75 14.25V15.75" stroke="#222222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M6.375 8.25C8.03185 8.25 9.375 6.90685 9.375 5.25C9.375 3.59315 8.03185 2.25 6.375 2.25C4.71815 2.25 3.375 3.59315 3.375 5.25C3.375 6.90685 4.71815 8.25 6.375 8.25Z" stroke="#222222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12.75 8.25L14.25 9.75L17.25 6.75" stroke="#222222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <defs>
+      <clipPath id="clip0_276_51">
+      <rect width="18" height="18" fill="white"/>
+      </clipPath>
+      </defs>
+      </svg>
+      </div>,
+      title: 'Total Pendaftar Hari Ini',
+      value: <span className="text-[#000] font-bold">{rekap.total_today_registration || 0}</span>,
+    },
+  ];
+
   return (
     <div className="px-8 py-8">
       <div className="flex flex-row justify-between items-center mb-8">
@@ -127,10 +183,9 @@ export default function MonitorTransactionPage() {
       </div>
       {/* Card Rekap */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <Card title="Total Transaksi Berhasil Hari Ini" value={`Rp ${Number(rekap.total_today_transaction || 0).toLocaleString('id-ID')}`} />
-        <Card title="Total Pengguna Retail" value={rekap.total_retail_user || 0} />
-        <Card title="Total Pengguna H2H" value={rekap.total_h2h_user || 0} />
-        <Card title="Total Pendaftar Hari Ini" value={rekap.total_today_registration || 0} />
+        {cards.map((card, idx) => (
+          <Card key={idx} icon={card.icon} title={card.title} value={card.value} />
+        ))}
       </div>
       {/* Grafik */}
       <AreaGrafik
