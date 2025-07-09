@@ -176,7 +176,7 @@ export default function MonitorTransactionPage() {
   ];
 
   return (
-    <div className="px-8 py-8">
+    <div className="flex flex-col gap-4 sm:gap-8 px-4 sm:px-0">
       <div className="flex flex-row justify-between items-center mb-8">
         <h1 className="text-2xl font-bold">Monitor Transaksi</h1>
         <RefreshButton onClick={fetchData} disabled={loading} loading={loading} />
