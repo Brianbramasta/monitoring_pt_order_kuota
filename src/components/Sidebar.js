@@ -44,7 +44,7 @@ export default function Sidebar({ menus, user, logoSrc, isVisible = true, onTogg
         fixed top-0 left-0 h-screen z-40 
         bg-[#F8F8F8] 
         transition-all duration-300 ease-in-out
-        w-full sm:w-[270px] sm:min-w-[270px] lg:translate-x-0 lg:sticky
+        w-full sm:w-[270px]  lg:translate-x-0 lg:sticky
         ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         ${!isVisible ? 'lg:w-0 lg:overflow-hidden lg:border-r-0' : 'lg:w-[270px] lg:border-r lg:border-gray-200'}
         flex flex-col
