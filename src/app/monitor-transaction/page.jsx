@@ -217,6 +217,28 @@ export default function MonitorTransactionPage() {
             totalData: tablePagination.totalData,
           }}
           loading={tableLoading}
+          customCellRender={(col, row) => {
+            if (col.key === 'status') {
+              return (
+                <span
+                  style={{
+                    background: '#177F7E',
+                    color: '#fff',
+                    borderRadius: 12,
+                    padding: '4px 16px',
+                    display: 'inline-block',
+                    minWidth: 32,
+                    textAlign: 'center',
+                    fontWeight: 600,
+                    letterSpacing: 1,
+                  }}
+                >
+                  {row[col.key]}
+                </span>
+              );
+            }
+            return undefined;
+          }}
         />
       </div>
     </div>

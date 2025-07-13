@@ -17,7 +17,7 @@ import CustomDropdown from './CustomDropdown';
  * - rowClass: function(row, idx) => string/className (opsional, custom className untuk baris tr data, bisa berbeda tiap baris)
  *   Contoh: rowClass={(row, idx) => idx === 0 ? 'bg-red-100' : idx === 1 ? 'bg-green-100' : ''}
  */
-export default function DynamicTable({ columns, data, searchPlaceholder, onSearch, filters, pagination, actions = [], rowActions, headerClass = "bg-[#E6F4F1]", rowClass }) {
+export default function DynamicTable({ columns, data, searchPlaceholder, onSearch, filters, pagination, actions = [], rowActions, headerClass = "bg-[#E6F4F1]", rowClass, customCellRender }) {
   const [search, setSearch] = useState('');
 
   // Handler search
@@ -88,7 +88,11 @@ export default function DynamicTable({ columns, data, searchPlaceholder, onSearc
                 data.map((row, i) => (
                   <tr key={i} className={rowClass ? rowClass(row, i) : (i%2===1 ? 'bg-[#F8FAFB]' : '')}>
                     {columns.map((col, j) => (
-                      <td key={j} className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm text-[#222]  border-[#E0E0E0] whitespace-nowrap">{row[col.key]}</td>
+                      <td key={j} className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm text-[#222]  border-[#E0E0E0] whitespace-nowrap">
+                        {customCellRender && customCellRender(col, row, j, i) !== undefined
+                          ? customCellRender(col, row, j, i)
+                          : row[col.key]}
+                      </td>
                     ))}
                     {rowActions && (
                       <td className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm text-[#222] border-[#E0E0E0] whitespace-nowrap">
