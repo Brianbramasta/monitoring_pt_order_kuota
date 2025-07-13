@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { login as loginApi } from '@/services/auth';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -9,17 +10,22 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const router = useRouter();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    
-    // Validasi kredensial
-    if (email === 'admin@gmail.com' && password === 'admin') {
-      // Simpan status login di localStorage
+    setError('');
+    try {
+      const res = await loginApi({ email, password });
+      const { token, user } = res.data;
       localStorage.setItem('isLoggedIn', 'true');
-      // Redirect ke halaman transaction-fail
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
       router.push('/transaction-fail');
-    } else {
-      setError('Email atau password salah');
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError('Terjadi kesalahan, silakan coba lagi.');
+      }
     }
   };
 

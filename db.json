@@ -716,5 +716,19 @@
         "status": "IP"
       }
     ]
-  }
+  },
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@gmail.com",
+      "password": "admin",
+      "nama_lengkap": "Admin Kuota"
+    },
+    {
+      "id": 2,
+      "email": "user@gmail.com",
+      "password": "user123",
+      "nama_lengkap": "User Biasa"
+    }
+  ]
 }

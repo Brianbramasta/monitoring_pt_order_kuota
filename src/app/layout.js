@@ -35,14 +35,30 @@ export default function RootLayout({ children }) {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [sidebarVisible, setSidebarVisible] = useState(false); // Default hidden
+  const [user, setUser] = useState({ name: '', email: '' });
 
   useEffect(() => {
     // Cek status login
     const loginStatus = localStorage.getItem('isLoggedIn') === 'true';
-    setIsLoggedIn(loginStatus);
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(loginStatus && !!token);
+
+    // Ambil user dari localStorage jika ada
+    const userStr = localStorage.getItem('user');
+    if (userStr) {
+      try {
+        const userObj = JSON.parse(userStr);
+        setUser({
+          name: userObj.nama_lengkap || userObj.name || '',
+          email: userObj.email || '',
+        });
+      } catch {}
+    } else {
+      setUser({ name: '', email: '' });
+    }
 
     // Jika belum login dan bukan di halaman login, redirect ke login
-    if (!loginStatus && pathname !== '/') {
+    if ((!loginStatus || !token) && pathname !== '/') {
       router.push('/');
     }
   }, [pathname]);
@@ -60,14 +76,13 @@ export default function RootLayout({ children }) {
     };
   });
 
-  const user = {
-    name: 'Admin',
-    email: 'admin@gmail.com',
-    onSetting: () => {},
-    onLogout: () => {
-      localStorage.removeItem('isLoggedIn');
-      router.push('/');
-    },
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setIsLoggedIn(false);
+    setUser({ name: '', email: '' });
+    router.push('/');
   };
   const logoSrc = '/logo_order_kuota.png';
 
@@ -78,7 +93,11 @@ export default function RootLayout({ children }) {
           {isLoggedIn && pathname !== '/' && (
             <Sidebar 
               menus={menus} 
-              user={user} 
+              user={{
+                ...user,
+                onSetting: () => {},
+                onLogout: handleLogout,
+              }} 
               logoSrc={logoSrc} 
               isVisible={sidebarVisible}
               onToggle={() => setSidebarVisible(!sidebarVisible)}
@@ -91,7 +110,11 @@ export default function RootLayout({ children }) {
                 <Header 
                   sidebarVisible={sidebarVisible}
                   onToggleSidebar={() => setSidebarVisible(!sidebarVisible)}
-                  user={user}
+                  user={{
+                    ...user,
+                    onSetting: () => {},
+                    onLogout: handleLogout,
+                  }}
                 />
                 <div className="bg-[transparent] px-0 py-2 w-full">
                   <Breadcrumb items={generateBreadcrumbItems(pathname)} />

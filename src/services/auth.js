@@ -3,7 +3,7 @@ import apiClient from './apiClient';
 /**
  * Request login user
  * @param {Object} data
- *   - username: Username/email user (string, wajib)
+ *   - email: Email user (string, wajib)
  *   - password: Password user (string, wajib)
  */
 export const login = (data) =>
