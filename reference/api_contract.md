@@ -6,8 +6,69 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
 
 - Ini adalah rancangan awal dan mungkin perlu disesuaikan dengan kebutuhan spesifik dan desain database Anda.
 - Nama-nama endpoint, parameter, dan nilai contoh bisa diubah sesuai konvensi API Anda.
-- Asumsi otentikasi (misalnya token API) tidak disertakan di sini, namun penting untuk diimplementasikan.
+- Autentikasi menggunakan JWT token yang didapatkan melalui endpoint login.
 - Parameter pagination `limit` dan `page` akan disertakan di hampir semua endpoint daftar.
+
+---
+
+## 0. Autentikasi Login
+
+- **Endpoint:** `/api/v1/auth/login`
+- **Method:** `POST`
+- **Parameter Request (Body JSON):**
+  - `email`: Email pengguna (string, wajib)
+  - `password`: Password pengguna (string, wajib)
+- **Parameter Response:**
+  - `token`: JWT token untuk autentikasi (string)
+  - `user`: Objek data pengguna
+    - `id`: ID pengguna (integer)
+    - `email`: Email pengguna (string)
+    - `nama_lengkap`: Nama lengkap pengguna (string)
+- **Example Request (JSON):**
+  ```json
+  {
+    "email": "admin@gmail.com",
+    "password": "admin"
+  }
+  ```
+- **Example Response (JSON - Success):**
+  ```json
+  {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJuYW1hX2xlbmdrYXAiOiJBZG1pbiBLdW90YSIsImlhdCI6MTczNDU2Nzg5MCwiZXhwIjoxNzM0NjU0MjkwfQ.example",
+    "user": {
+      "id": 1,
+      "email": "admin@gmail.com",
+      "nama_lengkap": "Admin Kuota"
+    }
+  }
+  ```
+- **Example Response (JSON - Error 400):**
+  ```json
+  {
+    "message": "Email dan password wajib diisi"
+  }
+  ```
+- **Example Response (JSON - Error 401):**
+  ```json
+  {
+    "message": "Email atau password salah"
+  }
+  ```
+- **Example Response (JSON - Error 500):**
+  ```json
+  {
+    "message": "Terjadi kesalahan server",
+    "error": "Error detail message"
+  }
+  ```
+
+**Catatan Autentikasi:**
+
+- Token JWT memiliki masa berlaku 1 hari (24 jam)
+- Token harus disertakan di header `Authorization: Bearer <token>` untuk endpoint yang memerlukan autentikasi
+- Secret key JWT: `secretkuota2024` (untuk production sebaiknya menggunakan environment variable)
+
+---
 
 ---
 
