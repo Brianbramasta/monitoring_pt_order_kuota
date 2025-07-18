@@ -103,7 +103,7 @@ export default function RootLayout({ children }) {
               onToggle={() => setSidebarVisible(!sidebarVisible)}
             />
           )}
-          <main className={`flex-1 transition-all duration-300 ${isLoggedIn && pathname !== '/' ? 'p-8 pt-24' : ''} w-full lg:w-[100vh]`}>
+          <main className={`flex-1 transition-all duration-300 ${isLoggedIn && pathname !== '/' ? 'p-8 pt-[64px]' : ''} w-full lg:w-[100vh]`}>
             {/* Header dengan toggle button dan user info */}
             {isLoggedIn && pathname !== '/' && (
               <>

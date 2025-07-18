@@ -17,7 +17,7 @@ import CustomDropdown from './CustomDropdown';
  * - rowClass: function(row, idx) => string/className (opsional, custom className untuk baris tr data, bisa berbeda tiap baris)
  *   Contoh: rowClass={(row, idx) => idx === 0 ? 'bg-red-100' : idx === 1 ? 'bg-green-100' : ''}
  */
-export default function DynamicTable({ columns, data, searchPlaceholder, onSearch, filters, pagination, actions = [], rowActions, headerClass = "bg-[#E6F4F1]", rowClass, customCellRender }) {
+export default function DynamicTable({ columns, data, searchPlaceholder, onSearch, filters, pagination, actions = [], rowActions, headerClass = "", rowClass, customCellRender }) {
   const [search, setSearch] = useState('');
 
   // Handler search
@@ -27,14 +27,14 @@ export default function DynamicTable({ columns, data, searchPlaceholder, onSearc
   };
 
   return (
-    <div className="bg-white border-t border-[#E0E0E0] p-3 sm:p-5 w-full" style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
+    <div className=" border-t border-[#E0E0E0] p-3 sm:p-5 w-full" style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
       {/* Filter, Search & Actions */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4 items-start sm:items-center justify-between">
         <div className="flex-1 flex justify-between items-center gap-2" style={{'flexWrap':'wrap'}}>
           {onSearch && (
             <input
               type="text"
-              className="border border-[#BDBDBD] rounded-full px-3 py-1.5 text-sm w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-[#177F7E]"
+              className="bg-white border border-[#BDBDBD] rounded-full px-3 py-1.5 text-sm w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-[#177F7E]"
               placeholder={searchPlaceholder || 'Cari...'}
               value={search}
               onChange={handleSearch}
@@ -70,45 +70,43 @@ export default function DynamicTable({ columns, data, searchPlaceholder, onSearc
       </div>
 
       {/* Table dengan scroll horizontal di mobile */}
-      <div className="w-full">
-        <div className="overflow-x-auto w-full">
-          <table className="w-full min-w-[640px] border-collapse" style={{fontFamily: 'Poppins, Arial, sans-serif', fontSize: 14}}>
-            <thead>
-              <tr className={headerClass}>
-                {columns.map((col, idx) => (
-                  <th key={idx} className="px-2 sm:px-4 py-2 text-left font-semibold text-xs sm:text-sm whitespace-nowrap  border-[#BDBDBD]">{col.label}</th>
-                ))}
-                {rowActions && <th className="px-2 sm:px-4 py-2 text-left font-semibold text-xs sm:text-sm whitespace-nowrap border-[#BDBDBD]">Action</th>}
-              </tr>
-            </thead>
-            <tbody>
-              {data.length === 0 ? (
-                <tr><td colSpan={columns.length + (rowActions ? 1 : 0)} className="text-center py-6 text-gray-400 text-sm">Tidak ada data</td></tr>
-              ) : (
-                data.map((row, i) => (
-                  <tr key={i} className={rowClass ? rowClass(row, i) : (i%2===1 ? 'bg-[#F8FAFB]' : '')}>
-                    {columns.map((col, j) => (
-                      <td key={j} className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm text-[#222]  border-[#E0E0E0] whitespace-nowrap">
-                        {customCellRender && customCellRender(col, row, j, i) !== undefined
-                          ? customCellRender(col, row, j, i)
-                          : row[col.key]}
-                      </td>
-                    ))}
-                    {rowActions && (
-                      <td className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm text-[#222] border-[#E0E0E0] whitespace-nowrap">
-                        <div className="flex gap-2 items-center">
-                          {rowActions(row).map((action, idx) => (
-                            <span key={idx}>{action}</span>
-                          ))}
-                        </div>
-                      </td>
-                    )}
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+      <div className="overflow-x-auto w-full rounded-xl">
+        <table className="w-full min-w-[640px] border-collapse bg-white rounded-xl" style={{fontFamily: 'Poppins, Arial, sans-serif', fontSize: 14}}>
+          <thead>
+            <tr className={headerClass}>
+              {columns.map((col, idx) => (
+                <th key={idx} className="px-2 sm:px-4 py-2 text-left font-semibold text-xs sm:text-sm whitespace-nowrap  border-[#BDBDBD]">{col.label}</th>
+              ))}
+              {rowActions && <th className="px-2 sm:px-4 py-2 text-left font-semibold text-xs sm:text-sm whitespace-nowrap border-[#BDBDBD]">Action</th>}
+            </tr>
+          </thead>
+          <tbody>
+            {data.length === 0 ? (
+              <tr><td colSpan={columns.length + (rowActions ? 1 : 0)} className="text-center py-6 text-gray-400 text-sm">Tidak ada data</td></tr>
+            ) : (
+              data.map((row, i) => (
+                <tr key={i} className={rowClass ? rowClass(row, i) : (i%2===1 ? 'bg-[#F8FAFB]' : '')}>
+                  {columns.map((col, j) => (
+                    <td key={j} className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm text-[#222]  border-[#E0E0E0] whitespace-nowrap">
+                      {customCellRender && customCellRender(col, row, j, i) !== undefined
+                        ? customCellRender(col, row, j, i)
+                        : row[col.key]}
+                    </td>
+                  ))}
+                  {rowActions && (
+                    <td className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm text-[#222] border-[#E0E0E0] whitespace-nowrap">
+                      <div className="flex gap-2 items-center">
+                        {rowActions(row).map((action, idx) => (
+                          <span key={idx}>{action}</span>
+                        ))}
+                      </div>
+                    </td>
+                  )}
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
 
       {/* Pagination */}

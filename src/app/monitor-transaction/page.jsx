@@ -177,12 +177,36 @@ export default function MonitorTransactionPage() {
 
   return (
     <div className="flex flex-col gap-4 sm:gap-8 px-4 sm:px-0">
-      <div className="flex flex-row justify-between items-center mb-8">
+      <div className="flex flex-row justify-between items-center">
         <h1 className="text-2xl font-bold">Monitor Transaksi</h1>
         <RefreshButton onClick={fetchData} disabled={loading} loading={loading} />
       </div>
-      {/* Card Rekap */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      
+      {/* Card ringkasan */}
+      <div
+        className="flex flex-col sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
+        style={{
+          backgroundColor:'black',
+          backgroundImage: 'url("/bg/background.png")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          borderRadius: '16px',
+          padding: '25px 21px',
+        }}
+      >
+        <h2
+          className="col-span-4 "
+          style={{
+            fontFamily: 'Poppins, sans-serif',
+            fontWeight: 600,
+            fontSize: '16px',
+            lineHeight: '160%',
+            letterSpacing: 0,
+            color: '#fff',
+          }}
+        >
+          Rekap Transaksi
+        </h2>
         {cards.map((card, idx) => (
           <Card key={idx} icon={card.icon} title={card.title} value={card.value} />
         ))}
