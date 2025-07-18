@@ -42,7 +42,7 @@ export default function Sidebar({ menus, user, logoSrc, isVisible = true, onTogg
       {/* Sidebar sticky & scrollable menu */}
       <aside className={`
         fixed top-0 left-0 h-screen z-40 
-        bg-[#F8F8F8] 
+        bg-white
         transition-all duration-300 ease-in-out
         w-full sm:w-[270px]  lg:translate-x-0 lg:sticky
         ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
@@ -85,7 +85,7 @@ export default function Sidebar({ menus, user, logoSrc, isVisible = true, onTogg
           </nav>
 
           {/* User Info sticky di bawah */}
-          <div className="flex flex-col items-center gap-2 border-t border-[#E0E0E0] pt-6 mt-6 flex-shrink-0 bg-[#F8F8F8]">
+          <div className="flex flex-col items-center gap-2 border-t border-[#E0E0E0] pt-6 mt-6 flex-shrink-0 bg-white">
             <div className="font-semibold text-base text-[#222]">{user.name}</div>
             <div className="text-xs text-[#4F4F4F] mb-2">{user.email}</div>
             <div className="flex gap-2">

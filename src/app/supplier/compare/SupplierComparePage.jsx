@@ -109,7 +109,7 @@ export default function SupplierComparePage() {
         ))}
       </div> */}
       {/* Analisis Transaksi Produk */}
-      <div className="mb-8 bg-[#FAFAFB] rounded-2xl p-8" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+      <div className="mb-8 bg-white rounded-2xl p-8" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
         <div className="text-3xl font-bold text-center mb-8">Analisis Transaksi Produk</div>
         <div
           className={
@@ -149,7 +149,7 @@ export default function SupplierComparePage() {
         </div>
       </div>
       {/* Produk Terlaris per supplier (bukan chart) */}
-      <div className="mb-8 bg-[#FAFAFB] rounded-2xl p-8" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+      <div className="mb-8 bg-white rounded-2xl p-8" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
         <div className="text-3xl font-bold text-center mb-8">Produk Terlaris</div>
         <div
           className={
@@ -168,7 +168,7 @@ export default function SupplierComparePage() {
         </div>
       </div>
       {/* Total Revenue Gabungan */}
-      <div className="mb-8 bg-[#FAFAFB] rounded-2xl p-8" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+      <div className="mb-8 bg-white rounded-2xl p-8" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
         <div className="text-3xl font-bold text-center mb-8">Total Revenue</div>
         <BarChart
           data={totalRevenueData}
@@ -178,7 +178,7 @@ export default function SupplierComparePage() {
         />
       </div>
       {/* Penjualan Produk (gabungan) */}
-      <div className="mb-8 bg-[#FAFAFB] rounded-2xl p-8" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+      <div className="mb-8 bg-white rounded-2xl p-8" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
         <div className="text-3xl font-bold text-center mb-8">Penjualan Produk</div>
         <LineChart
           data={productSalesData}

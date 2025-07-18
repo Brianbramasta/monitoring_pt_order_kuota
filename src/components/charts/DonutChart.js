@@ -30,7 +30,7 @@ export default function DonutChart({ data = [], colors = ["#177F7E", "#FFD600", 
   const legend = legendLabels && legendLabels.length > 0 ? legendLabels : defaultLegend;
 
   return (
-    <div className="w-full max-w-md mx-auto bg-[#FAFAFB] rounded-2xl p-8 flex flex-col items-center" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+    <div className="w-full max-w-md mx-auto bg-white rounded-2xl p-8 flex flex-col items-center" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
       {title && <div className="text-xl font-bold text-center mb-6">{title}</div>}
       <div className="relative w-full flex justify-center items-center" style={{ height: 260 }}>
         <ResponsiveContainer width={220} height={220}>

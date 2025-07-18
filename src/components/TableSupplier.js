@@ -82,7 +82,7 @@ export default function TableSupplier({
             <thead>
               <tr className="">
                 {mode === 'compare' && <th className="px-2 sm:px-4 py-2 text-left font-semibold text-xs sm:text-sm whitespace-nowrap border-[#BDBDBD]">Pilih</th>}
-                <th className="px-2 sm:px-4 py-2 text-left font-semibold text-xs sm:text-sm whitespace-nowrap border-[#BDBDBD]">No</th>
+                {mode !== 'compare' && <th className="px-2 sm:px-4 py-2 text-left font-semibold text-xs sm:text-sm whitespace-nowrap border-[#BDBDBD]">No</th>}
                 <th className="px-2 sm:px-4 py-2 text-left font-semibold text-xs sm:text-sm whitespace-nowrap border-[#BDBDBD]">Nama Supplier</th>
                 <th className="px-2 sm:px-4 py-2 text-left font-semibold text-xs sm:text-sm whitespace-nowrap border-[#BDBDBD]">Kode Supplier</th>
                 <th className="px-2 sm:px-4 py-2 text-left font-semibold text-xs sm:text-sm whitespace-nowrap border-[#BDBDBD]">Saldo Supplier</th>
@@ -92,9 +92,9 @@ export default function TableSupplier({
             </thead>
             <tbody>
               {loading ? (
-                <tr><td colSpan={mode === 'compare' ? 6 : 6} className="text-center py-8 text-gray-400 text-sm">Loading...</td></tr>
+                <tr><td colSpan={mode === 'compare' ? 6 : 7} className="text-center py-8 text-gray-400 text-sm">Loading...</td></tr>
               ) : data.length === 0 ? (
-                <tr><td colSpan={mode === 'compare' ? 6 : 6} className="text-center py-8 text-gray-400 text-sm">Tidak ada data</td></tr>
+                <tr><td colSpan={mode === 'compare' ? 6 : 7} className="text-center py-8 text-gray-400 text-sm">Tidak ada data</td></tr>
               ) : data.map((item, idx) => (
                 <tr key={item.supplier_code} className={idx%2===1 ? 'bg-[#F8FAFB]' : ''}>
                   {mode === 'compare' && (

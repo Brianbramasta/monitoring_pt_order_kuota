@@ -11,7 +11,7 @@ const customTooltipStyle = {
 
 export default function LineChart({ data = [], lineKeys = ['value'], colors = DEFAULT_COLORS, title }) {
   return (
-    <div className="w-full max-w-4xl mx-auto bg-[#FAFAFB] rounded-2xl p-8 flex flex-col items-center" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+    <div className="w-full max-w-4xl mx-auto bg-white rounded-2xl p-8 flex flex-col items-center" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
       <div className="text-xl font-bold text-center mb-6">{title}</div>
       {data.length === 0 ? (
         <div className="text-gray-400">Tidak ada data</div>
