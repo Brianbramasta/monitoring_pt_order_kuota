@@ -25,7 +25,7 @@ export default function TableSupplier({
   };
 
   return (
-    <div className="bg-white border-t border-[#E0E0E0] p-3 sm:p-5 w-full" style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
+    <div className=" border-t border-[#E0E0E0] p-3 sm:p-5 w-full" style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
       {/* Filter, Search & Actions */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4 items-start sm:items-center justify-between">
         {mode === 'normal' ? (
@@ -33,7 +33,7 @@ export default function TableSupplier({
             <div className="flex-1 flex justify-between items-center gap-2" style={{flexWrap:'wrap'}}>
               <input
                 type="text"
-                className="border border-[#BDBDBD] rounded-full px-3 py-1.5 text-sm w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-[#177F7E]"
+                className="bg-white border border-[#BDBDBD] rounded-full px-3 py-1.5 text-sm w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-[#177F7E]"
                 placeholder="Cari supplier"
                 value={search}
                 onChange={handleSearch}
@@ -41,9 +41,12 @@ export default function TableSupplier({
               />
             </div>
             <button
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#1EC98B] text-[#1EC98B] bg-white hover:bg-[#F6FFFC] font-medium text-sm transition cursor-pointer"
+              className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#177F7E] text-[#177F7E] bg-white hover:bg-[#F6FFFC] font-medium text-sm transition cursor-pointer"
               onClick={onCompare}
-            >
+            ><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H12M12 3H5C4.46957 3 3.96086 3.21071 3.58579 3.58579C3.21071 3.96086 3 4.46957 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H12M12 3V21" stroke="#177F7E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            
               Bandingkan Supplier
             </button>
           </>
@@ -58,7 +61,7 @@ export default function TableSupplier({
                 Lakukan Perbandingan
               </button>
               <button
-                className="border border-red-500 text-red-600 px-4 py-2 rounded-full hover:bg-red-50 font-medium text-sm transition cursor-pointer flex items-center gap-2"
+                className="bg-white border border-red-500 text-red-600 px-4 py-2 rounded-full hover:bg-red-50 font-medium text-sm transition cursor-pointer flex items-center gap-2"
                 onClick={onCancelCompare}
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -74,10 +77,10 @@ export default function TableSupplier({
         )}
       </div>
       <div className="w-full">
-        <div className="overflow-x-auto w-full">
-          <table className="w-full min-w-[640px] border-collapse" style={{fontFamily: 'Poppins, Arial, sans-serif', fontSize: 14}}>
+        <div className="overflow-x-auto w-full rounded-xl">
+          <table className="w-full min-w-[640px] border-collapse rounded-xl bg-white" style={{fontFamily: 'Poppins, Arial, sans-serif', fontSize: 14}}>
             <thead>
-              <tr className="bg-[#E6F4F1]">
+              <tr className="">
                 {mode === 'compare' && <th className="px-2 sm:px-4 py-2 text-left font-semibold text-xs sm:text-sm whitespace-nowrap border-[#BDBDBD]">Pilih</th>}
                 <th className="px-2 sm:px-4 py-2 text-left font-semibold text-xs sm:text-sm whitespace-nowrap border-[#BDBDBD]">No</th>
                 <th className="px-2 sm:px-4 py-2 text-left font-semibold text-xs sm:text-sm whitespace-nowrap border-[#BDBDBD]">Nama Supplier</th>
