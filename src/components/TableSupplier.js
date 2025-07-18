@@ -78,7 +78,7 @@ export default function TableSupplier({
       </div>
       <div className="w-full">
         <div className="overflow-x-auto w-full rounded-xl">
-          <table className="w-full min-w-[640px] border-collapse rounded-xl bg-white" style={{fontFamily: 'Poppins, Arial, sans-serif', fontSize: 14}}>
+          <table className="w-full min-w-[640px] border-collapse rounded-xl bg-white table-supplier" style={{fontFamily: 'Poppins, Arial, sans-serif', fontSize: 14}}>
             <thead>
               <tr className="">
                 {mode === 'compare' && <th className="px-2 sm:px-4 py-2 text-left font-semibold text-xs sm:text-sm whitespace-nowrap border-[#BDBDBD]">Pilih</th>}
