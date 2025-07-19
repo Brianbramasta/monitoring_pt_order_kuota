@@ -48,6 +48,7 @@ export default function DynamicTable({ columns, data, searchPlaceholder, onSearc
                 options={filter.options}
                 value={filter.value}
                 onChange={filter.onChange}
+                type={filter.type}
               />
             ))}
           </div>

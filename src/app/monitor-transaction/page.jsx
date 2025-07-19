@@ -47,10 +47,11 @@ export default function MonitorTransactionPage() {
 
   if (produkReady) {
     filters.push({
-      label: produkOptions.find(opt => opt.value === produk)?.label || "Pilih Produk",
+      label: "Nama Produk",
       options: produkOptions,
       value: produk,
       onChange: setProduk,
+      type: "search"
     });
   }
 
