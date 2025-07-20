@@ -108,7 +108,14 @@ export async function GET(request) {
       code: 200,
       status: "success",
       message: "Data transaksi pending berhasil diambil",
-      data: { recap, transactions: transactionsWithNo, pagination }
+      data: {
+        recap,
+        transactions: transactionsWithNo,
+        pagination,
+        most_pending_products_daily: dbData.most_pending_products_daily || [],
+        top_pending_partners_daily: dbData.top_pending_partners_daily || [],
+        total_pending_transactions_daily: dbData.total_pending_transactions_daily || []
+      }
     });
     return addCorsHeaders(response);
   } catch (error) {

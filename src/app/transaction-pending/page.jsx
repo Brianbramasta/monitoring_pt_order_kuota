@@ -6,7 +6,8 @@ import { getPendingTransactions } from '@/services/transactions';
 import dayjs from 'dayjs';
 import RefreshButton from '@/components/RefreshButton';
 import AreaGrafik from '../../components/AreaGrafik';
-
+import BestSellingProductList from '../../components/BestSellingProductList';
+import TotalTransactionBarChart from '../../components/charts/TotalTransactionBarChart';
 
 
 // Dummy data table
@@ -37,6 +38,9 @@ export default function TransactionPendingPage() {
   const [chartPeriod, setChartPeriod] = useState('monthly');
   const [chartData, setChartData] = useState([]);
   const [loadingChart, setLoadingChart] = useState(false);
+  const [mostPendingProducts, setMostPendingProducts] = useState([]);
+  const [topPendingPartners, setTopPendingPartners] = useState([]);
+  const [totalPendingTransactionsDaily, setTotalPendingTransactionsDaily] = useState([]);
 
   /**
    * Menghitung start_date dan end_date berdasarkan filter yang dipilih user.
@@ -99,11 +103,17 @@ export default function TransactionPendingPage() {
         })));
         setTotalData(res.data.data?.pagination?.total_data || arr.length);
         setRecap(res.data.data?.recap || {});
+        setMostPendingProducts(res.data.data?.most_pending_products_daily || []);
+        setTopPendingPartners(res.data.data?.top_pending_partners_daily || []);
+        setTotalPendingTransactionsDaily(res.data.data?.total_pending_transactions_daily || []);
       })
       .catch(() => {
         setData([]);
         setTotalData(0);
         setRecap({});
+        setMostPendingProducts([]);
+        setTopPendingPartners([]);
+        setTotalPendingTransactionsDaily([]);
       })
       .finally(() => setLoading(false));
   };
@@ -253,6 +263,35 @@ const cards = [
             totalData,
           }}
           loading={loading}
+        />
+      </div>
+      {/* Section: Produk yang sering pending (perhari) & Mitra dengan transaksi pending terbanyak (perhari) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+        <BestSellingProductList title="Produk yang sering pending (perhari)" products={mostPendingProducts.map(p => ({ product_name: p.product_name, sales: p.value }))} />
+        <div className="w-full bg-white rounded-2xl p-6 flex flex-col items-start" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+          <div className="text-xl font-bold mb-4 text-center w-full">Mitra dengan transaksi pending terbanyak (perhari)</div>
+          <DynamicTable
+            columns={[
+              { key: 'no', label: 'No.' },
+              { key: 'partner_name', label: 'Nama Mitra' },
+              { key: 'total_pending_transactions', label: 'Total Transaksi Pending' },
+            ]}
+            data={topPendingPartners}
+            searchPlaceholder={null}
+            onSearch={null}
+            filters={[]}
+            pagination={false}
+            loading={loading}
+          />
+        </div>
+      </div>
+      {/* Section: Total Transaksi Pending (perhari) */}
+      <div className="my-4">
+        <TotalTransactionBarChart
+          title="Total Transaksi Pending (perhari)"
+          totalLabel="Total Pending"
+          totalValue={totalPendingTransactionsDaily.reduce((a, b) => a + (b.total || 0), 0)}
+          data={totalPendingTransactionsDaily}
         />
       </div>
     </div>

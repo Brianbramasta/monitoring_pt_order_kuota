@@ -83,6 +83,7 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
   - `limit`: Jumlah data per halaman (opsional, default 10)
   - `page`: Nomor halaman (opsional, default 1)
 - **Parameter Response:**
+
   - `recap`: Objek rekapitulasi
     - `most_failed_product_name`: Nama produk yang sering gagal (string)
     - `total_failed_transactions`: Jumlah total transaksi gagal (integer)
@@ -102,50 +103,64 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
     - `total_pages`: Total halaman (integer)
     - `current_page`: Halaman saat ini (integer)
     - `limit`: Batas data per halaman (integer)
+  - `most_failed_products_daily`: Array produk yang sering gagal per hari
+    - `product_name`: Nama produk (string)
+    - `value`: Jumlah transaksi gagal per hari (integer)
+  - `top_partners_daily`: Array mitra dengan transaksi gagal terbanyak per hari
+    - `no`: Nomor urut (integer)
+    - `partner_name`: Nama mitra (string)
+    - `total_failed_transactions`: Total transaksi gagal (integer)
+  - `total_transactions_daily`: Array total transaksi gagal per hari
+    - `date`: Tanggal (string, format `YYYY-MM-DD`)
+    - `total`: Total transaksi gagal (integer)
+
 - **Example Response (JSON):**
-  ```json
-  {
-    "code": 200,
-    "status": "success",
-    "message": "Data transaksi gagal berhasil diambil",
-    "data": {
-      "recap": {
-        "most_failed_product_name": "Pulsa Indosat 5rb",
-        "total_failed_transactions": 150,
-        "total_failed_nominal": 750000.0,
-        "total_products": 25
-      },
-      "transactions": [
-        {
-          "no": 1,
-          "date": "2025-06-22",
-          "product_name": "Pulsa Indosat 5rb",
-          "supplier_name": "Supplier A",
-          "product_code": "IND5K",
-          "price": 5200.0,
-          "quantity": 10,
-          "void": "PULSA001"
-        },
-        {
-          "no": 2,
-          "date": "2025-06-22",
-          "product_name": "Paket Data XL 1GB",
-          "supplier_name": "Supplier B",
-          "product_code": "XL1GB",
-          "price": 11000.0,
-          "quantity": 5,
-          "void": null
-        }
-      ],
-      "pagination": {
-        "total_data": 150,
-        "total_pages": 15,
-        "current_page": 1,
-        "limit": 10
+
+```json
+{
+  "code": 200,
+  "status": "success",
+  "message": "Data transaksi gagal berhasil diambil",
+  "data": {
+    "recap": {
+      "most_failed_product_name": "Pulsa Indosat 5rb",
+      "total_failed_transactions": 150,
+      "total_failed_nominal": 750000.0,
+      "total_products": 25
+    },
+    "transactions": [
+      {
+        "no": 1,
+        "date": "2025-06-22",
+        "product_name": "Pulsa Indosat 5rb",
+        "supplier_name": "Supplier A",
+        "product_code": "IND5K",
+        "price": 5200.0,
+        "quantity": 10,
+        "void": "PULSA001"
       }
-    }
+    ],
+    "pagination": {
+      "total_data": 150,
+      "total_pages": 15,
+      "current_page": 1,
+      "limit": 10
+    },
+    "most_failed_products_daily": [
+      { "product_name": "Pulsa Telkomsel 5rb", "value": 23400 },
+      { "product_name": "Pulsa Telkomsel 10rb", "value": 30000 }
+    ],
+    "top_partners_daily": [
+      { "no": 1, "partner_name": "PT ABC", "total_failed_transactions": 170 },
+      { "no": 2, "partner_name": "PT XYZ", "total_failed_transactions": 120 }
+    ],
+    "total_transactions_daily": [
+      { "date": "2025-06-01", "total": 80 },
+      { "date": "2025-06-02", "total": 90 }
+    ]
   }
-  ```
+}
+```
 
 ---
 
@@ -188,6 +203,7 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
   - `limit`: Jumlah data per halaman (opsional, default 10)
   - `page`: Nomor halaman (opsional, default 1)
 - **Parameter Response:**
+
   - `recap`: Objek rekapitulasi
     - `most_pending_product_name`: Nama produk yang sering pending (string)
     - `total_pending_transactions`: Jumlah total transaksi pending (integer)
@@ -200,57 +216,66 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
     - `supplier_name`: Nama supplier (string)
     - `product_code`: Kode produk (string)
     - `price`: Harga (decimal)
-    - `quantity`: Jumlah transaksi (integer)
+    - `quantity": Jumlah transaksi (integer)
     - `void`: Kode void (string, opsional, null jika tidak ada)
   - `pagination`: Objek informasi pagination
     - `total_data`: Total seluruh data (integer)
     - `total_pages`: Total halaman (integer)
     - `current_page`: Halaman saat ini (integer)
     - `limit`: Batas data per halaman (integer)
+  - `most_pending_products_daily`: Array produk yang sering pending per hari
+    - `product_name`: Nama produk (string)
+    - `value`: Jumlah transaksi pending per hari (integer)
+  - `top_partners_daily`: Array mitra dengan transaksi pending terbanyak per hari
+    - `no`: Nomor urut (integer)
+    - `partner_name`: Nama mitra (string)
+    - `total_pending_transactions`: Total transaksi pending (integer)
+  - `total_transactions_daily`: Array total transaksi pending per hari
+    - `date`: Tanggal (string, format `YYYY-MM-DD`)
+    - `total`: Total transaksi pending (integer)
+
 - **Example Response (JSON):**
-  ```json
-  {
-    "code": 200,
-    "status": "success",
-    "message": "Data transaksi pending berhasil diambil",
-    "data": {
-      "recap": {
-        "most_pending_product_name": "Token PLN 50rb",
-        "total_pending_transactions": 80,
-        "total_pending_nominal": 4000000.0,
-        "total_products": 15
-      },
-      "transactions": [
-        {
-          "no": 1,
-          "date": "2025-06-22",
-          "product_name": "Token PLN 50rb",
-          "supplier_name": "Supplier C",
-          "product_code": "PLN50K",
-          "price": 50500.0,
-          "quantity": 5,
-          "void": "PLN003"
-        },
-        {
-          "no": 2,
-          "date": "2025-06-22",
-          "product_name": "Pembayaran BPJS",
-          "supplier_name": "Supplier D",
-          "product_code": "BPJS001",
-          "price": 25000.0,
-          "quantity": 2,
-          "void": null
-        }
-      ],
-      "pagination": {
-        "total_data": 80,
-        "total_pages": 8,
-        "current_page": 1,
-        "limit": 10
+
+```json
+{
+  "code": 200,
+  "status": "success",
+  "message": "Data transaksi pending berhasil diambil",
+  "data": {
+    "recap": {
+      "most_pending_product_name": "Token PLN 50rb",
+      "total_pending_transactions": 80,
+      "total_pending_nominal": 4000000.0,
+      "total_products": 15
+    },
+    "transactions": [
+      {
+        "no": 1,
+        "date": "2025-06-22",
+        "product_name": "Token PLN 50rb",
+        "supplier_name": "Supplier C",
+        "product_code": "PLN50K",
+        "price": 50500.0,
+        "quantity": 5,
+        "void": "PLN003"
       }
-    }
+    ],
+    "pagination": {
+      "total_data": 80,
+      "total_pages": 8,
+      "current_page": 1,
+      "limit": 10
+    },
+    "most_pending_products_daily": [
+      { "product_name": "Pulsa Telkomsel 5rb", "value": 23400 }
+    ],
+    "top_partners_daily": [
+      { "no": 1, "partner_name": "PT ABC", "total_pending_transactions": 170 }
+    ],
+    "total_transactions_daily": [{ "date": "2025-06-01", "total": 80 }]
   }
-  ```
+}
+```
 
 ---
 
@@ -293,6 +318,7 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
   - `limit`: Jumlah data per halaman (opsional, default 10)
   - `page`: Nomor halaman (opsional, default 1)
 - **Parameter Response:**
+
   - `recap`: Objek rekapitulasi
     - `most_successful_product_name`: Nama produk yang sering sukses (string)
     - `total_successful_transactions`: Jumlah total transaksi sukses (integer)
@@ -304,58 +330,71 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
     - `product_name`: Nama produk (string)
     - `supplier_name`: Nama supplier (string)
     - `product_code`: Kode produk (string)
-    - `price`: Harga (decimal)
-    - `quantity`: Jumlah transaksi (integer)
-    - `void`: Kode void (string, opsional, null jika tidak ada)
-  - `pagination`: Objek informasi pagination
-    - `total_data`: Total seluruh data (integer)
-    - `total_pages`: Total halaman (integer)
-    - `current_page`: Halaman saat ini (integer)
-    - `limit`: Batas data per halaman (integer)
+    - `price": Harga (decimal)
+    - `quantity": Jumlah transaksi (integer)
+    - `void": Kode void (string, opsional, null jika tidak ada)
+  - `pagination": Objek informasi pagination
+    - `total_data": Total seluruh data (integer)
+    - `total_pages": Total halaman (integer)
+    - `current_page": Halaman saat ini (integer)
+    - `limit": Batas data per halaman (integer)
+  - `most_successful_products_daily": Array produk yang sering sukses per hari
+    - `product_name": Nama produk (string)
+    - `value": Jumlah transaksi sukses per hari (integer)
+  - `top_partners_daily": Array mitra dengan transaksi sukses terbanyak per hari
+    - `no": Nomor urut (integer)
+    - `partner_name": Nama mitra (string)
+    - `total_successful_transactions": Total transaksi sukses (integer)
+  - `total_transactions_daily": Array total transaksi sukses per hari
+    - `date": Tanggal (string, format `YYYY-MM-DD`)
+    - `total": Total transaksi sukses (integer)
+
 - **Example Response (JSON):**
-  ```json
-  {
-    "code": 200,
-    "status": "success",
-    "message": "Data transaksi sukses berhasil diambil",
-    "data": {
-      "recap": {
-        "most_successful_product_name": "Pulsa Telkomsel 10rb",
-        "total_successful_transactions": 5000,
-        "total_successful_nominal": 50000000.0,
-        "total_products": 100
-      },
-      "transactions": [
-        {
-          "no": 1,
-          "date": "2025-06-22",
-          "product_name": "Pulsa Telkomsel 10rb",
-          "supplier_name": "Supplier E",
-          "product_code": "TSEL10K",
-          "price": 10500.0,
-          "quantity": 50,
-          "void": "PULSA006"
-        },
-        {
-          "no": 2,
-          "date": "2025-06-22",
-          "product_name": "Game Voucher Mobile Legends 50Diamonds",
-          "supplier_name": "Supplier F",
-          "product_code": "ML50D",
-          "price": 15000.0,
-          "quantity": 10,
-          "void": null
-        }
-      ],
-      "pagination": {
-        "total_data": 5000,
-        "total_pages": 500,
-        "current_page": 1,
-        "limit": 10
+
+```json
+{
+  "code": 200,
+  "status": "success",
+  "message": "Data transaksi sukses berhasil diambil",
+  "data": {
+    "recap": {
+      "most_successful_product_name": "Pulsa Telkomsel 10rb",
+      "total_successful_transactions": 5000,
+      "total_successful_nominal": 50000000.0,
+      "total_products": 100
+    },
+    "transactions": [
+      {
+        "no": 1,
+        "date": "2025-06-22",
+        "product_name": "Pulsa Telkomsel 10rb",
+        "supplier_name": "Supplier E",
+        "product_code": "TSEL10K",
+        "price": 10500.0,
+        "quantity": 50,
+        "void": "PULSA006"
       }
-    }
+    ],
+    "pagination": {
+      "total_data": 5000,
+      "total_pages": 500,
+      "current_page": 1,
+      "limit": 10
+    },
+    "most_successful_products_daily": [
+      { "product_name": "Pulsa Telkomsel 10rb", "value": 5000 }
+    ],
+    "top_partners_daily": [
+      {
+        "no": 1,
+        "partner_name": "PT ABC",
+        "total_successful_transactions": 3000
+      }
+    ],
+    "total_transactions_daily": [{ "date": "2025-06-01", "total": 200 }]
   }
-  ```
+}
+```
 
 ---
 
@@ -398,70 +437,79 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
   - `limit`: Jumlah data per halaman (opsional, default 10)
   - `page`: Nomor halaman (opsional, default 1)
 - **Parameter Response:**
+
   - `recap`: Objek rekapitulasi
     - `total_complaint_transactions`: Total komplain transaksi (integer)
-    - `total_complaint_nominal`: Total nominal komplain (decimal)
-    - `total_unread_cs_messages`: Total pesan CS yang belum terbaca (integer)
-  - `transactions`: Array komplain transaksi
-    - `no`: Nomor urut (integer)
-    - `date`: Tanggal transaksi (string, format `YYYY-MM-DD`)
-    - `product_name`: Nama produk (string)
-    - `supplier_name`: Nama supplier (string)
-    - `product_code`: Kode produk (string)
-    - `price`: Harga (decimal)
-    - `quantity`: Jumlah transaksi (integer)
-    - `void`: Kode void (string, opsional, null jika tidak ada)
-    - `is_read`: Status pesan CS (boolean, true = sudah dibaca, false = belum dibaca)
-  - `pagination`: Objek informasi pagination
-    - `total_data`: Total seluruh data (integer)
-    - `total_pages`: Total halaman (integer)
-    - `current_page`: Halaman saat ini (integer)
-    - `limit`: Batas data per halaman (integer)
+    - `total_complaint_nominal": Total nominal komplain (decimal)
+    - `total_unread_cs_messages": Total pesan CS yang belum terbaca (integer)
+  - `transactions": Array komplain transaksi
+    - `no": Nomor urut (integer)
+    - `date": Tanggal transaksi (string, format `YYYY-MM-DD`)
+    - `product_name": Nama produk (string)
+    - `supplier_name": Nama supplier (string)
+    - `product_code": Kode produk (string)
+    - `price": Harga (decimal)
+    - `quantity": Jumlah transaksi (integer)
+    - `void": Kode void (string, opsional, null jika tidak ada)
+    - `is_read": Status pesan CS (boolean, true = sudah dibaca, false = belum dibaca)
+  - `pagination": Objek informasi pagination
+    - `total_data": Total seluruh data (integer)
+    - `total_pages": Total halaman (integer)
+    - `current_page": Halaman saat ini (integer)
+    - `limit": Batas data per halaman (integer)
+  - `most_complaint_products_daily": Array produk yang sering komplain per hari
+    - `product_name": Nama produk (string)
+    - `value": Jumlah komplain per hari (integer)
+  - `top_partners_daily": Array mitra dengan komplain terbanyak per hari
+    - `no": Nomor urut (integer)
+    - `partner_name": Nama mitra (string)
+    - `total_complaint_transactions": Total komplain transaksi (integer)
+  - `total_transactions_daily": Array total komplain transaksi per hari
+    - `date": Tanggal (string, format `YYYY-MM-DD`)
+    - `total": Total komplain transaksi (integer)
+
 - **Example Response (JSON):**
-  ```json
-  {
-    "code": 200,
-    "status": "success",
-    "message": "Data komplain transaksi berhasil diambil",
-    "data": {
-      "recap": {
-        "total_complaint_transactions": 20,
-        "total_complaint_nominal": 150000.0,
-        "total_unread_cs_messages": 7
-      },
-      "transactions": [
-        {
-          "no": 1,
-          "date": "2025-06-21",
-          "product_name": "Pulsa Indosat 10rb",
-          "supplier_name": "Supplier A",
-          "product_code": "IND10K",
-          "price": 10200.0,
-          "quantity": 1,
-          "void": "PULSA004",
-          "is_read": false
-        },
-        {
-          "no": 2,
-          "date": "2025-06-20",
-          "product_name": "Paket Data Telkomsel 2GB",
-          "supplier_name": "Supplier E",
-          "product_code": "TSEL2GB",
-          "price": 22000.0,
-          "quantity": 1,
-          "void": "DATA005",
-          "is_read": true
-        }
-      ],
-      "pagination": {
-        "total_data": 20,
-        "total_pages": 2,
-        "current_page": 1,
-        "limit": 10
+
+```json
+{
+  "code": 200,
+  "status": "success",
+  "message": "Data komplain transaksi berhasil diambil",
+  "data": {
+    "recap": {
+      "total_complaint_transactions": 20,
+      "total_complaint_nominal": 150000.0,
+      "total_unread_cs_messages": 7
+    },
+    "transactions": [
+      {
+        "no": 1,
+        "date": "2025-06-21",
+        "product_name": "Pulsa Indosat 10rb",
+        "supplier_name": "Supplier A",
+        "product_code": "IND10K",
+        "price": 10200.0,
+        "quantity": 1,
+        "void": "PULSA004",
+        "is_read": false
       }
-    }
+    ],
+    "pagination": {
+      "total_data": 20,
+      "total_pages": 2,
+      "current_page": 1,
+      "limit": 10
+    },
+    "most_complaint_products_daily": [
+      { "product_name": "Pulsa Telkomsel 5rb", "value": 10 }
+    ],
+    "top_partners_daily": [
+      { "no": 1, "partner_name": "PT ABC", "total_complaint_transactions": 7 }
+    ],
+    "total_transactions_daily": [{ "date": "2025-06-01", "total": 5 }]
   }
-  ```
+}
+```
 
 ---
 

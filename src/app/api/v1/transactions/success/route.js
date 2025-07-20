@@ -108,7 +108,14 @@ export async function GET(request) {
       code: 200,
       status: "success",
       message: "Data transaksi sukses berhasil diambil",
-      data: { recap, transactions: transactionsWithNo, pagination }
+      data: {
+        recap,
+        transactions: transactionsWithNo,
+        pagination,
+        most_successful_products_daily: dbData.most_successful_products_daily || [],
+        top_success_partners_daily: dbData.top_success_partners_daily || [],
+        total_successful_transactions_daily: dbData.total_successful_transactions_daily || []
+      }
     });
     return addCorsHeaders(response);
   } catch (error) {

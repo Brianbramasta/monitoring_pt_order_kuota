@@ -6,7 +6,8 @@ import { getComplaintTransactions } from '@/services/transactions';
 import dayjs from 'dayjs';
 import RefreshButton from '@/components/RefreshButton';
 import AreaGrafik from '../../components/AreaGrafik';
-
+import BestSellingProductList from '../../components/BestSellingProductList';
+import TotalTransactionBarChart from '../../components/charts/TotalTransactionBarChart';
 
 
 // Dummy data table
@@ -37,6 +38,9 @@ export default function TransactionComplaintPage() {
   const [chartPeriod, setChartPeriod] = useState('monthly');
   const [chartData, setChartData] = useState([]);
   const [loadingChart, setLoadingChart] = useState(false);
+  const [mostComplaintProducts, setMostComplaintProducts] = useState([]);
+  const [topComplaintPartners, setTopComplaintPartners] = useState([]);
+  const [totalComplaintTransactionsDaily, setTotalComplaintTransactionsDaily] = useState([]);
 
   /**
    * Menghitung start_date dan end_date berdasarkan filter yang dipilih user.
@@ -99,11 +103,17 @@ export default function TransactionComplaintPage() {
         })));
         setTotalData(res.data.data?.pagination?.total_data || arr.length);
         setRecap(res.data.data?.recap || {});
+        setMostComplaintProducts(res.data.data?.most_complaint_products_daily || []);
+        setTopComplaintPartners(res.data.data?.top_complaint_partners_daily || []);
+        setTotalComplaintTransactionsDaily(res.data.data?.total_complaint_transactions_daily || []);
       })
       .catch(() => {
         setData([]);
         setTotalData(0);
         setRecap({});
+        setMostComplaintProducts([]);
+        setTopComplaintPartners([]);
+        setTotalComplaintTransactionsDaily([]);
       })
       .finally(() => setLoading(false));
   };
@@ -249,6 +259,35 @@ const cards = [
             totalData,
           }}
           loading={loading}
+        />
+      </div>
+      {/* Section: Produk yang sering komplain (perhari) & Mitra dengan komplain terbanyak (perhari) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+        <BestSellingProductList title="Produk yang sering komplain (perhari)" products={mostComplaintProducts.map(p => ({ product_name: p.product_name, sales: p.value }))} />
+        <div className="w-full bg-white rounded-2xl p-6 flex flex-col items-start" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+          <div className="text-xl font-bold mb-4 text-center w-full">Mitra dengan komplain terbanyak (perhari)</div>
+          <DynamicTable
+            columns={[
+              { key: 'no', label: 'No.' },
+              { key: 'partner_name', label: 'Nama Mitra' },
+              { key: 'total_complaint_transactions', label: 'Total Komplain' },
+            ]}
+            data={topComplaintPartners}
+            searchPlaceholder={null}
+            onSearch={null}
+            filters={[]}
+            pagination={false}
+            loading={loading}
+          />
+        </div>
+      </div>
+      {/* Section: Total Komplain (perhari) */}
+      <div className="my-4">
+        <TotalTransactionBarChart
+          title="Total Komplain (perhari)"
+          totalLabel="Total Komplain"
+          totalValue={totalComplaintTransactionsDaily.reduce((a, b) => a + (b.total || 0), 0)}
+          data={totalComplaintTransactionsDaily}
         />
       </div>
     </div>

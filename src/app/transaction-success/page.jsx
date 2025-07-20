@@ -6,6 +6,8 @@ import { getSuccessTransactions } from '@/services/transactions';
 import dayjs from 'dayjs';
 import RefreshButton from '@/components/RefreshButton';
 import AreaGrafik from '../../components/AreaGrafik';
+import BestSellingProductList from '../../components/BestSellingProductList';
+import TotalTransactionBarChart from '../../components/charts/TotalTransactionBarChart';
 
 // Dummy data card (bisa diganti dengan data summary dari API jika ada endpointnya)
 const columns = [
@@ -35,6 +37,9 @@ export default function TransactionSuccessPage() {
   const [chartPeriod, setChartPeriod] = useState('monthly');
   const [chartData, setChartData] = useState([]);
   const [loadingChart, setLoadingChart] = useState(false);
+  const [mostSuccessProducts, setMostSuccessProducts] = useState([]);
+  const [topSuccessPartners, setTopSuccessPartners] = useState([]);
+  const [totalSuccessTransactionsDaily, setTotalSuccessTransactionsDaily] = useState([]);
 
   /**
    * Menghitung start_date dan end_date berdasarkan filter yang dipilih user.
@@ -97,11 +102,17 @@ export default function TransactionSuccessPage() {
         })));
         setTotalData(res.data.data?.pagination?.total_data || arr.length);
         setRecap(res.data.data?.recap || {});
+        setMostSuccessProducts(res.data.data?.most_successful_products_daily || []);
+        setTopSuccessPartners(res.data.data?.top_success_partners_daily || []);
+        setTotalSuccessTransactionsDaily(res.data.data?.total_successful_transactions_daily || []);
       })
       .catch(() => {
         setData([]);
         setTotalData(0);
         setRecap({});
+        setMostSuccessProducts([]);
+        setTopSuccessPartners([]);
+        setTotalSuccessTransactionsDaily([]);
       })
       .finally(() => setLoading(false));
   };
@@ -250,6 +261,35 @@ export default function TransactionSuccessPage() {
             totalData,
           }}
           loading={loading}
+        />
+      </div>
+      {/* Section: Produk yang sering sukses (perhari) & Mitra dengan transaksi sukses terbanyak (perhari) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+        <BestSellingProductList title="Produk yang sering sukses (perhari)" products={mostSuccessProducts.map(p => ({ product_name: p.product_name, sales: p.value }))} />
+        <div className="w-full bg-white rounded-2xl p-6 flex flex-col items-start" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+          <div className="text-xl font-bold mb-4 text-center w-full">Mitra dengan transaksi sukses terbanyak (perhari)</div>
+          <DynamicTable
+            columns={[
+              { key: 'no', label: 'No.' },
+              { key: 'partner_name', label: 'Nama Mitra' },
+              { key: 'total_successful_transactions', label: 'Total Transaksi Sukses' },
+            ]}
+            data={topSuccessPartners}
+            searchPlaceholder={null}
+            onSearch={null}
+            filters={[]}
+            pagination={false}
+            loading={loading}
+          />
+        </div>
+      </div>
+      {/* Section: Total Transaksi Sukses (perhari) */}
+      <div className="my-4">
+        <TotalTransactionBarChart
+          title="Total Transaksi Sukses (perhari)"
+          totalLabel="Total Sukses"
+          totalValue={totalSuccessTransactionsDaily.reduce((a, b) => a + (b.total || 0), 0)}
+          data={totalSuccessTransactionsDaily}
         />
       </div>
     </div>

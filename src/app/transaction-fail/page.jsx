@@ -6,6 +6,8 @@ import { getFailedTransactions } from '@/services/transactions';
 import dayjs from 'dayjs';
 import RefreshButton from '@/components/RefreshButton';
 import AreaGrafik from '../../components/AreaGrafik';
+import BestSellingProductList from '../../components/BestSellingProductList';
+import TotalTransactionBarChart from '../../components/charts/TotalTransactionBarChart';
 
 // Dummy data card
 
@@ -40,6 +42,9 @@ export default function TransactionFailPage() {
   const [chartPeriod, setChartPeriod] = useState('monthly');
   const [chartData, setChartData] = useState([]);
   const [loadingChart, setLoadingChart] = useState(false);
+  const [mostFailedProducts, setMostFailedProducts] = useState([]);
+  const [topFailedPartners, setTopFailedPartners] = useState([]);
+  const [totalFailedTransactionsDaily, setTotalFailedTransactionsDaily] = useState([]);
 
   /**
  * Menghitung start_date dan end_date berdasarkan filter yang dipilih user.
@@ -102,11 +107,17 @@ const fetchData = () => {
       })));
       setTotalData(res.data.data?.pagination?.total_data || arr.length);
       setRecap(res.data.data?.recap || {});
+      setMostFailedProducts(res.data.data?.most_failed_products_daily || []);
+      setTopFailedPartners(res.data.data?.top_failed_partners_daily || []);
+      setTotalFailedTransactionsDaily(res.data.data?.total_failed_transactions_daily || []);
     })
     .catch(() => {
       setData([]);
       setTotalData(0);
       setRecap({});
+      setMostFailedProducts([]);
+      setTopFailedPartners([]);
+      setTotalFailedTransactionsDaily([]);
     })
     .finally(() => setLoading(false));
 };
@@ -258,6 +269,35 @@ const fetchChart = () => {
           loading={loading}
         />
       </div>
+      {/* Section: Produk yang sering gagal (perhari) & Mitra dengan transaksi gagal terbanyak (perhari) */}
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+  <BestSellingProductList title="Produk yang sering gagal (perhari)" products={mostFailedProducts.map(p => ({ product_name: p.product_name, sales: p.value }))} />
+  <div className="w-full bg-white rounded-2xl p-6 flex flex-col items-start" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+    <div className="text-xl font-bold mb-4 text-center w-full">Mitra dengan transaksi gagal terbanyak (perhari)</div>
+    <DynamicTable
+      columns={[
+        { key: 'no', label: 'No.' },
+        { key: 'partner_name', label: 'Nama Mitra' },
+        { key: 'total_failed_transactions', label: 'Total Transaksi Gagal' },
+      ]}
+      data={topFailedPartners}
+      searchPlaceholder={null}
+      onSearch={null}
+      filters={[]}
+      pagination={false}
+      loading={loading}
+    />
+  </div>
+</div>
+{/* Section: Total Transaksi Gagal (perhari) */}
+<div className="my-4">
+  <TotalTransactionBarChart
+    title="Total Transaksi Gagal (perhari)"
+    totalLabel="Total Kegagalan"
+    totalValue={totalFailedTransactionsDaily.reduce((a, b) => a + (b.total || 0), 0)}
+    data={totalFailedTransactionsDaily}
+  />
+</div>
     </div>
   );
 }

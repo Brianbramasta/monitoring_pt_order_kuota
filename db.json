@@ -629,6 +629,29 @@
       "void": "DATA005"
     }
   ],
+  "most_failed_products_daily": [
+    { "product_name": "Pulsa Telkomsel 5rb", "value": 23400 },
+    { "product_name": "Pulsa Telkomsel 10rb", "value": 30000 },
+    { "product_name": "Pulsa Telkomsel 15rb", "value": 23400 },
+    { "product_name": "Pulsa Telkomsel 20rb", "value": 22000 },
+    { "product_name": "Pulsa Telkomsel 25rb", "value": 15000 }
+  ],
+  "top_failed_partners_daily": [
+    { "no": 1, "partner_name": "PT ABC", "total_failed_transactions": 170 },
+    { "no": 2, "partner_name": "PT XYZ", "total_failed_transactions": 120 },
+    { "no": 3, "partner_name": "PT DEF", "total_failed_transactions": 100 },
+    { "no": 4, "partner_name": "PT GHI", "total_failed_transactions": 90 },
+    { "no": 5, "partner_name": "PT JKL", "total_failed_transactions": 80 }
+  ],
+  "total_failed_transactions_daily": [
+    { "date": "2025-06-01", "total": 80 },
+    { "date": "2025-06-02", "total": 90 },
+    { "date": "2025-06-03", "total": 100 },
+    { "date": "2025-06-04", "total": 95 },
+    { "date": "2025-06-05", "total": 110 },
+    { "date": "2025-06-06", "total": 120 },
+    { "date": "2025-06-07", "total": 130 }
+  ],
   "product_types": [
     { "id": 1, "name": "Telkomsel" },
     { "id": 2, "name": "Indosat" },
@@ -682,6 +705,64 @@
     { "label": "Apr 2025", "value": 30 },
     { "label": "Mei 2025", "value": 80 },
     { "label": "Jun 2025", "value": 70 }
+  ],
+  "most_complaint_products_daily": [
+    { "product_name": "Pulsa Telkomsel 5rb", "value": 10 },
+    { "product_name": "Pulsa Indosat 10rb", "value": 8 }
+  ],
+  "top_complaint_partners_daily": [
+    { "no": 1, "partner_name": "PT ABC", "total_complaint_transactions": 7 },
+    { "no": 2, "partner_name": "PT XYZ", "total_complaint_transactions": 5 }
+  ],
+  "total_complaint_transactions_daily": [
+    { "date": "2025-06-01", "total": 5 },
+    { "date": "2025-06-02", "total": 6 }
+  ],
+  "most_pending_products_daily": [
+    { "product_name": "Pulsa Telkomsel 5rb", "value": 18000 },
+    { "product_name": "Pulsa Indosat 10rb", "value": 12000 },
+    { "product_name": "Token PLN 20rb", "value": 9000 },
+    { "product_name": "Paket Data XL 1GB", "value": 7000 },
+    { "product_name": "Game Voucher Mobile Legends 50Diamonds", "value": 5000 }
+  ],
+  "top_pending_partners_daily": [
+    { "no": 1, "partner_name": "PT Pending A", "total_pending_transactions": 90 },
+    { "no": 2, "partner_name": "PT Pending B", "total_pending_transactions": 80 },
+    { "no": 3, "partner_name": "PT Pending C", "total_pending_transactions": 70 },
+    { "no": 4, "partner_name": "PT Pending D", "total_pending_transactions": 60 },
+    { "no": 5, "partner_name": "PT Pending E", "total_pending_transactions": 50 }
+  ],
+  "total_pending_transactions_daily": [
+    { "date": "2025-06-01", "total": 60 },
+    { "date": "2025-06-02", "total": 65 },
+    { "date": "2025-06-03", "total": 70 },
+    { "date": "2025-06-04", "total": 75 },
+    { "date": "2025-06-05", "total": 80 },
+    { "date": "2025-06-06", "total": 85 },
+    { "date": "2025-06-07", "total": 90 }
+  ],
+  "most_successful_products_daily": [
+    { "product_name": "Pulsa Telkomsel 10rb", "value": 25000 },
+    { "product_name": "Pulsa Indosat 10rb", "value": 20000 },
+    { "product_name": "Token PLN 20rb", "value": 15000 },
+    { "product_name": "Paket Data XL 1GB", "value": 12000 },
+    { "product_name": "Game Voucher Mobile Legends 50Diamonds", "value": 10000 }
+  ],
+  "top_success_partners_daily": [
+    { "no": 1, "partner_name": "PT Sukses A", "total_successful_transactions": 200 },
+    { "no": 2, "partner_name": "PT Sukses B", "total_successful_transactions": 180 },
+    { "no": 3, "partner_name": "PT Sukses C", "total_successful_transactions": 160 },
+    { "no": 4, "partner_name": "PT Sukses D", "total_successful_transactions": 140 },
+    { "no": 5, "partner_name": "PT Sukses E", "total_successful_transactions": 120 }
+  ],
+  "total_successful_transactions_daily": [
+    { "date": "2025-06-01", "total": 100 },
+    { "date": "2025-06-02", "total": 110 },
+    { "date": "2025-06-03", "total": 120 },
+    { "date": "2025-06-04", "total": 130 },
+    { "date": "2025-06-05", "total": 140 },
+    { "date": "2025-06-06", "total": 150 },
+    { "date": "2025-06-07", "total": 160 }
   ],
   "monitor_transactions": {
     "recap": {

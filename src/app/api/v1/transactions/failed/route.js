@@ -155,7 +155,10 @@ export async function GET(request) {
       data: {
         recap,
         transactions: transactionsWithNo,
-        pagination
+        pagination,
+        most_failed_products_daily: dbData.most_failed_products_daily || [],
+        top_failed_partners_daily: dbData.top_failed_partners_daily || [],
+        total_failed_transactions_daily: dbData.total_failed_transactions_daily || []
       }
     });
 
