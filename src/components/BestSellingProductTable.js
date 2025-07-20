@@ -94,9 +94,9 @@ export default function BestSellingProductTable({ columns, data, searchPlacehold
   }));
 
   return (
-    <div className="border-t border-[#E0E0E0] p-3 sm:p-5 w-full" style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
-      {/* Filter, Search & Actions */}
-      <div className="flex flex-col sm:flex-row gap-3 mb-4 items-start sm:items-center justify-between">
+    <>
+      {/* Filter, Search & Actions (di luar container) */}
+      <div className="flex flex-col sm:flex-row gap-3 mb-4 items-start sm:items-center justify-between" style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
         <div className="flex-1 flex justify-between items-center gap-2" style={{flexWrap:'wrap'}}>
           {onSearch && (
             <input
@@ -136,22 +136,22 @@ export default function BestSellingProductTable({ columns, data, searchPlacehold
           </div>
         )}
       </div>
-
+      <div className="w-full bg-white rounded-2xl shadow-md p-[40px]" style={{boxSizing: 'border-box'}}>
       {/* Top 3 Cards */}
-      <div className="flex flex-row gap-4 mb-6">
+      <div className="flex flex-row gap-[25px] mb-[30px]">
         {top3.map((item, idx) => (
           <div
             key={idx}
-            className="relative flex flex-col justify-between rounded-2xl shadow-md overflow-hidden"
+            className="relative flex flex-col justify-between rounded-[10px] shadow-md overflow-hidden transition-all duration-200 ease-in-out hover:shadow-lg hover:-translate-y-1 cursor-pointer"
             style={{
               background: cardBgColors[idx],
               color: '#fff',
-              width: 460.38,
-              height: 276,
+              width: '100%',
+              height: 'fit-content',
               minWidth: 0,
               position: 'relative',
               padding: '32px 32px 32px 32px',
-              borderRadius: 24,
+              borderRadius: 10,
               fontFamily: 'Poppins, Arial, sans-serif',
             }}
           >
@@ -189,7 +189,7 @@ export default function BestSellingProductTable({ columns, data, searchPlacehold
                 </div>
               </div>
               {/* Informasi lain di bawahnya */}
-              <div style={{display:'flex', flexDirection:'column', gap:18}}>
+              <div style={{display:'flex', flexDirection:'column', gap:4}}>
                 <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', fontSize:18}}>
                   <span style={{fontWeight:400}}>Penjualan</span>
                   <span style={{fontWeight:600}}>{item.sales?.toLocaleString('id-ID')}</span>
@@ -221,8 +221,8 @@ export default function BestSellingProductTable({ columns, data, searchPlacehold
       </div>
 
       {/* Table untuk sisanya */}
-      <div className="overflow-x-auto w-full rounded-xl">
-        <table className="w-full min-w-[640px] border-collapse bg-white rounded-xl" style={{fontFamily: 'Poppins, Arial, sans-serif', fontSize: 14}}>
+      <div className="overflow-x-auto w-full rounded-2xl border border-[#E0E0E0]">
+        <table className="w-full min-w-[640px] border-collapse bg-white rounded-2xl" style={{fontFamily: 'Poppins, Arial, sans-serif', fontSize: 14}}>
           <thead>
             <tr className={headerClass}>
               {columns.filter(col => col.key !== 'diamond').map((col, idx) => (
@@ -316,5 +316,6 @@ export default function BestSellingProductTable({ columns, data, searchPlacehold
         </div>
       )}
     </div>
+    </>
   );
 } 
