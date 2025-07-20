@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from "react";
 import { getBestSellingProducts } from "@/services/products";
-import DynamicTable from "@/components/DynamicTable";
+import BestSellingProductTable from "@/components/BestSellingProductTable";
 import RefreshButton from '@/components/RefreshButton';
 
 const kategoriOptions = [
@@ -9,8 +9,6 @@ const kategoriOptions = [
   { label: "E-Toll", value: "E-Toll" },
   // Tambahkan kategori lain jika ada di data
 ];
-
-const rankColors = ["#00D89E", "#FF414D", "#5CE5DF"];
 
 export default function ProductsBestSellingPage() {
   const [products, setProducts] = useState([]);
@@ -45,67 +43,16 @@ export default function ProductsBestSellingPage() {
     { key: "diamond", label: "" },
   ];
 
-  // Mapping data untuk table
-  const tableData = products.map((item, idx) => ({
-    rank: (
-      <span style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 32,
-        height: 32,
-        borderRadius: '50%',
-        background: rankColors[idx] || '',
-        color: idx<3?'#fff':'#ABABAB',
-        fontWeight: 700,
-        fontSize: 16,
-      }}>{item.rank}</span>
-    ),
-    product_name: (
-      <div className="flex items-center gap-2">
-        <img src={item.icon_product} alt="produk" className="w-8 h-8" />
-        <div>
-          <div className="font-semibold">{item.product_name}</div>
-          <div className="text-xs text-gray-400">{item.category}</div>
-        </div>
-      </div>
-    ),
-    sales: item.sales.toLocaleString("id-ID"),
-    revenue: `Rp ${item.revenue.toLocaleString("id-ID")}`,
-    growth: (
-      <span className={item.growth >= 0 ? "text-green-600 flex items-center gap-1" : "text-red-500 flex items-center gap-1"}>
-        {item.growth >= 0 ? (
-          <>
-            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9 5L5 1L1 5" stroke="#177F7E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            +{Math.round(item.growth * 100)}%
-          </>
-        ) : (
-          <>
-            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9 1L5 5L1 1" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            {Math.round(item.growth * 100)}%
-          </>
-        )}
-      </span>
-    ),
-    diamond: item.icon_diamond ? <img src={item.icon_diamond} alt="diamond" className="w-7 h-7 mx-auto" /> : null,
-  }));
-
-  // Baris 1-3 biru muda, lainnya default
-  const rowClass = (row, idx) => idx < 3 ? 'bg-[#00B3FF]/[.05]' : '';
-
+  // Data asli sudah sesuai kebutuhan BestSellingProductTable (top 3 card + tabel sisanya)
   return (
     <div className="px-0 py-8">
       <div className="flex flex-row justify-between items-center mb-8">
         <h1 className="text-2xl font-bold">Produk Terlaris</h1>
         <RefreshButton onClick={fetchData} disabled={loading} loading={loading} />
       </div>
-      <DynamicTable
+      <BestSellingProductTable
         columns={columns}
-        data={tableData}
+        data={products}
         searchPlaceholder="Cari produk terlaris"
         onSearch={setSearch}
         filters={[{
@@ -115,7 +62,7 @@ export default function ProductsBestSellingPage() {
           onChange: setKategori,
         }]}
         headerClass="bg-white"
-        rowClass={rowClass}
+        rowClass={(row, idx) => idx < 3 ? 'bg-[#00B3FF]/[.05]' : ''}
       />
     </div>
   );
