@@ -7,7 +7,7 @@ export default function TotalTransactionBarChart({ data = [], title = 'Total Tra
   return (
     <div className="w-full  bg-white rounded-2xl p-8 flex flex-col items-center" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
       <div className="text-xl font-bold text-center mb-2">{title}</div>
-      <div className="text-2xl font-bold text-[#F87171] mb-6">{totalLabel}: {typeof totalValue === 'number' ? totalValue.toLocaleString('id-ID') : totalValue}</div>
+      <div className="text font-bold w-full mb-6">{totalLabel}</div>
       {data.length === 0 ? (
         <div className="text-gray-400">Tidak ada data</div>
       ) : (

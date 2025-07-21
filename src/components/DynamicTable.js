@@ -32,13 +32,20 @@ export default function DynamicTable({ columns, data, searchPlaceholder, onSearc
       <div className="flex flex-col sm:flex-row gap-3 mb-4 items-start sm:items-center justify-between">
         <div className="flex-1 flex justify-between items-center gap-2" style={{'flexWrap':'wrap'}}>
           {onSearch && (
-            <input
-              type="text"
-              className="bg-white border border-[#BDBDBD] rounded-full px-3 py-1.5 text-sm w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-[#177F7E]"
-              placeholder={searchPlaceholder || 'Cari...'}
-              value={search}
-              onChange={handleSearch}
-              style={{fontFamily: 'Poppins, Arial, sans-serif'}} />
+            <div className="relative w-full sm:w-64 flex items-center">
+              <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-[#888]" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="#545454" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M17.5 17.5L13.875 13.875" stroke="#545454" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+
+              <input
+                type="text"
+                className="bg-white rounded-full px-10 py-1.5 text-sm w-full focus:outline-none focus:ring-2 focus:ring-[#177F7E]"
+                placeholder={searchPlaceholder || 'Cari...'}
+                value={search}
+                onChange={handleSearch}
+                style={{fontFamily: 'Poppins, Arial, sans-serif'}} />
+            </div>
           )}
           <div className="flex flex-wrap gap-2 w-full sm:w-auto">
             {filters && filters.map((filter, idx) => (
@@ -49,6 +56,7 @@ export default function DynamicTable({ columns, data, searchPlaceholder, onSearc
                 value={filter.value}
                 onChange={filter.onChange}
                 type={filter.type}
+                additionalClass='bg-white'
               />
             ))}
           </div>
