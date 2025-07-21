@@ -3,7 +3,7 @@ import { BarChart as RBarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
 
 const BAR_COLOR = '#F87171';
 
-export default function TotalTransactionBarChart({ data = [], title = 'Total Transaksi', totalLabel = 'Total', totalValue = 0 }) {
+export default function TotalTransactionBarChart({ data = [], title = 'Total Transaksi', totalLabel = 'Total', totalValue = 0, barColor = '#F87171' }) {
   return (
     <div className="w-full  bg-white rounded-2xl p-8 flex flex-col items-center" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
       <div className="text-xl font-bold text-center mb-2">{title}</div>
@@ -17,7 +17,7 @@ export default function TotalTransactionBarChart({ data = [], title = 'Total Tra
             <XAxis dataKey="date" tick={{ fontSize: 16, fill: '#888' }} axisLine={false} tickLine={false} />
             <YAxis tick={{ fontSize: 14, fill: '#888' }} axisLine={false} tickLine={false} />
             <Tooltip cursor={{ fill: 'rgba(248,113,113,0.08)' }} formatter={(v) => v.toLocaleString('id-ID')} labelFormatter={label => `Tanggal: ${label}`} />
-            <Bar dataKey="total" fill={BAR_COLOR} radius={[12, 12, 0, 0]} barSize={28} name="Total" />
+            <Bar dataKey="total" fill={barColor} radius={[12, 12, 0, 0]} barSize={28} name="Total" />
           </RBarChart>
         </ResponsiveContainer>
       )}

@@ -290,6 +290,7 @@ export default function TransactionSuccessPage() {
           totalLabel="Total Sukses"
           totalValue={totalSuccessTransactionsDaily.reduce((a, b) => a + (b.total || 0), 0)}
           data={totalSuccessTransactionsDaily}
+          barColor='#177F7E'
         />
       </div>
     </div>

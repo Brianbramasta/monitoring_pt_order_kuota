@@ -292,6 +292,7 @@ const cards = [
           totalLabel="Total Pending"
           totalValue={totalPendingTransactionsDaily.reduce((a, b) => a + (b.total || 0), 0)}
           data={totalPendingTransactionsDaily}
+          barColor=' #FFD66B'
         />
       </div>
     </div>
