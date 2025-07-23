@@ -152,6 +152,7 @@ export default function BestSellingProductTable({ columns, data, searchPlacehold
             key={idx}
             className="relative flex flex-col justify-between rounded-[10px] shadow-md overflow-hidden transition-all duration-200 ease-in-out hover:shadow-lg hover:-translate-y-1 cursor-pointer"
             style={{
+              zoom:'70%',
               background: cardBgColors[idx],
               color: '#fff',
               width: '100%',

@@ -193,8 +193,8 @@ export default function TransactionSuccessPage() {
 
   return (
     <div className="flex flex-col gap-4 sm:gap-8 px-4 sm:px-0">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
-        <h1 className="text-xl sm:text-2xl font-bold">Transaksi Sukses</h1>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 absolute top-[75px] right-[35px]">
+        {/* <h1 className="text-xl sm:text-2xl font-bold">Transaksi Sukses</h1> */}
         <div className="flex-1 flex justify-end">
           <RefreshButton onClick={fetchData} disabled={loading} loading={loading} />
         </div>
@@ -203,7 +203,7 @@ export default function TransactionSuccessPage() {
 
       {/* Card ringkasan */}
       <div
-         className="flex flex-col sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
+         className="flex flex-col sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-2"
         style={{
           backgroundColor:'black',
           backgroundImage: 'url("/bg/background.png")',

@@ -205,7 +205,7 @@ export default function VoIdKodePage() {
   return (
     <div className="w-full" style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
       <div className="flex flex-row justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-[#222]">VO ID Kode</h1>
+        {/* <h1 className="text-2xl font-bold text-[#222]">VO ID Kode</h1> */}
         <RefreshButton onClick={fetchData} disabled={loading} loading={loading} />
       </div>
       <DynamicTable

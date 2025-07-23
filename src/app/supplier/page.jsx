@@ -60,8 +60,8 @@ export default function SupplierPage() {
 
   return (
     <div className="w-full  mx-auto mt-8">
-      <div className="flex flex-row justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Supplier</h1>
+      <div className="flex flex-row justify-between items-center mb-8 absolute top-[75px] right-[35px]">
+        {/* <h1 className="text-2xl font-bold">Supplier</h1> */}
       </div>
       <TableSupplier
         data={data}

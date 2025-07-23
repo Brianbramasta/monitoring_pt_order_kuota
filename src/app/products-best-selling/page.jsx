@@ -46,8 +46,8 @@ export default function ProductsBestSellingPage() {
   // Data asli sudah sesuai kebutuhan BestSellingProductTable (top 3 card + tabel sisanya)
   return (
     <div className="px-0 py-8">
-      <div className="flex flex-row justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold">Produk Terlaris</h1>
+      <div className="flex flex-row justify-between items-center mb-8 absolute top-[75px] right-[35px] ">
+        {/* <h1 className="text-2xl font-bold">Produk Terlaris</h1> */}
         <RefreshButton onClick={fetchData} disabled={loading} loading={loading} />
       </div>
       <BestSellingProductTable
