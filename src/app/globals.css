@@ -45,8 +45,8 @@ color-base{
 .dark {
   --background: #1a1a1a;
   --bg-blue: #171616;
-  --foreground: #ffffff;
-  --color-base: #ffffff;
+  --foreground: #F4F8FB;
+  --color-base: #F4F8FB;
 }
 
 /* Remove general button hover styles */

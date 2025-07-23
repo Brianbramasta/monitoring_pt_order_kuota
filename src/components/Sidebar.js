@@ -20,7 +20,7 @@ export default function Sidebar({ menus, user, logoSrc, isVisible = true, onTogg
       {/* Mobile Menu Toggle */}
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 left-4 z-50 p-2 rounded-lg bg-white shadow-md lg:hidden hover:bg-gray-100"
+        className="fixed top-[7px] left-4 z-50 p-2 rounded-lg bg-white shadow-md lg:hidden hover:bg-gray-100"  
       >
         <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
           {isOpen ? (
