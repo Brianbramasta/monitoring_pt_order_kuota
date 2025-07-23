@@ -3,7 +3,9 @@
 :root {
   --background: #ffffff;
   --bg-blue: #F4F8FB;
-  --foreground: #171717;
+  /* --foreground: #171717; */
+  --foreground: #222222;
+  --color-base: #222222;
 }
 
 @theme inline {
@@ -17,6 +19,7 @@
   :root {
     /* --background: #0a0a0a;
     --foreground: #ededed; */
+    
   }
 }
 
@@ -29,4 +32,12 @@ td{background: white;padding-block: 15px;}
 table:not(.table-supplier) td{
   border-block: 1px solid #eaeaea;
   
+}
+
+font-bold{
+  color: var(--color-base) !important;
+}
+
+color-base{
+  color: var(--color-base) !important;
 }

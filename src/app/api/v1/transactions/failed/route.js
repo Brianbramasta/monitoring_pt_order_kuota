@@ -109,7 +109,7 @@ function addCorsHeaders(response) {
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
-    
+
     // Ambil parameter dari query string
     const startDate = searchParams.get('start_date');
     const endDate = searchParams.get('end_date');
@@ -148,6 +148,10 @@ export async function GET(request) {
       ...item
     }));
 
+    // Chart data filtered by same date range
+    let chart_data = dbData.transactions_failed_chart || [];
+    chart_data = filterByDate(chart_data, startDate, endDate);
+
     const response = NextResponse.json({
       code: 200,
       status: "success",
@@ -158,7 +162,8 @@ export async function GET(request) {
         pagination,
         most_failed_products_daily: dbData.most_failed_products_daily || [],
         top_failed_partners_daily: dbData.top_failed_partners_daily || [],
-        total_failed_transactions_daily: dbData.total_failed_transactions_daily || []
+        total_failed_transactions_daily: dbData.total_failed_transactions_daily || [],
+        chart_data
       }
     });
 
@@ -178,4 +183,4 @@ export async function GET(request) {
 export async function OPTIONS(request) {
   const response = new NextResponse(null, { status: 200 });
   return addCorsHeaders(response);
-} 
+}

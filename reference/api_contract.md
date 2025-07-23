@@ -82,6 +82,7 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
   - `search`: Kata kunci pencarian nama produk, supplier, atau kode produk (opsional)
   - `limit`: Jumlah data per halaman (opsional, default 10)
   - `page`: Nomor halaman (opsional, default 1)
+  - `period`: Filter periode chart (opsional, pilihan: `4hours`, `daily`, `3days`, `weekly`, `monthly`)
 - **Parameter Response:**
 
   - `recap`: Objek rekapitulasi
@@ -113,6 +114,9 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
   - `total_transactions_daily`: Array total transaksi gagal per hari
     - `date`: Tanggal (string, format `YYYY-MM-DD`)
     - `total`: Total transaksi gagal (integer)
+  - `chart_data`: Array data grafik (jika parameter `period` diberikan)
+    - `label`: Label waktu (misal: "Jan 2025", "22 Jun 2025")
+    - `value`: Jumlah transaksi gagal (integer)
 
 - **Example Response (JSON):**
 
@@ -157,38 +161,14 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
     "total_transactions_daily": [
       { "date": "2025-06-01", "total": 80 },
       { "date": "2025-06-02", "total": 90 }
+    ],
+    "chart_data": [
+      { "label": "Jan 2025", "value": 120 },
+      { "label": "Feb 2025", "value": 90 }
     ]
   }
 }
 ```
-
----
-
-## 1a. Grafik Transaksi Gagal (Area Chart)
-
-- **Endpoint:** `/api/v1/transactions/failed/chart`
-- **Method:** `GET`
-- **Parameter Request:**
-  - `period`: Filter periode (opsional, default 'monthly'). Pilihan: `daily`, `weekly`, `monthly`, `yearly`.
-- **Parameter Response:**
-  - `chart_data`: Array data grafik
-    - `label`: Label waktu (misal: "Jan 2025", "22 Jun 2025")
-    - `value`: Jumlah transaksi gagal (integer)
-- **Example Response (JSON - Monthly Period):**
-  ```json
-  {
-    "code": 200,
-    "status": "success",
-    "message": "Data chart transaksi gagal berhasil diambil",
-    "data": {
-      "chart_data": [
-        { "label": "Jan 2025", "value": 120 },
-        { "label": "Feb 2025", "value": 90 },
-        { "label": "Mar 2025", "value": 150 }
-      ]
-    }
-  }
-  ```
 
 ---
 
@@ -202,6 +182,7 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
   - `search`: Kata kunci pencarian nama produk, supplier, atau kode produk (opsional)
   - `limit`: Jumlah data per halaman (opsional, default 10)
   - `page`: Nomor halaman (opsional, default 1)
+  - `period`: Filter periode chart (opsional, pilihan: `4hours`, `daily`, `3days`, `weekly`, `monthly`)
 - **Parameter Response:**
 
   - `recap`: Objek rekapitulasi
@@ -233,6 +214,9 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
   - `total_transactions_daily`: Array total transaksi pending per hari
     - `date`: Tanggal (string, format `YYYY-MM-DD`)
     - `total`: Total transaksi pending (integer)
+  - `chart_data`: Array data grafik (jika parameter `period` diberikan)
+    - `label`: Label waktu (misal: "Jan 2025", "22 Jun 2025")
+    - `value`: Jumlah transaksi pending (integer)
 
 - **Example Response (JSON):**
 
@@ -272,38 +256,14 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
     "top_partners_daily": [
       { "no": 1, "partner_name": "PT ABC", "total_pending_transactions": 170 }
     ],
-    "total_transactions_daily": [{ "date": "2025-06-01", "total": 80 }]
+    "total_transactions_daily": [{ "date": "2025-06-01", "total": 80 }],
+    "chart_data": [
+      { "label": "Jan 2025", "value": 100 },
+      { "label": "Feb 2025", "value": 80 }
+    ]
   }
 }
 ```
-
----
-
-## 2a. Grafik Transaksi Pending (Area Chart)
-
-- **Endpoint:** `/api/v1/transactions/pending/chart`
-- **Method:** `GET`
-- **Parameter Request:**
-  - `period`: Filter periode (opsional, default 'monthly'). Pilihan: `daily`, `weekly`, `monthly`, `yearly`.
-- **Parameter Response:**
-  - `chart_data`: Array data grafik
-    - `label`: Label waktu (misal: "Jan 2025", "22 Jun 2025")
-    - `value`: Jumlah transaksi pending (integer)
-- **Example Response (JSON - Monthly Period):**
-  ```json
-  {
-    "code": 200,
-    "status": "success",
-    "message": "Data chart transaksi pending berhasil diambil",
-    "data": {
-      "chart_data": [
-        { "label": "Jan 2025", "value": 100 },
-        { "label": "Feb 2025", "value": 80 },
-        { "label": "Mar 2025", "value": 130 }
-      ]
-    }
-  }
-  ```
 
 ---
 
@@ -317,6 +277,7 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
   - `search`: Kata kunci pencarian nama produk, supplier, atau kode produk (opsional)
   - `limit`: Jumlah data per halaman (opsional, default 10)
   - `page`: Nomor halaman (opsional, default 1)
+  - `period`: Filter periode chart (opsional, pilihan: `4hours`, `daily`, `3days`, `weekly`, `monthly`)
 - **Parameter Response:**
 
   - `recap`: Objek rekapitulasi
@@ -348,6 +309,9 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
   - `total_transactions_daily": Array total transaksi sukses per hari
     - `date": Tanggal (string, format `YYYY-MM-DD`)
     - `total": Total transaksi sukses (integer)
+  - `chart_data`: Array data grafik (jika parameter `period` diberikan)
+    - `label`: Label waktu (misal: "Jan 2025", "22 Jun 2025")
+    - `value`: Jumlah transaksi sukses (integer)
 
 - **Example Response (JSON):**
 
@@ -391,38 +355,14 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
         "total_successful_transactions": 3000
       }
     ],
-    "total_transactions_daily": [{ "date": "2025-06-01", "total": 200 }]
+    "total_transactions_daily": [{ "date": "2025-06-01", "total": 200 }],
+    "chart_data": [
+      { "label": "Jan 2025", "value": 200 },
+      { "label": "Feb 2025", "value": 150 }
+    ]
   }
 }
 ```
-
----
-
-## 3a. Grafik Transaksi Sukses (Area Chart)
-
-- **Endpoint:** `/api/v1/transactions/success/chart`
-- **Method:** `GET`
-- **Parameter Request:**
-  - `period`: Filter periode (opsional, default 'monthly'). Pilihan: `daily`, `weekly`, `monthly`, `yearly`.
-- **Parameter Response:**
-  - `chart_data`: Array data grafik
-    - `label`: Label waktu (misal: "Jan 2025", "22 Jun 2025")
-    - `value`: Jumlah transaksi sukses (integer)
-- **Example Response (JSON - Monthly Period):**
-  ```json
-  {
-    "code": 200,
-    "status": "success",
-    "message": "Data chart transaksi sukses berhasil diambil",
-    "data": {
-      "chart_data": [
-        { "label": "Jan 2025", "value": 200 },
-        { "label": "Feb 2025", "value": 150 },
-        { "label": "Mar 2025", "value": 250 }
-      ]
-    }
-  }
-  ```
 
 ---
 
@@ -436,6 +376,7 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
   - `search`: Kata kunci pencarian nama produk, supplier, atau kode produk (opsional)
   - `limit`: Jumlah data per halaman (opsional, default 10)
   - `page`: Nomor halaman (opsional, default 1)
+  - `period`: Filter periode chart (opsional, pilihan: `4hours`, `daily`, `3days`, `weekly`, `monthly`)
 - **Parameter Response:**
 
   - `recap`: Objek rekapitulasi
@@ -467,6 +408,9 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
   - `total_transactions_daily": Array total komplain transaksi per hari
     - `date": Tanggal (string, format `YYYY-MM-DD`)
     - `total": Total komplain transaksi (integer)
+  - `chart_data`: Array data grafik (jika parameter `period` diberikan)
+    - `label`: Label waktu (misal: "Jan 2025", "22 Jun 2025")
+    - `value`: Jumlah komplain transaksi (integer)
 
 - **Example Response (JSON):**
 
@@ -506,38 +450,14 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
     "top_partners_daily": [
       { "no": 1, "partner_name": "PT ABC", "total_complaint_transactions": 7 }
     ],
-    "total_transactions_daily": [{ "date": "2025-06-01", "total": 5 }]
+    "total_transactions_daily": [{ "date": "2025-06-01", "total": 5 }],
+    "chart_data": [
+      { "label": "Jan 2025", "value": 50 },
+      { "label": "Feb 2025", "value": 40 }
+    ]
   }
 }
 ```
-
----
-
-## 4a. Grafik Komplain Transaksi (Area Chart)
-
-- **Endpoint:** `/api/v1/transactions/complaints/chart`
-- **Method:** `GET`
-- **Parameter Request:**
-  - `period`: Filter periode (opsional, default 'monthly'). Pilihan: `daily`, `weekly`, `monthly`, `yearly`.
-- **Parameter Response:**
-  - `chart_data`: Array data grafik
-    - `label`: Label waktu (misal: "Jan 2025", "22 Jun 2025")
-    - `value`: Jumlah komplain transaksi (integer)
-- **Example Response (JSON - Monthly Period):**
-  ```json
-  {
-    "code": 200,
-    "status": "success",
-    "message": "Data chart komplain transaksi berhasil diambil",
-    "data": {
-      "chart_data": [
-        { "label": "Jan 2025", "value": 50 },
-        { "label": "Feb 2025", "value": 40 },
-        { "label": "Mar 2025", "value": 60 }
-      ]
-    }
-  }
-  ```
 
 ---
 

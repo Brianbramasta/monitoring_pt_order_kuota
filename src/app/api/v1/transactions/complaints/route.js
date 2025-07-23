@@ -85,6 +85,7 @@ export async function GET(request) {
     const search = searchParams.get('search');
     const page = parseInt(searchParams.get('page')) || 1;
     const limit = parseInt(searchParams.get('limit')) || 10;
+    const period = searchParams.get('period'); // chart period
     
     const dbData = await readDbData();
     if (!dbData) {
@@ -104,7 +105,11 @@ export async function GET(request) {
       no: (page - 1) * limit + index + 1,
       ...item
     }));
-    
+
+    // Chart data filtered by same date range
+    let chart_data = dbData.transactions_complaints_chart || [];
+    chart_data = filterByDate(chart_data, startDate, endDate);
+
     const response = NextResponse.json({
       code: 200,
       status: "success",
@@ -115,7 +120,8 @@ export async function GET(request) {
         pagination,
         most_complaint_products_daily: dbData.most_complaint_products_daily || [],
         top_complaint_partners_daily: dbData.top_complaint_partners_daily || [],
-        total_complaint_transactions_daily: dbData.total_complaint_transactions_daily || []
+        total_complaint_transactions_daily: dbData.total_complaint_transactions_daily || [],
+        chart_data
       }
     });
     return addCorsHeaders(response);
@@ -129,4 +135,4 @@ export async function GET(request) {
 export async function OPTIONS(request) {
   const response = new NextResponse(null, { status: 200 });
   return addCorsHeaders(response);
-} 
+}

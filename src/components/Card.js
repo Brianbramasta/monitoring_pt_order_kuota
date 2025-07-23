@@ -20,7 +20,7 @@ export default function Card({ icon, title, value }) {
         </div>
       </div>
       <div className="flex-1 flex flex-col justify-start  px-5 pb-4">
-        <div className="text-[14px] leading-[22px] font-bold text-[#000] mb-1">{title}</div>
+        <div className="text-[14px] leading-[22px] font-bold color-base mb-1">{title}</div>
         <div className="text-[20px] leading-[32px] font-semibold text-[#222]">{value}</div>
       </div>
     </div>

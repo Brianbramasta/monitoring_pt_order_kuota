@@ -33,10 +33,8 @@ export default function TransactionSuccessPage() {
   const [totalData, setTotalData] = useState(0);
   const [loading, setLoading] = useState(false);
   const [recap, setRecap] = useState({});
-  const [selectedFilter, setSelectedFilter] = useState('today');
-  const [chartPeriod, setChartPeriod] = useState('monthly');
+  const [selectedFilter, setSelectedFilter] = useState('4hours');
   const [chartData, setChartData] = useState([]);
-  const [loadingChart, setLoadingChart] = useState(false);
   const [mostSuccessProducts, setMostSuccessProducts] = useState([]);
   const [topSuccessPartners, setTopSuccessPartners] = useState([]);
   const [totalSuccessTransactionsDaily, setTotalSuccessTransactionsDaily] = useState([]);
@@ -51,25 +49,29 @@ export default function TransactionSuccessPage() {
     let start_date = null;
     let end_date = null;
     switch (filter) {
-      case 'today':
-        start_date = today.format('YYYY-MM-DD');
-        end_date = today.format('YYYY-MM-DD');
+      case '4hours':
+        start_date = today.subtract(4, 'hour').format('YYYY-MM-DD HH:mm:ss');
+        end_date = today.format('YYYY-MM-DD HH:mm:ss');
         break;
-      case 'last_3_days':
-        start_date = today.subtract(2, 'day').format('YYYY-MM-DD');
-        end_date = today.format('YYYY-MM-DD');
+      case 'daily':
+        start_date = today.startOf('day').format('YYYY-MM-DD HH:mm:ss');
+        end_date = today.endOf('day').format('YYYY-MM-DD HH:mm:ss');
         break;
-      case 'this_week':
-        start_date = today.startOf('week').add(1, 'day').format('YYYY-MM-DD'); // Senin
-        end_date = today.format('YYYY-MM-DD');
+      case '3days':
+        start_date = today.subtract(3, 'day').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+        end_date = today.endOf('day').format('YYYY-MM-DD HH:mm:ss');
         break;
-      case 'this_month':
-        start_date = today.startOf('month').format('YYYY-MM-DD');
-        end_date = today.format('YYYY-MM-DD');
+      case 'weekly':
+        start_date = today.subtract(7, 'day').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+        end_date = today.format('YYYY-MM-DD HH:mm:ss');
+        break;
+      case 'monthly':
+        start_date = today.subtract(1, 'month').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+        end_date = today.format('YYYY-MM-DD HH:mm:ss');
         break;
       default:
-        start_date = null;
-        end_date = null;
+        start_date = today.format('YYYY-MM-DD HH:mm:ss');
+        end_date = today.format('YYYY-MM-DD HH:mm:ss');
     }
     return { start_date, end_date };
   };
@@ -86,7 +88,7 @@ export default function TransactionSuccessPage() {
       page,
       limit: pageSize,
       start_date,
-      end_date,
+      end_date
     })
       .then(res => {
         const arr = res.data.data?.transactions || [];
@@ -119,14 +121,12 @@ export default function TransactionSuccessPage() {
 
   useEffect(() => {
     fetchData();
-    fetchChart();
     // Auto refresh setiap 10 detik
     const interval = setInterval(() => {
       fetchData();
-      fetchChart();
     }, 10000);
     return () => clearInterval(interval);
-  }, [search, page, pageSize, selectedFilter, chartPeriod]);
+  }, [search, page, pageSize, selectedFilter]);
 
   const cards = [
     {
@@ -154,40 +154,25 @@ export default function TransactionSuccessPage() {
   // Filter sesuai gambar
   const filters = [
     {
-      label: 'Transaksi Hari ini',
+      label: 'Periode',
       options: [
-        { value: 'today', label: 'Transaksi Hari ini' },
-        { value: 'last_3_days', label: '3 Hari terakhir' },
-        { value: 'this_week', label: 'Minggu ini' },
-        { value: 'this_month', label: 'Bulan ini' },
+        { value: '4hours', label: '4 Jam' },
+        { value: 'daily', label: 'Harian' },
+        { value: '3days', label: '3 Hari' },
+        { value: 'weekly', label: 'Mingguan' },
+        { value: 'monthly', label: 'Bulanan' },
       ],
       value: selectedFilter,
       onChange: setSelectedFilter,
     },
   ];
 
-  // Filter chart
-  const chartFilters = [
-    {
-      label: 'Periode',
-      options: [
-        { label: 'Harian', value: 'daily' },
-        { label: 'Mingguan', value: 'weekly' },
-        { label: 'Bulanan', value: 'monthly' },
-      ],
-      value: chartPeriod,
-      onChange: setChartPeriod,
-    },
-  ];
-
   // Fetch chart data
   const fetchChart = () => {
-    setLoadingChart(true);
-    fetch(`/api/v1/transactions/success/chart?period=${chartPeriod}`)
+    fetch(`/api/v1/transactions/success?period=${selectedFilter}`)
       .then(res => res.json())
       .then(json => setChartData(json.data.chart_data || []))
-      .catch(() => setChartData([]))
-      .finally(() => setLoadingChart(false));
+      .catch(() => setChartData([]));
   };
 
 
@@ -235,34 +220,16 @@ export default function TransactionSuccessPage() {
         <AreaGrafik
           totalLabel="TOTAL TRANSAKSI"
           totalValue={chartData.reduce((a, b) => a + b.value, 0).toLocaleString('id-ID')}
-          filters={chartFilters}
+          filters={[]}
           data={chartData.map(d => ({ x: d.label, y: d.value }))}
           dataKeyX="x"
           dataKeyY="y"
           tooltipFormatter={(value, name, props) => [value, props && props.payload && props.payload.x ? props.payload.x : name]}
-          loading={loadingChart}
-        />
-      </div>
-
-      {/* Table dan filter */}
-      <div className="w-full overflow-hidden">
-        <DynamicTable
-          columns={columns}
-          data={data}
-          searchPlaceholder="Cari produk disini . . ."
-          onSearch={setSearch}
-          filters={filters}
-          pagination={{
-            page,
-            totalPages: Math.ceil(totalData / pageSize),
-            onPageChange: setPage,
-            pageSize,
-            onPageSizeChange: setPageSize,
-            totalData,
-          }}
           loading={loading}
         />
       </div>
+
+      
       {/* Section: Produk yang sering sukses (perhari) & Mitra dengan transaksi sukses terbanyak (perhari) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
         <BestSellingProductList title="Produk yang sering sukses (perhari)" products={mostSuccessProducts.map(p => ({ product_name: p.product_name, sales: p.value }))} />
@@ -291,6 +258,25 @@ export default function TransactionSuccessPage() {
           totalValue={totalSuccessTransactionsDaily.reduce((a, b) => a + (b.total || 0), 0)}
           data={totalSuccessTransactionsDaily}
           barColor='#177F7E'
+        />
+      </div>
+      {/* Table dan filter */}
+      <div className="w-full overflow-hidden">
+        <DynamicTable
+          columns={columns}
+          data={data}
+          searchPlaceholder="Cari produk disini . . ."
+          onSearch={setSearch}
+          filters={filters}
+          pagination={{
+            page,
+            totalPages: Math.ceil(totalData / pageSize),
+            onPageChange: setPage,
+            pageSize,
+            onPageSizeChange: setPageSize,
+            totalData,
+          }}
+          loading={loading}
         />
       </div>
     </div>

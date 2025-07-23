@@ -90,6 +90,7 @@ export async function GET(request) {
     const search = searchParams.get('search');
     const page = parseInt(searchParams.get('page')) || 1;
     const limit = parseInt(searchParams.get('limit')) || 10;
+    const period = searchParams.get('period'); // chart period
     const dbData = readDbData();
     if (!dbData) {
       const errorResponse = NextResponse.json({ code: 500, status: "error", message: "Gagal membaca data database" }, { status: 500 });
@@ -104,6 +105,11 @@ export async function GET(request) {
       no: (page - 1) * limit + index + 1,
       ...item
     }));
+
+    // Chart data filtered by same date range
+    let chart_data = dbData.transactions_success_chart || [];
+    chart_data = filterByDate(chart_data, startDate, endDate);
+
     const response = NextResponse.json({
       code: 200,
       status: "success",
@@ -114,7 +120,8 @@ export async function GET(request) {
         pagination,
         most_successful_products_daily: dbData.most_successful_products_daily || [],
         top_success_partners_daily: dbData.top_success_partners_daily || [],
-        total_successful_transactions_daily: dbData.total_successful_transactions_daily || []
+        total_successful_transactions_daily: dbData.total_successful_transactions_daily || [],
+        chart_data
       }
     });
     return addCorsHeaders(response);
@@ -127,4 +134,4 @@ export async function GET(request) {
 export async function OPTIONS(request) {
   const response = new NextResponse(null, { status: 200 });
   return addCorsHeaders(response);
-} 
+}
