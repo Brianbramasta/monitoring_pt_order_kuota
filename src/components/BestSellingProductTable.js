@@ -144,18 +144,17 @@ export default function BestSellingProductTable({ columns, data, searchPlacehold
           </div>
         )}
       </div>
-      <div className="w-full bg-white rounded-2xl shadow-md p-[40px]" style={{boxSizing: 'border-box'}}>
+      <div className="w-full bg-white rounded-2xl shadow-md p-4 sm:p-[40px]" style={{boxSizing: 'border-box'}}>
       {/* Top 3 Cards */}
-      <div className="flex flex-row gap-[25px] mb-[30px]">
+      <div className="flex flex-col sm:flex-row gap-[25px] mb-[30px]">
         {top3.map((item, idx) => (
           <div
             key={idx}
-            className="relative flex flex-col justify-between rounded-[10px] shadow-md overflow-hidden transition-all duration-200 ease-in-out hover:shadow-lg hover:-translate-y-1 cursor-pointer"
+            className="relative flex flex-col justify-between rounded-[10px] shadow-md overflow-hidden transition-all duration-200 ease-in-out hover:shadow-lg hover:-translate-y-1 cursor-pointer w-full"
             style={{
-              zoom:'70%',
+              zoom: window.innerWidth >= 640 ? '70%' : '85%',
               background: cardBgColors[idx],
               color: '#fff',
-              width: '100%',
               height: 'fit-content',
               minWidth: 0,
               position: 'relative',
@@ -181,20 +180,20 @@ export default function BestSellingProductTable({ columns, data, searchPlacehold
               }}
             />
             {/* Medali PNG */}
-            <div style={{position:'absolute', top:0, right:0, zIndex:2}}>
+            <div className="hidden sm:block" style={{position:'absolute', top:0, right:0, zIndex:2}}>
               <img src={medalImages[idx]} alt={`medali-${idx+1}`} style={{width:150, objectFit:'contain'}} />
             </div>
             {/* Content */}
             <div className="relative z-10 flex flex-col h-full">
               {/* Baris icon + nama produk + kategori sejajar */}
-              <div style={{display:'flex', flexDirection:'row', alignItems:'center', gap:20, marginBottom:32}}>
+              <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mb-6 sm:mb-8">
                 {/* Icon produk bulat */}
-                <div style={{width:64, height:64, borderRadius:'50%', background:'#fff', display:'flex', alignItems:'center', justifyContent:'center'}}>
-                  <img src={item.icon_product} alt="produk" style={{width:40, height:40}} />
+                <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center">
+                  <img src={item.icon_product} alt="produk" className="w-10 h-10" />
                 </div>
-                <div style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
-                  <div style={{fontWeight:700, fontSize:28, lineHeight:'32px'}}>{item.product_name}</div>
-                  <div style={{fontSize:16, opacity:0.8}}>{item.category}</div>
+                <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <div className="font-bold text-xl sm:text-2xl leading-tight">{item.product_name}</div>
+                  <div className="text-sm sm:text-base opacity-80">{item.category}</div>
                 </div>
               </div>
               {/* Informasi lain di bawahnya */}
@@ -327,4 +326,4 @@ export default function BestSellingProductTable({ columns, data, searchPlacehold
     </div>
     </>
   );
-} 
+}
