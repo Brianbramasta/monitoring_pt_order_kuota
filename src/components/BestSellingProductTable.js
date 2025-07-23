@@ -259,15 +259,15 @@ export default function BestSellingProductTable({ columns, data, searchPlacehold
                       key={j}
                       className={
                         col.key === 'rank'
-                          ? 'px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm text-[#222] border-[#E0E0E0] whitespace-nowrap text-center'
-                          : 'px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm text-[#222] border-[#E0E0E0] whitespace-nowrap'
+                          ? 'px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm   border-[#E0E0E0] whitespace-nowrap text-center'
+                          : 'px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm   border-[#E0E0E0] whitespace-nowrap'
                       }
                     >
                       {row[col.key]}
                     </td>
                   ))}
                   {rowActions && (
-                    <td className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm text-[#222] border-[#E0E0E0] whitespace-nowrap">
+                    <td className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm   border-[#E0E0E0] whitespace-nowrap">
                       <div className="flex gap-2 items-center">
                         {rowActions(row).map((action, idx) => (
                           <span key={idx}>{action}</span>
@@ -286,7 +286,7 @@ export default function BestSellingProductTable({ columns, data, searchPlacehold
       {pagination && (
         <div className="flex flex-col sm:flex-row gap-3 items-center justify-between mt-4 text-sm">
           <div className='flex items-center gap-2'> 
-            <div className="text-[#222] order-2 sm:order-1 font-light">Data yang ditampilkan</div>
+            <div className="  order-2 sm:order-1 font-light">Data yang ditampilkan</div>
           <div className="flex gap-2 items-center order-1 sm:order-2">
             <select
               className="border border-[#BDBDBD] rounded-[6px] px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#177F7E]"

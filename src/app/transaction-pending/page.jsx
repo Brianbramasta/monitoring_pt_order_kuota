@@ -134,22 +134,22 @@ const cards = [
   {
     icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EEEEEE] flex items-center justify-center'><img src='/icon/card/pending/icon-1.svg'/></div>,
     title: 'Produk yang sering Pending',
-    value: <span className="text-[#222222] font-bold">{recap.most_pending_product_name || '-'}</span>,
+    value: <span className="   font-bold">{recap.most_pending_product_name || '-'}</span>,
   },
   {
     icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EEEEEE] flex items-center justify-center'><img src='/icon/card/pending/icon-2.svg'/></div>,
     title: 'Total Transaksi Pending',
-    value:<span className="text-[#222222] font-bold">{recap.total_pending_transactions || 0}</span>,
+    value:<span className="   font-bold">{recap.total_pending_transactions || 0}</span>,
   },
   {
     icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EEEEEE] flex items-center justify-center'><img src='/icon/card/pending/icon-3.svg'/></div>,
     title: 'Total Nominal Transaksi Pending',
-    value: <span className="text-[#222222] font-bold">Rp {recap.total_pending_nominal?.toLocaleString('id-ID') || 0}</span>,
+    value: <span className="   font-bold">Rp {recap.total_pending_nominal?.toLocaleString('id-ID') || 0}</span>,
   },
   {
     icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EEEEEE] flex items-center justify-center'><img src='/icon/card/pending/icon-1.svg'/></div>,
     title: 'Total Produk',
-    value: <span className="text-[#222222] font-bold">{recap.total_products || 0}</span>,
+    value: <span className="   font-bold">{recap.total_products || 0}</span>,
   },
 ];
 

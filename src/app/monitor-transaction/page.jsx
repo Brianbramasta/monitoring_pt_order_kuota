@@ -128,7 +128,7 @@ export default function MonitorTransactionPage() {
       </svg>
       </div>,
       title: 'Total Transaksi Berhasil Hari Ini',
-      value: <span className="text-[#000] font-bold">Rp {Number(rekap.total_today_transaction || 0).toLocaleString('id-ID')}</span>,
+      value: <span className="  font-bold">Rp {Number(rekap.total_today_transaction || 0).toLocaleString('id-ID')}</span>,
     },
     {
       icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EEEEEE] flex items-center justify-center'><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -146,7 +146,7 @@ export default function MonitorTransactionPage() {
       </svg>
       </div>,
       title: 'Total Pengguna Retail',
-      value: <span className="text-[#000] font-bold">{rekap.total_retail_user || 0}</span>,
+      value: <span className="  font-bold">{rekap.total_retail_user || 0}</span>,
     },
     {
       icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EEEEEE] flex items-center justify-center'><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -155,7 +155,7 @@ export default function MonitorTransactionPage() {
       </svg>
       </div>,
       title: 'Total Pengguna H2H',
-      value: <span className="text-[#000] font-bold">{rekap.total_h2h_user || 0}</span>,
+      value: <span className="  font-bold">{rekap.total_h2h_user || 0}</span>,
     },
     {
       icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EEEEEE] flex items-center justify-center'><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -172,7 +172,7 @@ export default function MonitorTransactionPage() {
       </svg>
       </div>,
       title: 'Total Pendaftar Hari Ini',
-      value: <span className="text-[#000] font-bold">{rekap.total_today_registration || 0}</span>,
+      value: <span className="  font-bold">{rekap.total_today_registration || 0}</span>,
     },
   ];
 

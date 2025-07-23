@@ -36,8 +36,19 @@ export default function RootLayout({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [sidebarVisible, setSidebarVisible] = useState(false); // Default hidden
   const [user, setUser] = useState({ name: '', email: '' });
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
+    // Theme initialization
+    const theme = localStorage.getItem('theme') || 'light';
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+      setIsDarkMode(true);
+    } else {
+      document.documentElement.classList.remove('dark');
+      setIsDarkMode(false);
+    }
+
     // Cek status login
     const loginStatus = localStorage.getItem('isLoggedIn') === 'true';
     const token = localStorage.getItem('token');
@@ -63,13 +74,47 @@ export default function RootLayout({ children }) {
     }
   }, [pathname]);
 
+  useEffect(() => {
+    const handleThemeChange = () => {
+      setIsDarkMode(document.documentElement.classList.contains('dark'));
+    };
+    
+    window.addEventListener('themeChanged', handleThemeChange);
+    return () => window.removeEventListener('themeChanged', handleThemeChange);
+  }, []);
+
   const menus = menuList.map((menu, idx) => {
     const isActive = pathname.startsWith(menu.path);
-    const iconSrc = isActive
-      ? `/icon/sidebar/active sidebar/${icons[idx]}`
-      : `/icon/sidebar/${icons[idx]}`;
+    let iconSrc;
+    
+    if (isActive) {
+      iconSrc = `/icon/sidebar/active sidebar/${icons[idx]}`;
+    } else {
+      iconSrc = isDarkMode 
+        ? `/icon/sidebar/dark mode/${icons[idx]}`  // White icons in dark mode
+        : `/icon/sidebar/${icons[idx]}`; // Regular icons in light mode
+    }
+    
     return {
-      icon: <img src={iconSrc} alt={`icon-${idx+1}`} width={24} height={24} />,
+      icon: (
+        <img 
+          src={iconSrc} 
+          alt={`icon-${idx+1}`} 
+          width={24} 
+          height={24}
+          className="transition-all duration-300"
+          onMouseEnter={(e) => {
+            if (isDarkMode && !isActive) {
+              e.currentTarget.src = `/icon/sidebar/${icons[idx]}`; // Black icons on hover
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (isDarkMode && !isActive) {
+              e.currentTarget.src = `/icon/sidebar/dark mode/${icons[idx]}`; // Back to white icons
+            }
+          }}
+        />
+      ),
       label: menu.label,
       active: isActive,
       onClick: () => router.push(menu.path),
@@ -159,3 +204,4 @@ function generateBreadcrumbItems(pathname) {
     };
   });
 }
+

@@ -35,7 +35,7 @@ function CustomDropdown({ label, options, value, onChange, type = "default", add
         <div className="absolute right-0 mt-2 z-50 bg-white border border-[#CACACA] rounded-[12px] shadow-lg" style={{minWidth: type === 'search' ? '370px' : 'fit-content'}}>
           {type === 'search' && (
             <div className="p-4 border-b border-[#E0E0E0]">
-              <div className="text-[14px] font-semibold text-[#000] mb-3">{label}</div>
+              <div className="text-[14px] font-semibold   mb-3">{label}</div>
               <div className="relative">
                 <input
                   type="text"
@@ -63,7 +63,7 @@ function CustomDropdown({ label, options, value, onChange, type = "default", add
             {(type === 'search' ? filteredOptions : options).map(opt => (
               <button
                 key={opt.value}
-                className={`flex items-center w-full h-[34px] rounded-[4px] px-3 text-left text-[14px] font-light text-[#000] relative ${value === opt.value ? 'bg-[#F0F0F0]' : 'hover:bg-[#F0F0F0]'}`}
+                className={`flex items-center w-full h-[34px] rounded-[4px] px-3 text-left text-[14px] font-light   relative ${value === opt.value ? 'bg-[#F0F0F0] button-custom-dropdown' : 'hover:bg-[#F0F0F0] hover:text-[#1a1a1a]'}`}
                 onClick={() => { onChange(opt.value); setOpen(false); setSearchTerm(''); }}
               >
                 <span className="flex-1">{opt.label}</span>

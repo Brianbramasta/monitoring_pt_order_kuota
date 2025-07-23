@@ -3,7 +3,6 @@
 :root {
   --background: #ffffff;
   --bg-blue: #F4F8FB;
-  /* --foreground: #171717; */
   --foreground: #222222;
   --color-base: #222222;
 }
@@ -33,11 +32,105 @@ table:not(.table-supplier) td{
   border-block: 1px solid #eaeaea;
   
 }
+.bg-white{color: var(--foreground);}
 
 font-bold{
-  color: var(--color-base) !important;
+  color: var(--color-base) ;
 }
 
 color-base{
-  color: var(--color-base) !important;
+  color: var(--color-base) ;
+}
+
+.dark {
+  --background: #1a1a1a;
+  --bg-blue: #171616;
+  --foreground: #ffffff;
+  --color-base: #ffffff;
+}
+
+/* Remove general button hover styles */
+.dark button:hover img {
+  filter: none;
+}
+
+/* Keep menu items white in dark mode */
+.dark .menu-label {
+  color: var(--foreground) !important;
+}
+
+/* Keep non-menu buttons black in dark mode on hover */
+.dark button.non-menu-button:hover {
+  color: var(--color-base);
+}
+
+.dark button.non-menu-button {
+  color: var(--color-base);
+}
+
+/* Remove any hover color override for menu items */
+.dark .menu-label:hover {
+  color: unset;
+}
+
+.dark body {
+  background: var(--bg-blue);
+  color: var(--foreground);
+}
+
+.dark td {
+  background: #262626;
+}
+
+.dark .bg-white {
+  background-color: #262626;
+  color: var(--foreground);
+}
+
+.dark .text-gray-800 {
+  color: #e5e5e5;
+}
+
+.dark .text-gray-700 {
+  color: #e5e5e5;
+}
+
+.dark .text-gray-500 {
+  color: #a3a3a3;
+}
+
+.dark .hover\:bg-gray-100:hover {
+  background-color: #404040;
+}
+
+.dark .bg-gray-200 {
+  background-color: #404040;
+}
+
+.dark .hover\:bg-gray-300:hover {
+  background-color: #525252;
+}
+
+.dark .button-custom-dropdown{
+  color: var(--background);
+}
+
+.dark .menu-label {
+  color: var(--foreground) !important;
+}
+
+/* .dark button:hover .menu-label {
+  color: var(--background) !important;
+} */
+
+.dark .menu-label:hover{
+  color: var(--background);
+}
+
+.dark button.menu-button:not(.active):hover {
+  background: #404040;
+}
+
+.dark input {
+  color: var(--color-base);
 }

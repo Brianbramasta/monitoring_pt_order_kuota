@@ -22,13 +22,13 @@ const AreaGrafik = ({
   tooltipFormatter,
 }) => {
   return (
-    <div style={{ background: "#fff", borderRadius: 16, padding: "clamp(12px, 3vw, 24px)", boxShadow: "0 2px 8px #0001", width: "100%",  margin: "0 auto" }}>
+    <div className="bg-white dark:bg-[#262626] rounded-2xl p-[clamp(12px,3vw,24px)] shadow-[0_2px_8px_#0001] w-full m-0">
       {/* Header */}
-      <div className="area-grafik-header" style={{ display: "flex", flexWrap: 'wrap', justifyContent: "space-between", alignItems: "center", marginBottom: 16, gap: 12 }}>
-        <div style={{ fontFamily: 'Poppins, Arial, sans-serif', fontSize: 'clamp(12px, 2vw, 14px)', color: '#222', fontWeight: 400 }}>
-          {totalLabel} : <span style={{ color: '#009688', fontWeight: 700 }}>{totalValue}</span>
+      <div className="area-grafik-header flex flex-wrap justify-between items-center mb-4 gap-3">
+        <div className=" text-[clamp(12px,2vw,14px)] dark:text-white font-normal">
+          {totalLabel} : <span className="text-[#009688] font-bold">{totalValue}</span>
         </div>
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+        <div className="flex gap-3 flex-wrap">
           {filters.map((filter, idx) => (
             <CustomDropdown
               key={idx}
@@ -42,7 +42,7 @@ const AreaGrafik = ({
         </div>
       </div>
       {/* Grafik Area */}
-      <div style={{ width: '100%', height: 'min(300px, 50vw)', minHeight: 180 }}>
+      <div className="w-full h-[min(300px,50vw)] min-h-[180px]">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 16, right: 24, left: 0, bottom: 0 }}>
             <defs>
@@ -51,14 +51,50 @@ const AreaGrafik = ({
                 <stop offset="100%" stopColor="#177F7E" stopOpacity={0}/>
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} />
-            <XAxis dataKey={dataKeyX} tick={{ fontFamily: 'Poppins', fontSize: 12, fill: '#222' }} />
-            <YAxis tick={{ fontFamily: 'Poppins', fontSize: 12, fill: '#222' }} />
-            <Tooltip
-              contentStyle={{ fontFamily: 'Poppins', borderRadius: 8, fontSize: 14 }}
-              formatter={tooltipFormatter}
+            <CartesianGrid 
+              strokeDasharray="3 3" 
+              vertical={false} 
+              stroke="#404040"
+              className="dark:opacity-50"
             />
-            <Area type="monotone" dataKey={dataKeyY} stroke="#177F7E" fill="url(#colorArea)" strokeWidth={3} />
+            <XAxis 
+              dataKey={dataKeyX} 
+              tick={{ 
+                fontFamily: 'Poppins', 
+                fontSize: 12, 
+                fill: 'var(--foreground)'
+              }} 
+              stroke="var(--foreground)"
+            />
+            <YAxis 
+              tick={{ 
+                fontFamily: 'Poppins', 
+                fontSize: 12, 
+                fill: 'var(--foreground)'
+              }}
+              stroke="var(--foreground)"
+            />
+            <Tooltip
+              contentStyle={{ 
+                fontFamily: 'Poppins', 
+                borderRadius: 8, 
+                fontSize: 14,
+                backgroundColor: 'var(--background)',
+                color: 'var(--foreground)',
+                border: '1px solid var(--foreground)'
+              }}
+              formatter={tooltipFormatter}
+              labelStyle={{
+                color: 'var(--foreground)'
+              }}
+            />
+            <Area 
+              type="monotone" 
+              dataKey={dataKeyY} 
+              stroke="#177F7E" 
+              fill="url(#colorArea)" 
+              strokeWidth={3} 
+            />
           </AreaChart>
         </ResponsiveContainer>
       </div>

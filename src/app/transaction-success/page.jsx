@@ -132,22 +132,22 @@ export default function TransactionSuccessPage() {
     {
       icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EAF6F6] flex items-center justify-center'><img src='/icon/card/success/icon-1.svg'/></div>,
       title: 'Produk yang sering Sukses',
-      value: <span className="text-[#222222] font-bold">{recap.most_successful_product_name || '-'}</span>,
+      value: <span className="   font-bold">{recap.most_successful_product_name || '-'}</span>,
     },
     {
       icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EAF6F6] flex items-center justify-center'><img src='/icon/card/success/icon-2.svg'/></div>,
       title: 'Total Transaksi Sukses',
-      value:<span className="text-[#222222] font-bold">{recap.total_successful_transactions || 0}</span>,
+      value:<span className="   font-bold">{recap.total_successful_transactions || 0}</span>,
     },
     {
       icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EAF6F6] flex items-center justify-center'><img src='/icon/card/success/icon-3.svg'/></div>,
       title: 'Total Nominal Transaksi Sukses',
-      value: <span className="text-[#222222] font-bold">Rp {recap.total_successful_nominal?.toLocaleString('id-ID') || 0}</span>,
+      value: <span className="   font-bold">Rp {recap.total_successful_nominal?.toLocaleString('id-ID') || 0}</span>,
     },
     {
       icon: <div className='w-[34px] h-[34px] rounded-full bg-[#EAF6F6] flex items-center justify-center'><img src='/icon/card/success/icon-1.svg'/></div>,
       title: 'Total Produk',
-      value: <span className="text-[#222222] font-bold">{recap.total_products || 0}</span>,
+      value: <span className="   font-bold">{recap.total_products || 0}</span>,
     },
   ];
 

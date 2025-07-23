@@ -107,10 +107,10 @@ export default function TableSupplier({
                       />
                     </td>
                   )}
-                  {mode !== 'compare' && <td className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm text-[#222] border-[#E0E0E0] whitespace-nowrap text-center">{item.no}</td>}
-                  <td className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm text-[#222] border-[#E0E0E0] whitespace-nowrap">{item.supplier_name}</td>
-                  <td className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm text-[#222] border-[#E0E0E0] whitespace-nowrap">{item.supplier_code}</td>
-                  <td className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm text-[#222] border-[#E0E0E0] whitespace-nowrap">{item.supplier_balance?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</td>
+                  {mode !== 'compare' && <td className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm   border-[#E0E0E0] whitespace-nowrap text-center">{item.no}</td>}
+                  <td className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm   border-[#E0E0E0] whitespace-nowrap">{item.supplier_name}</td>
+                  <td className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm   border-[#E0E0E0] whitespace-nowrap">{item.supplier_code}</td>
+                  <td className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm   border-[#E0E0E0] whitespace-nowrap">{item.supplier_balance?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</td>
                   <td className="px-2 sm:px-4 py-3 sm:py-2 text-xs sm:text-sm border-[#E0E0E0] whitespace-nowrap">
                     {item.server_status === 'Stabil' ? (
                       <span className="text-[#177F7E] font-medium">Stabil</span>

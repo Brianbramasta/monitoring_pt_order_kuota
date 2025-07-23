@@ -42,7 +42,7 @@ export default function Sidebar({ menus, user, logoSrc, isVisible = true, onTogg
       {/* Sidebar sticky & scrollable menu */}
       <aside className={`
         fixed top-0 left-0 h-screen z-40 
-        bg-white
+        bg-white dark:bg-[#262626]
         transition-all duration-300 ease-in-out
         w-full sm:w-[270px]  lg:translate-x-0 lg:sticky
         ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
@@ -62,8 +62,11 @@ export default function Sidebar({ menus, user, logoSrc, isVisible = true, onTogg
               {menus.map((menu, idx) => (
                 <li key={idx}>
                   <button
-                    className={`flex items-center gap-3 w-full px-4 py-2 rounded-[8px] transition-colors text-[14px] leading-[22px] font-light cursor-pointer
-                      ${menu.active ? 'bg-[#177F7E] text-white font-medium' : 'hover:bg-[#F0F0F0] text-[#222]'}
+                    className={`
+                      flex items-center gap-3 w-full px-4 py-2 rounded-[8px] transition-colors text-[14px] leading-[22px] font-light cursor-pointer menu-button
+                      ${menu.active 
+                        ? 'bg-[#177F7E] active text-white font-medium' 
+                        : 'hover:bg-[#F0F0F0] dark:hover:bg-[#404040] dark:hover:   dark:text-white'}
                     `}
                     style={{
                       boxShadow: menu.active ? '0 2px 8px 0 rgba(23,127,126,0.08)' : undefined,
@@ -77,7 +80,7 @@ export default function Sidebar({ menus, user, logoSrc, isVisible = true, onTogg
                     <span className="flex items-center justify-center w-6 h-6">
                       {menu.icon}
                     </span>
-                    <span className="font-inherit">{menu.label}</span>
+                    <span className="font-inherit menu-label  ">{menu.label}</span>
                   </button>
                 </li>
               ))}
@@ -85,15 +88,22 @@ export default function Sidebar({ menus, user, logoSrc, isVisible = true, onTogg
           </nav>
 
           {/* User Info sticky di bawah */}
-          <div className="flex flex-col items-center gap-2 border-t border-[#E0E0E0] pt-6 mt-6 flex-shrink-0 bg-white">
-            <div className="font-semibold text-base text-[#222]">{user.name}</div>
-            <div className="text-xs text-[#4F4F4F] mb-2">{user.email}</div>
+          <div className="flex flex-col items-center gap-2 border-t border-[#E0E0E0] pt-6 mt-6 flex-shrink-0 bg-white dark:bg-[#262626]">
+            <div className="font-semibold text-base dark:text-white">{user.name}</div>
+            <div className="text-xs text-[#4F4F4F] mb-2 dark:text-gray-400">{user.email}</div>
             <div className="flex gap-2">
-              <button onClick={user.onSetting} className="w-9 h-9 flex items-center justify-center rounded-[8px] bg-white border border-[#E0E0E0] hover:bg-gray-100">
-                <img src="/icon/login information/settings.svg"/>
+              <button onClick={user.onSetting} className="w-9 h-9 flex items-center justify-center rounded-[8px] bg-white dark:bg-[#404040] border border-[#E0E0E0] dark:border-[#525252] hover:bg-gray-100 dark:hover:bg-[#525252] transition-colors non-menu-button">
+                <img 
+                  src={document.documentElement.classList.contains('dark') 
+                    ? "/icon/login information/settings-white.svg"
+                    : "/icon/login information/settings.svg"
+                  }
+                  alt="settings"
+                  className="transition-none"
+                />
               </button>
-              <button onClick={user.onLogout} className="w-9 h-9 flex items-center justify-center rounded-[8px] bg-white border border-[#E0E0E0] hover:bg-red-50">
-                <img src="/icon/login information/log-in.svg"/>
+              <button onClick={user.onLogout} className="w-9 h-9 flex items-center justify-center rounded-[8px] bg-white dark:bg-[#404040] border border-[#E0E0E0] dark:border-[#525252] hover:bg-red-50 dark:hover:bg-red-900 transition-colors non-menu-button">
+                <img src="/icon/login information/log-in.svg" alt="logout" className="transition-none" />
               </button>
             </div>
           </div>
@@ -101,4 +111,4 @@ export default function Sidebar({ menus, user, logoSrc, isVisible = true, onTogg
       </aside>
     </>
   );
-} 
+}

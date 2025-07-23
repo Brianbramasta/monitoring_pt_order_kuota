@@ -8,25 +8,25 @@ export default function CustomModal({ open, onClose, title, inputs = [], buttons
       <div className="bg-white rounded-[24px] shadow-lg p-8 w-full max-w-md relative" style={{minWidth: 350}}>
         {/* Tombol close */}
         <button
-          className="absolute top-6 right-6 text-2xl text-[#222] hover:text-[#177F7E] focus:outline-none"
+          className="absolute top-6 right-6 text-2xl   hover:text-[#177F7E] focus:outline-none"
           onClick={onClose}
           aria-label="Tutup"
         >
           &times;
         </button>
         {/* Judul */}
-        <h2 className="text-2xl font-bold mb-8 text-[#222]">{title}</h2>
+        <h2 className="text-2xl font-bold mb-8  ">{title}</h2>
         {/* Input dinamis */}
         <div className="flex flex-col gap-6 mb-8">
           {inputs.map((input, idx) => (
             <div key={idx}>
               {input.label && (
-                <label className="block mb-2 text-lg font-semibold text-[#222]">{input.label}</label>
+                <label className="block mb-2 text-lg font-semibold  ">{input.label}</label>
               )}
               {input.type === 'text' && (
                 <input
                   type="text"
-                  className="w-full border border-[#CACACA] rounded-[12px] px-5 py-3 text-base font-light text-[#222] bg-white focus:outline-none focus:ring-2 focus:ring-[#177F7E]"
+                  className="w-full border border-[#CACACA] rounded-[12px] px-5 py-3 text-base font-light   bg-white focus:outline-none focus:ring-2 focus:ring-[#177F7E]"
                   placeholder={input.placeholder}
                   value={input.value}
                   onChange={e => input.onChange && input.onChange(e.target.value)}
