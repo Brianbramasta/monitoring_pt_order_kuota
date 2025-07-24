@@ -5,6 +5,7 @@
   --bg-blue: #F4F8FB;
   --foreground: #222222;
   --color-base: #222222;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
 @theme inline {
@@ -20,6 +21,21 @@
     --foreground: #ededed; */
     
   }
+}
+
+/* Add global transition styles */
+*, *::before, *::after {
+  transition: background-color 0.3s ease-in-out, 
+              border-color 0.3s ease-in-out, 
+              color 0.3s ease-in-out,
+              fill 0.3s ease-in-out,
+              stroke 0.3s ease-in-out;
+}
+
+/* Elements that shouldn't animate */
+.transition-none,
+.transition-none * {
+  transition: none !important;
 }
 
 body {

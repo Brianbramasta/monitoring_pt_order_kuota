@@ -29,7 +29,7 @@ function CustomDropdown({ label, options, value, onChange, type = "default", add
         onClick={() => setOpen(v => !v)}
       >
         {selected.label}
-        <svg width="18" height="18" fill="none" stroke="#222" className="ml-2"><path d="M5 8l4 4 4-4" strokeWidth="2"/></svg>
+        <svg width="18" height="18" fill="none"  stroke="var(--color-base)" className="ml-2"><path d="M5 8l4 4 4-4" strokeWidth="2"/></svg>
       </button>
       {open && (
         <div className="absolute right-0 mt-2 z-50 bg-white border border-[#CACACA] rounded-[12px] shadow-lg" style={{minWidth: type === 'search' ? '370px' : 'fit-content'}}>
