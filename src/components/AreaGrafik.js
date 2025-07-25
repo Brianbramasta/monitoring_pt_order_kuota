@@ -22,10 +22,10 @@ const AreaGrafik = ({
   tooltipFormatter,
 }) => {
   return (
-    <div className="bg-white dark:bg-[#262626] rounded-2xl p-[clamp(12px,3vw,24px)] shadow-[0_2px_8px_#0001] w-full m-0">
+    <div className="bg-white  rounded-2xl p-[clamp(12px,3vw,24px)] shadow-[0_2px_8px_#0001] w-full m-0">
       {/* Header */}
       <div className="area-grafik-header flex flex-wrap justify-between items-center mb-4 gap-3">
-        <div className=" text-[clamp(12px,2vw,14px)] dark:text-white font-normal">
+        <div className=" text-[clamp(12px,2vw,14px)]  font-normal">
           {totalLabel} : <span className="text-[#009688] font-bold">{totalValue}</span>
         </div>
         <div className="flex gap-3 flex-wrap">
@@ -55,7 +55,7 @@ const AreaGrafik = ({
               strokeDasharray="3 3" 
               vertical={false} 
               stroke="#404040"
-              className="dark:opacity-50"
+              className=""
             />
             <XAxis 
               dataKey={dataKeyX} 

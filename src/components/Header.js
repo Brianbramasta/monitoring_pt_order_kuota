@@ -65,10 +65,10 @@ export default function Header({ sidebarVisible, onToggleSidebar, user }) {
           title="Toggle Theme"
           style={{ minWidth: 36, minHeight: 36 }}
         >
-          <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" className="hidden dark:block">
+          <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" className="hidden ">
             <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
           </svg>
-          <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" className="block dark:hidden">
+          <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" className="block ">
             <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
           </svg>
         </button>
@@ -92,15 +92,15 @@ export default function Header({ sidebarVisible, onToggleSidebar, user }) {
             </svg>
           </button>
           {showTooltip && (
-            <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-[#262626] border rounded-lg shadow-lg py-2 z-50">
+            <div className="absolute right-0 mt-2 w-40 bg-white  border rounded-lg shadow-lg py-2 z-50">
               <button
-                className="block w-full text-left px-4 py-2 text-gray-700 dark:text-[#222222] hover:bg-gray-100 dark:hover:bg-[#404040] non-menu-button"
+                className="block w-full text-left px-4 py-2 text-gray-700  hover:bg-gray-100 non-menu-button"
                 onClick={() => { setShowTooltip(false); user?.onSetting && user.onSetting(); }}
               >
                 Setting
               </button>
               <button
-                className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100 dark:hover:bg-[#404040] non-menu-button"
+                className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100  non-menu-button"
                 onClick={() => { setShowTooltip(false); user?.onLogout && user.onLogout(); }}
               >
                 Logout
