@@ -50,7 +50,7 @@ export default function MonitorQrisPage() {
   }, [periode]);
 
   return (
-    <div className="px-0 py-8">
+    <div className="flex flex-col gap-4 sm:gap-8 px-4 sm:px-0  mt-2">
       <div className="flex flex-row justify-between items-center mb-8 absolute top-[75px] right-[35px]">
         {/* <h1 className="text-2xl font-bold">Monitor QRIS</h1> */}
         <RefreshButton onClick={fetchData} disabled={loading} loading={loading} />
