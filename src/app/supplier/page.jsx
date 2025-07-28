@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import TableSupplier from '@/components/TableSupplier';
 import { useRouter } from 'next/navigation';
+import RefreshButton from '@/components/RefreshButton';
 
 export default function SupplierPage() {
   const [mode, setMode] = useState('normal');
@@ -62,6 +63,7 @@ export default function SupplierPage() {
     <div className="w-full  mx-auto mt-8">
       <div className="flex flex-row justify-between items-center mb-8 absolute top-[75px] right-[35px]">
         {/* <h1 className="text-2xl font-bold">Supplier</h1> */}
+        <RefreshButton onClick={fetchData} disabled={loading} loading={loading} />
       </div>
       <TableSupplier
         data={data}
@@ -81,4 +83,4 @@ export default function SupplierPage() {
       />
     </div>
   );
-} 
+}

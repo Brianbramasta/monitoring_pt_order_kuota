@@ -177,7 +177,7 @@ export default function TransactionSuccessPage() {
 
 
   return (
-    <div className="flex flex-col gap-4 sm:gap-8 px-4 sm:px-0">
+    <div className="flex flex-col gap-4 sm:gap-8 px-4 sm:px-0 mt-2">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 absolute top-[75px] right-[35px]">
         {/* <h1 className="text-xl sm:text-2xl font-bold">Transaksi Sukses</h1> */}
         <div className="flex-1 flex justify-end">
