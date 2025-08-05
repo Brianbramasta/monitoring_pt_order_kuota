@@ -1,0 +1,11 @@
+{
+  "testEnvironment": "jsdom",
+  "setupFilesAfterEnv": ["@testing-library/jest-dom"],
+  "moduleNameMapper": {
+    "^@/(.*)$": "<rootDir>/src/$1"
+  },
+  "testMatch": [
+    "<rootDir>/src/**/*.test.js",
+    "<rootDir>/src/**/*.spec.js"
+  ]
+}
