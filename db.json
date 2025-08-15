@@ -294,6 +294,28 @@
     { "label": "Jun 2025", "value": 7200000.0 },
     { "label": "Jul 2025", "value": 8000000.0 }
   ],
+  "monitor_qris_static_chart": [
+    { "label": "Jan 2025", "value": 2500000.0 },
+    { "label": "Feb 2025", "value": 3200000.0 },
+    { "label": "Mar 2025", "value": 2800000.0 },
+    { "label": "Apr 2025", "value": 3500000.0 },
+    { "label": "Mei 2025", "value": 3900000.0 },
+    { "label": "Jun 2025", "value": 3600000.0 },
+    { "label": "Jul 2025", "value": 4000000.0 }
+  ],
+  "monitor_qris_deposit_chart": [
+    { "label": "Jan 2025", "value": 1500000.0 },
+    { "label": "Feb 2025", "value": 1800000.0 },
+    { "label": "Mar 2025", "value": 1700000.0 },
+    { "label": "Apr 2025", "value": 2000000.0 },
+    { "label": "Mei 2025", "value": 2200000.0 },
+    { "label": "Jun 2025", "value": 1900000.0 },
+    { "label": "Jul 2025", "value": 2100000.0 }
+  ],
+  "monitor_qris_comparison": {
+    "winpay": 6500000.0,
+    "nobu": 4500000.0
+  },
   "monitor_transactions_chart": [
     { "label": "Jan 2025", "value": 15000000.0 },
     { "label": "Feb 2025", "value": 18000000.0 },

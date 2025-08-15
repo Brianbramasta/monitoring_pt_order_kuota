@@ -743,7 +743,110 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
 
 ---
 
-## 7b. Monitor Transaksi (Rekap & List)
+## 7b. Monitor QRIS
+
+### 1. Monitor QRIS Chart
+
+- **Endpoint:** `/api/v1/monitor/qris/chart`
+- **Method:** `GET`
+- **Parameter Request:**
+  - `period`: Filter periode (opsional, default 'monthly'). Pilihan: `daily`, `weekly`, `monthly`.
+- **Parameter Response:**
+  - `chart_data`: Array data grafik
+    - `label`: Label waktu (string)
+    - `value`: Nilai transaksi (number)
+- **Example Response (JSON):**
+  ```json
+  {
+    "code": 200,
+    "status": "success",
+    "message": "Data monitor QRIS berhasil diambil",
+    "data": {
+      "chart_data": [
+        {
+          "label": "Jan 2025",
+          "value": 1200000
+        }
+      ]
+    }
+  }
+  ```
+
+### 2. Monitor QRIS Static Chart
+
+- **Endpoint:** `/api/v1/monitor/qris/static/chart`
+- **Method:** `GET`
+- **Parameter Request:**
+  - `period`: Filter periode (opsional, default 'monthly'). Pilihan: `daily`, `weekly`, `monthly`.
+- **Parameter Response:**
+  - `chart_data`: Array data grafik
+    - `label`: Label waktu (string)
+    - `value`: Nilai transaksi (number)
+- **Example Response (JSON):**
+  ```json
+  {
+    "code": 200,
+    "status": "success",
+    "message": "Data QRIS static berhasil diambil",
+    "data": {
+      "chart_data": [
+        {
+          "label": "Jan 2025",
+          "value": 1200000
+        }
+      ]
+    }
+  }
+  ```
+
+### 3. Monitor QRIS Deposit Chart
+
+- **Endpoint:** `/api/v1/monitor/qris/deposit/chart`
+- **Method:** `GET`
+- **Parameter Request:**
+  - `period`: Filter periode (opsional, default 'monthly'). Pilihan: `daily`, `weekly`, `monthly`.
+- **Parameter Response:**
+  - `chart_data`: Array data grafik
+    - `label`: Label waktu (string)
+    - `value`: Nilai transaksi (number)
+- **Example Response (JSON):**
+  ```json
+  {
+    "code": 200,
+    "status": "success",
+    "message": "Data QRIS deposit berhasil diambil",
+    "data": {
+      "chart_data": [
+        {
+          "label": "Jan 2025",
+          "value": 1200000
+        }
+      ]
+    }
+  }
+  ```
+
+### 4. Monitor QRIS Comparison
+
+- **Endpoint:** `/api/v1/monitor/qris/comparison`
+- **Method:** `GET`
+- **Parameter Response:**
+  - `winpay`: Total transaksi QRIS Winpay (number)
+  - `nobu`: Total transaksi QRIS Nobu (number)
+- **Example Response (JSON):**
+  ```json
+  {
+    "code": 200,
+    "status": "success",
+    "message": "Data perbandingan QRIS berhasil diambil",
+    "data": {
+      "winpay": 1200000,
+      "nobu": 800000
+    }
+  }
+  ```
+
+## 7c. Monitor Transaksi (Rekap & List)
 
 - **Endpoint:** `/api/v1/monitor/transactions`
 - **Method:** `GET`
