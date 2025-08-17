@@ -64,17 +64,29 @@ export default function MonitorQrisPage() {
       .finally(() => setLoading(prev => ({ ...prev, deposit: false })));
   };
 
+  const [transactionComparisonData, setTransactionComparisonData] = useState([]);
+  const [revenueComparisonData, setRevenueComparisonData] = useState([]);
+
   const fetchComparisonData = () => {
     setLoading(prev => ({ ...prev, comparison: true }));
     getQrisComparison()
       .then(res => {
         const data = res.data.data || {};
-        setComparisonData([
-          { name: 'QRIS Winpay', value: data.winpay || 0 },
-          { name: 'QRIS Nobu', value: data.nobu || 0 }
+        // Set transaction comparison data
+        setTransactionComparisonData([
+          { name: 'QRIS Winpay', value: data.transactions?.winpay || 0 },
+          { name: 'QRIS Nobu', value: data.transactions?.nobu || 0 }
+        ]);
+        // Set revenue comparison data
+        setRevenueComparisonData([
+          { name: 'QRIS Winpay', value: data.revenue?.winpay || 0 },
+          { name: 'QRIS Nobu', value: data.revenue?.nobu || 0 }
         ]);
       })
-      .catch(() => setComparisonData([]))
+      .catch(() => {
+        setTransactionComparisonData([]);
+        setRevenueComparisonData([]);
+      })
       .finally(() => setLoading(prev => ({ ...prev, comparison: false })));
   };
 
@@ -152,11 +164,11 @@ export default function MonitorQrisPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <QrisComparisonChart
           title="Perbandingan Transaksi"
-          data={comparisonData}
+          data={transactionComparisonData}
         />
         <QrisComparisonChart
           title="Perbandingan Pendapatan"
-          data={comparisonData}
+          data={revenueComparisonData}
         />
       </div>
     </div>

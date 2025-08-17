@@ -831,8 +831,12 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
 - **Endpoint:** `/api/v1/monitor/qris/comparison`
 - **Method:** `GET`
 - **Parameter Response:**
-  - `winpay`: Total transaksi QRIS Winpay (number)
-  - `nobu`: Total transaksi QRIS Nobu (number)
+  - `transactions`: Object perbandingan transaksi
+    - `winpay`: Total transaksi QRIS Winpay (number)
+    - `nobu`: Total transaksi QRIS Nobu (number)
+  - `revenue`: Object perbandingan pendapatan
+    - `winpay`: Total pendapatan QRIS Winpay (number)
+    - `nobu`: Total pendapatan QRIS Nobu (number)
 - **Example Response (JSON):**
   ```json
   {
@@ -840,8 +844,14 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
     "status": "success",
     "message": "Data perbandingan QRIS berhasil diambil",
     "data": {
-      "winpay": 1200000,
-      "nobu": 800000
+      "transactions": {
+        "winpay": 1200000,
+        "nobu": 800000
+      },
+      "revenue": {
+        "winpay": 1500000,
+        "nobu": 900000
+      }
     }
   }
   ```

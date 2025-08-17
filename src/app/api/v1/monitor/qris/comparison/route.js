@@ -27,8 +27,14 @@ export async function GET(request) {
       return addCorsHeaders(errorResponse);
     }
     const data = dbData.monitor_qris_comparison || {
-      winpay: 0,
-      nobu: 0
+      transactions: {
+        winpay: 0,
+        nobu: 0
+      },
+      revenue: {
+        winpay: 0,
+        nobu: 0
+      }
     };
     
     const response = NextResponse.json({

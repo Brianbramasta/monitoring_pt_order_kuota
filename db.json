@@ -313,8 +313,14 @@
     { "label": "Jul 2025", "value": 2100000.0 }
   ],
   "monitor_qris_comparison": {
-    "winpay": 6500000.0,
-    "nobu": 4500000.0
+    "transactions": {
+      "winpay": 6500000.0,
+      "nobu": 4500000.0
+    },
+    "revenue": {
+      "winpay": 7800000.0,
+      "nobu": 2400000.0
+    }
   },
   "monitor_transactions_chart": [
     { "label": "Jan 2025", "value": 15000000.0 },
