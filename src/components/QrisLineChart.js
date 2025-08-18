@@ -7,7 +7,7 @@ export default function QrisLineChart({
   title,
   totalLabel,
   totalValue,
-  filters,
+  filters = [],
   data,
   dataKeyX = "x",
   dataKeyY = "y",
@@ -33,7 +33,7 @@ export default function QrisLineChart({
             </div>
             </div>
             <div className="flex items-center gap-4">
-                {filters.map((filter, idx) => (
+                {filters?.map((filter, idx) => (
                 <CustomDropdown
                 key={idx}
                 label={filter.label}
@@ -42,7 +42,7 @@ export default function QrisLineChart({
                 onChange={filter.onChange}
                 type={filter.type}
                 />
-            ))}
+                ))}
             <button 
                 onClick={toggleExpand}
                 className="p-2 hover:bg-gray-100 rounded-full bg-[#F4F8FB] cursor-pointer"

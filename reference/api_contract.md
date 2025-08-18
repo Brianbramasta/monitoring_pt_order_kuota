@@ -745,112 +745,64 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
 
 ## 7b. Monitor QRIS
 
-### 1. Monitor QRIS Chart
+### Monitor QRIS (Unified Endpoint)
 
-- **Endpoint:** `/api/v1/monitor/qris/chart`
+- **Endpoint:** `/api/v1/monitor/qris/transaction`
 - **Method:** `GET`
 - **Parameter Request:**
-  - `period`: Filter periode (opsional, default 'monthly'). Pilihan: `daily`, `weekly`, `monthly`.
+  - `start_date`: Tanggal mulai custom (opsional, format: `YYYY-MM-DD HH:mm:ss`)
+  - `end_date`: Tanggal akhir custom (opsional, format: `YYYY-MM-DD HH:mm:ss`)
 - **Parameter Response:**
-  - `chart_data`: Array data grafik
+  - `merchant_chart`: Array data transaksi merchant
     - `label`: Label waktu (string)
     - `value`: Nilai transaksi (number)
+  - `static_chart`: Array data transaksi static
+    - `label`: Label waktu (string)
+    - `value`: Nilai transaksi (number)
+  - `deposit_chart`: Array data deposit
+    - `label`: Label waktu (string)
+    - `value`: Nilai transaksi (number)
+  - `comparison`: Object perbandingan QRIS
+    - `transactions`: Perbandingan jumlah transaksi
+      - `winpay`: Total transaksi QRIS Winpay (number)
+      - `nobu`: Total transaksi QRIS Nobu (number)
+    - `revenue`: Perbandingan pendapatan
+      - `winpay`: Total pendapatan QRIS Winpay (number)
+      - `nobu`: Total pendapatan QRIS Nobu (number)
 - **Example Response (JSON):**
   ```json
   {
     "code": 200,
     "status": "success",
-    "message": "Data monitor QRIS berhasil diambil",
+    "message": "Data QRIS berhasil diambil",
     "data": {
-      "chart_data": [
+      "merchant_chart": [
         {
           "label": "Jan 2025",
           "value": 1200000
         }
-      ]
-    }
-  }
-  ```
-
-### 2. Monitor QRIS Static Chart
-
-- **Endpoint:** `/api/v1/monitor/qris/static/chart`
-- **Method:** `GET`
-- **Parameter Request:**
-  - `period`: Filter periode (opsional, default 'monthly'). Pilihan: `daily`, `weekly`, `monthly`.
-- **Parameter Response:**
-  - `chart_data`: Array data grafik
-    - `label`: Label waktu (string)
-    - `value`: Nilai transaksi (number)
-- **Example Response (JSON):**
-  ```json
-  {
-    "code": 200,
-    "status": "success",
-    "message": "Data QRIS static berhasil diambil",
-    "data": {
-      "chart_data": [
+      ],
+      "static_chart": [
         {
           "label": "Jan 2025",
-          "value": 1200000
+          "value": 800000
         }
-      ]
-    }
-  }
-  ```
-
-### 3. Monitor QRIS Deposit Chart
-
-- **Endpoint:** `/api/v1/monitor/qris/deposit/chart`
-- **Method:** `GET`
-- **Parameter Request:**
-  - `period`: Filter periode (opsional, default 'monthly'). Pilihan: `daily`, `weekly`, `monthly`.
-- **Parameter Response:**
-  - `chart_data`: Array data grafik
-    - `label`: Label waktu (string)
-    - `value`: Nilai transaksi (number)
-- **Example Response (JSON):**
-  ```json
-  {
-    "code": 200,
-    "status": "success",
-    "message": "Data QRIS deposit berhasil diambil",
-    "data": {
-      "chart_data": [
+      ],
+      "deposit_chart": [
         {
           "label": "Jan 2025",
-          "value": 1200000
+          "value": 500000
         }
-      ]
-    }
-  }
-  ```
-
-### 4. Monitor QRIS Comparison
-
-- **Endpoint:** `/api/v1/monitor/qris/comparison`
-- **Method:** `GET`
-- **Parameter Response:**
-  - `transactions`: Object perbandingan transaksi
-    - `winpay`: Total transaksi QRIS Winpay (number)
-    - `nobu`: Total transaksi QRIS Nobu (number)
-  - `revenue`: Object perbandingan pendapatan
-    - `winpay`: Total pendapatan QRIS Winpay (number)
-    - `nobu`: Total pendapatan QRIS Nobu (number)
-- **Example Response (JSON):**
-  ```json
-  {
-    "code": 200,
-    "status": "success",
-    "message": "Data perbandingan QRIS berhasil diambil",
-    "data": {
-      "transactions": {
-        "winpay": 1200000,
-        "nobu": 800000
-      },
-      "revenue": {
-        "winpay": 1500000,
-        "nobu": 900000
+      ],
+      "comparison": {
+        "transactions": {
+          "winpay": 1200000,
+          "nobu": 800000
+        },
+        "revenue": {
+          "winpay": 1500000,
+          "nobu": 900000
+        }
       }
     }
   }

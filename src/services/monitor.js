@@ -10,34 +10,19 @@ export const getTransactionChart = (params) =>
   apiClient.get('/api/v1/monitor/transactions/chart', { params });
 
 /**
- * Ambil data grafik monitor QRIS
+ * Ambil semua data QRIS (merchant, static, deposit, dan comparison)
  * @param {Object} params
- *   - period: Filter periode (opsional, default 'monthly'). Pilihan: 'daily', 'weekly', 'monthly', 'yearly'.
+ *   - period: Filter periode (opsional, pilihan: '4hours', 'daily', '3days', 'weekly', 'monthly')
+ *   - start_date: Tanggal mulai filter (opsional, format YYYY-MM-DD HH:mm:ss)
+ *   - end_date: Tanggal akhir filter (opsional, format YYYY-MM-DD HH:mm:ss)
+ * @returns {Promise} Response data berisi:
+ *   - merchant_chart: Array data transaksi QRIS merchant
+ *   - static_chart: Array data transaksi QRIS static
+ *   - deposit_chart: Array data transaksi deposit via QRIS
+ *   - comparison: Object perbandingan QRIS Nobu & Winpay {transactions: {winpay, nobu}, revenue: {winpay, nobu}}
  */
-export const getQrisChart = (params) =>
-  apiClient.get('/api/v1/monitor/qris/chart', { params });
-
-/**
- * Ambil data grafik QRIS Static
- * @param {Object} params
- *   - period: Filter periode (opsional, default 'monthly'). Pilihan: 'daily', 'weekly', 'monthly'.
- */
-export const getQrisStaticChart = (params) =>
-  apiClient.get('/api/v1/monitor/qris/static/chart', { params });
-
-/**
- * Ambil data grafik QRIS Deposit
- * @param {Object} params
- *   - period: Filter periode (opsional, default 'monthly'). Pilihan: 'daily', 'weekly', 'monthly'.
- */
-export const getQrisDepositChart = (params) =>
-  apiClient.get('/api/v1/monitor/qris/deposit/chart', { params });
-
-/**
- * Ambil data perbandingan QRIS Nobu & Winpay
- */
-export const getQrisComparison = () =>
-  apiClient.get('/api/v1/monitor/qris/comparison');
+export const getQrisTransactions = (params) =>
+  apiClient.get('/api/v1/monitor/qris/transaction', { params });
 
 /**
  * Ambil data rekap dan list transaksi monitoring
@@ -45,6 +30,9 @@ export const getQrisComparison = () =>
  *   - search: Kata kunci pencarian (opsional)
  *   - limit: Jumlah data per halaman (opsional, default 10)
  *   - page: Nomor halaman (opsional, default 1)
+ *   - period: Filter periode (opsional, pilihan: '4hours', 'daily', '3days', 'weekly', 'monthly')
+ *   - start_date: Tanggal mulai filter (opsional, format YYYY-MM-DD HH:mm:ss)
+ *   - end_date: Tanggal akhir filter (opsional, format YYYY-MM-DD HH:mm:ss)
  */
 export const getMonitorTransactionList = (params) =>
   apiClient.get('/api/v1/monitor/transactions', { params }); 

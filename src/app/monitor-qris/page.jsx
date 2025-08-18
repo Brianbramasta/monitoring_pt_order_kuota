@@ -1,13 +1,14 @@
 'use client'
 import { useState, useEffect } from "react";
-import { getQrisChart, getQrisStaticChart, getQrisDepositChart, getQrisComparison } from "@/services/monitor";
+import { getQrisTransactions } from "@/services/monitor";
+import dayjs from "dayjs";
 import RefreshButton from '@/components/RefreshButton';
 import AreaGrafik from "@/components/AreaGrafik";
 import QrisLineChart from "@/components/QrisLineChart";
 import QrisComparisonChart from "@/components/QrisComparisonChart";
 
 export default function MonitorQrisPage() {
-  const [periode, setPeriode] = useState("monthly");
+  const [selectedFilter, setSelectedFilter] = useState("4hours");
   const [staticData, setStaticData] = useState([]);
   const [depositData, setDepositData] = useState([]);
   const [merchantData, setMerchantData] = useState([]);
@@ -23,78 +24,102 @@ export default function MonitorQrisPage() {
     {
       label: "Periode",
       options: [
-        { label: "Bulanan", value: "monthly" },
-        { label: "Mingguan", value: "weekly" },
+        { value: '4hours', label: '4 Jam' },
+        { value: 'daily', label: 'Harian' },
+        { value: '3days', label: '3 Hari' },
+        { value: 'weekly', label: 'Mingguan' },
+        { value: 'monthly', label: 'Bulanan' },
       ],
-      value: periode,
-      onChange: setPeriode,
+      value: selectedFilter,
+      onChange: setSelectedFilter,
     },
   ];
 
-  const fetchMerchantData = () => {
-    setLoading(prev => ({ ...prev, merchant: true }));
-    getQrisChart({ period: periode })
-      .then(res => {
-        const arr = res.data.data?.chart_data || [];
-        setMerchantData(arr.map(item => ({ x: item.label, y: item.value })));
-      })
-      .catch(() => setMerchantData([]))
-      .finally(() => setLoading(prev => ({ ...prev, merchant: false })));
-  };
-
-  const fetchStaticData = () => {
-    setLoading(prev => ({ ...prev, static: true }));
-    getQrisStaticChart({ period: periode })
-      .then(res => {
-        const arr = res.data.data?.chart_data || [];
-        setStaticData(arr.map(item => ({ x: item.label, y: item.value })));
-      })
-      .catch(() => setStaticData([]))
-      .finally(() => setLoading(prev => ({ ...prev, static: false })));
-  };
-
-  const fetchDepositData = () => {
-    setLoading(prev => ({ ...prev, deposit: true }));
-    getQrisDepositChart({ period: periode })
-      .then(res => {
-        const arr = res.data.data?.chart_data || [];
-        setDepositData(arr.map(item => ({ x: item.label, y: item.value })));
-      })
-      .catch(() => setDepositData([]))
-      .finally(() => setLoading(prev => ({ ...prev, deposit: false })));
+  const getDateRange = (filter) => {
+    const today = dayjs();
+    let start_date = null;
+    let end_date = null;
+    switch (filter) {
+      case '4hours':
+        start_date = today.subtract(4, 'hour').format('YYYY-MM-DD HH:mm:ss');
+        end_date = today.format('YYYY-MM-DD HH:mm:ss');
+        break;
+      case 'daily':
+        start_date = today.startOf('day').format('YYYY-MM-DD HH:mm:ss');
+        end_date = today.endOf('day').format('YYYY-MM-DD HH:mm:ss');
+        break;
+      case '3days':
+        start_date = today.subtract(3, 'day').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+        end_date = today.endOf('day').format('YYYY-MM-DD HH:mm:ss');
+        break;
+      case 'weekly':
+        start_date = today.subtract(7, 'day').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+        end_date = today.format('YYYY-MM-DD HH:mm:ss');
+        break;
+      case 'monthly':
+        start_date = today.subtract(1, 'month').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+        end_date = today.format('YYYY-MM-DD HH:mm:ss');
+        break;
+      default:
+        start_date = today.format('YYYY-MM-DD HH:mm:ss');
+        end_date = today.format('YYYY-MM-DD HH:mm:ss');
+    }
+    return { start_date, end_date };
   };
 
   const [transactionComparisonData, setTransactionComparisonData] = useState([]);
   const [revenueComparisonData, setRevenueComparisonData] = useState([]);
 
-  const fetchComparisonData = () => {
-    setLoading(prev => ({ ...prev, comparison: true }));
-    getQrisComparison()
+  const fetchAllData = () => {
+    setLoading({
+      merchant: true,
+      static: true,
+      deposit: true,
+      comparison: true
+    });
+
+    const { start_date, end_date } = getDateRange(selectedFilter);
+    getQrisTransactions({ start_date, end_date })
       .then(res => {
         const data = res.data.data || {};
-        // Set transaction comparison data
+        
+        // Update merchant chart data
+        const merchantArr = data.merchant_chart || [];
+        setMerchantData(merchantArr.map(item => ({ x: item.label, y: item.value })));
+
+        // Update static chart data
+        const staticArr = data.static_chart || [];
+        setStaticData(staticArr.map(item => ({ x: item.label, y: item.value })));
+
+        // Update deposit chart data
+        const depositArr = data.deposit_chart || [];
+        setDepositData(depositArr.map(item => ({ x: item.label, y: item.value })));
+
+        // Update comparison data
         setTransactionComparisonData([
-          { name: 'QRIS Winpay', value: data.transactions?.winpay || 0 },
-          { name: 'QRIS Nobu', value: data.transactions?.nobu || 0 }
+          { name: 'QRIS Winpay', value: data.comparison?.transactions?.winpay || 0 },
+          { name: 'QRIS Nobu', value: data.comparison?.transactions?.nobu || 0 }
         ]);
-        // Set revenue comparison data
         setRevenueComparisonData([
-          { name: 'QRIS Winpay', value: data.revenue?.winpay || 0 },
-          { name: 'QRIS Nobu', value: data.revenue?.nobu || 0 }
+          { name: 'QRIS Winpay', value: data.comparison?.revenue?.winpay || 0 },
+          { name: 'QRIS Nobu', value: data.comparison?.revenue?.nobu || 0 }
         ]);
       })
       .catch(() => {
+        setMerchantData([]);
+        setStaticData([]);
+        setDepositData([]);
         setTransactionComparisonData([]);
         setRevenueComparisonData([]);
       })
-      .finally(() => setLoading(prev => ({ ...prev, comparison: false })));
-  };
-
-  const fetchAllData = () => {
-    fetchMerchantData();
-    fetchStaticData();
-    fetchDepositData();
-    fetchComparisonData();
+      .finally(() => {
+        setLoading({
+          merchant: false,
+          static: false,
+          deposit: false,
+          comparison: false
+        });
+      });
   };
 
   useEffect(() => {
@@ -107,7 +132,7 @@ export default function MonitorQrisPage() {
 
     // Cleanup interval saat component unmount atau dependency berubah
     return () => clearInterval(interval);
-  }, [periode]);
+  }, [selectedFilter]);
 
   const calculateTotal = (data) => {
     return data.reduce((sum, item) => sum + (item.y || 0), 0);
@@ -137,7 +162,7 @@ export default function MonitorQrisPage() {
           title="Transaksi QRIS Static"
           totalLabel="NOMINAL"
           totalValue={<span style={{ color: '#1EC98B' }}>Rp {Number(calculateTotal(staticData)).toLocaleString('id-ID')}</span>}
-          filters={filters}
+          // filters={filters}
           data={staticData}
           tooltipFormatter={(value, name, props) => [
             `Rp ${Number(value).toLocaleString('id-ID')}`,
@@ -150,7 +175,7 @@ export default function MonitorQrisPage() {
           title="Transaksi Deposit via QRIS"
           totalLabel="NOMINAL"
           totalValue={<span style={{ color: '#1EC98B' }}>Rp {Number(calculateTotal(depositData)).toLocaleString('id-ID')}</span>}
-          filters={filters}
+          // filters={filters}
           data={depositData}
           tooltipFormatter={(value, name, props) => [
             `Rp ${Number(value).toLocaleString('id-ID')}`,
