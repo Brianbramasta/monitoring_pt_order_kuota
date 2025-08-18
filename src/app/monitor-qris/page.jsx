@@ -79,7 +79,7 @@ export default function MonitorQrisPage() {
     });
 
     const { start_date, end_date } = getDateRange(selectedFilter);
-    getQrisTransactions({ start_date, end_date })
+    getQrisTransactions({ period: selectedFilter, start_date, end_date })
       .then(res => {
         const data = res.data.data || {};
         

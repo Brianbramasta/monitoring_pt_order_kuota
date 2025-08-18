@@ -89,7 +89,8 @@ export default function TransactionComplaintPage() {
       page,
       limit: pageSize,
       start_date,
-      end_date
+      end_date,
+      periode: selectedFilter,
     })
       .then(res => {
         const arr = res.data.data?.transactions || [];

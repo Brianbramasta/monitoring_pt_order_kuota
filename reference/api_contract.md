@@ -750,6 +750,7 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
 - **Endpoint:** `/api/v1/monitor/qris/transaction`
 - **Method:** `GET`
 - **Parameter Request:**
+  - `period`: Filter periode (opsional, default 'monthly'). Pilihan: `4hours`, `daily`, `3days`, `weekly`, `monthly`.
   - `start_date`: Tanggal mulai custom (opsional, format: `YYYY-MM-DD HH:mm:ss`)
   - `end_date`: Tanggal akhir custom (opsional, format: `YYYY-MM-DD HH:mm:ss`)
 - **Parameter Response:**
