@@ -29,8 +29,8 @@ export default function QrisComparisonChart({
   return (
     <div className="bg-white rounded-2xl p-6" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.08)', border: '1px solid #F4F4F4' }}>
       <h2 className="text-lg font-semibold mb-4">{title}</h2>
-      <div className="flex items-center">
-        <div className="h-[300px] flex-1">
+      <div className="flex flex-col md:flex-row items-center gap-6">
+        <div className="w-full md:flex-1 h-[300px]">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <defs>
@@ -85,17 +85,17 @@ export default function QrisComparisonChart({
             </PieChart>
           </ResponsiveContainer>
         </div>
-        <div className="flex flex-col gap-4 ml-6">
+        <div className="flex flex-col gap-4 md:ml-6 w-full md:w-auto">
           {data.map((item, index) => (
-            <div key={index} className="flex items-center gap-3">
-              <div 
-                className="w-3 h-3 rounded-full" 
-                style={{ backgroundColor: colors[index % colors.length] }}
-              />
-              <div>
+            <div key={index} className="flex items-center justify-between md:justify-start gap-3">
+              <div className="flex items-center gap-3">
+                <div 
+                  className="w-3 h-3 rounded-full" 
+                  style={{ backgroundColor: colors[index % colors.length] }}
+                />
                 <span className="text-sm font-medium">{item.name}</span>
-                <div className="text-sm text-gray-500">{item.value.toLocaleString()}</div>
               </div>
+              <div className="text-sm text-gray-500">{item.value.toLocaleString()}</div>
             </div>
           ))}
         </div>
