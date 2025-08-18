@@ -107,6 +107,7 @@ export default function TransactionSuccessPage() {
         setMostSuccessProducts(res.data.data?.most_successful_products_daily || []);
         setTopSuccessPartners(res.data.data?.top_success_partners_daily || []);
         setTotalSuccessTransactionsDaily(res.data.data?.total_successful_transactions_daily || []);
+        setChartData(res.data.data?.chart_data || []);
       })
       .catch(() => {
         setData([]);
@@ -115,6 +116,7 @@ export default function TransactionSuccessPage() {
         setMostSuccessProducts([]);
         setTopSuccessPartners([]);
         setTotalSuccessTransactionsDaily([]);
+        setChartData([]); // Add this
       })
       .finally(() => setLoading(false));
   };

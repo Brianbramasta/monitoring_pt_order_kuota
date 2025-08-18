@@ -108,7 +108,7 @@ export async function GET(request) {
 
     // Chart data filtered by same date range
     let chart_data = dbData.transactions_complaints_chart || [];
-    chart_data = filterByDate(chart_data, startDate, endDate);
+    // chart_data = filterByDate(chart_data, startDate, endDate);
 
     const response = NextResponse.json({
       code: 200,

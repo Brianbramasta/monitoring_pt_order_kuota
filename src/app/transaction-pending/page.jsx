@@ -108,6 +108,7 @@ export default function TransactionPendingPage() {
         setMostPendingProducts(res.data.data?.most_pending_products_daily || []);
         setTopPendingPartners(res.data.data?.top_pending_partners_daily || []);
         setTotalPendingTransactionsDaily(res.data.data?.total_pending_transactions_daily || []);
+        setChartData(res.data.data?.chart_data || []);
       })
       .catch(() => {
         setData([]);
@@ -116,6 +117,7 @@ export default function TransactionPendingPage() {
         setMostPendingProducts([]);
         setTopPendingPartners([]);
         setTotalPendingTransactionsDaily([]);
+        setChartData([]);
       })
       .finally(() => setLoading(false));
   };
