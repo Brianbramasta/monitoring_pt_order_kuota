@@ -131,7 +131,8 @@ export async function GET(request) {
     let transactions = dbData.transactions_failed || [];
 
     // Filter berdasarkan tanggal
-    transactions = filterByDate(transactions, startDate, endDate);
+     //comment Brian - tampilkan semua data dulu
+    // transactions = filterByDate(transactions, startDate, endDate);
 
     // Filter berdasarkan search
     transactions = searchData(transactions, search);

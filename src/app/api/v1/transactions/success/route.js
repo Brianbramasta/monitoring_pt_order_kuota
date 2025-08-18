@@ -97,7 +97,8 @@ export async function GET(request) {
       return addCorsHeaders(errorResponse);
     }
     let transactions = dbData.transactions_success || [];
-    transactions = filterByDate(transactions, startDate, endDate);
+     //comment Brian - tampilkan semua data dulu
+    // transactions = filterByDate(transactions, startDate, endDate);
     transactions = searchData(transactions, search);
     const recap = calculateRecap(transactions);
     const { data: paginatedTransactions, pagination } = paginateData(transactions, page, limit);
