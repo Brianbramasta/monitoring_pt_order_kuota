@@ -1,6 +1,6 @@
 import React from "react";
 import CustomDropdown from "./CustomDropdown";
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Line } from "recharts";
 
 /**
  * Props:
@@ -21,6 +21,37 @@ const AreaGrafik = ({
   dataKeyY = "y",
   tooltipFormatter,
 }) => {
+  // Custom Tooltip agar label tidak double
+function CustomTooltipWrapper(props) {
+  // props: { active, payload, label } dari recharts, plus dataKeyY, tooltipFormatter
+  const { active, payload, label, dataKeyY, tooltipFormatter } = props;
+  if (!active || !payload || payload.length === 0) return null;
+  let value = payload[0].value;
+  let displayLabel = label;
+  if (tooltipFormatter) {
+    const formatted = tooltipFormatter(value, dataKeyY, payload[0]);
+    if (Array.isArray(formatted)) {
+      value = formatted[0];
+      displayLabel = formatted[1] || label;
+    } else {
+      value = formatted;
+    }
+  }
+  return (
+    <div style={{
+      fontFamily: 'Poppins',
+      borderRadius: 8,
+      fontSize: 14,
+      backgroundColor: 'var(--background)',
+      color: 'var(--foreground)',
+      border: '1px solid var(--foreground)',
+      padding: 8
+    }}>
+      <div>Tanggal: {displayLabel}</div>
+      <div>Transaksi: <b>{value}</b></div>
+    </div>
+  );
+}
   return (
     <div className="bg-white  rounded-2xl p-[clamp(12px,3vw,24px)] shadow-[0_2px_8px_#0001] w-full m-0">
       {/* Header */}
@@ -41,59 +72,47 @@ const AreaGrafik = ({
           ))}
         </div>
       </div>
-      {/* Grafik Area */}
+      {/* Grafik Area (diubah: Area + Line Chart seperti QrisLineChart) */}
       <div className="w-full h-[min(300px,50vw)] min-h-[180px]">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 16, right: 24, left: 0, bottom: 0 }}>
             <defs>
               <linearGradient id="colorArea" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#177F7E" stopOpacity={0.3}/>
-                <stop offset="100%" stopColor="#177F7E" stopOpacity={0}/>
+                <stop offset="5%" stopColor="#177F7E" stopOpacity={0.1}/>
+                <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1}/>
               </linearGradient>
             </defs>
-            <CartesianGrid 
-              strokeDasharray="3 3" 
-              vertical={false} 
-              stroke="#404040"
-              className=""
-            />
+            <CartesianGrid strokeDasharray="3 3" />
             <XAxis 
-              dataKey={dataKeyX} 
-              tick={{ 
-                fontFamily: 'Poppins', 
-                fontSize: 12, 
-                fill: 'var(--foreground)'
-              }} 
+              dataKey={dataKeyX}
+              tick={{ fontFamily: 'Poppins', fontSize: 12, fill: 'var(--foreground)' }}
               stroke="var(--foreground)"
             />
             <YAxis 
-              tick={{ 
-                fontFamily: 'Poppins', 
-                fontSize: 12, 
-                fill: 'var(--foreground)'
-              }}
+              tick={{ fontFamily: 'Poppins', fontSize: 12, fill: 'var(--foreground)' }}
               stroke="var(--foreground)"
+              tickFormatter={(value) => `Rp ${Number(value).toLocaleString('id-ID')}`}
             />
             <Tooltip
-              contentStyle={{ 
-                fontFamily: 'Poppins', 
-                borderRadius: 8, 
-                fontSize: 14,
-                backgroundColor: 'var(--background)',
-                color: 'var(--foreground)',
-                border: '1px solid var(--foreground)'
-              }}
-              formatter={tooltipFormatter}
-              labelStyle={{
-                color: 'var(--foreground)'
-              }}
+              content={props => <CustomTooltipWrapper {...props} dataKeyY={dataKeyY} tooltipFormatter={tooltipFormatter} />}
+              wrapperStyle={{ zIndex: 1000 }}
             />
+
+
+
+
             <Area 
               type="monotone" 
               dataKey={dataKeyY} 
               stroke="#177F7E" 
+              fillOpacity={1} 
               fill="url(#colorArea)" 
-              strokeWidth={3} 
+            />
+            <Line 
+              type="monotone" 
+              dataKey={dataKeyY} 
+              stroke="#177F7E"
+              strokeWidth={2} 
             />
           </AreaChart>
         </ResponsiveContainer>

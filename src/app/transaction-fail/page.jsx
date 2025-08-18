@@ -226,15 +226,16 @@ const filters = [
           dataKeyY="y"
           tooltipFormatter={(value, name, props) => [value, props && props.payload && props.payload.x ? props.payload.x : name]}
           loading={loading}
+          filters={filters}
         />
       </div>
 
     
-      {/* Section: Produk yang sering gagal (perhari) & Mitra dengan transaksi gagal terbanyak (perhari) */}
+      {/* Section: Produk yang sering gagal & Mitra dengan transaksi gagal terbanyak */}
 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
-  <BestSellingProductList title="Produk yang sering gagal (perhari)" products={mostFailedProducts.map(p => ({ product_name: p.product_name, sales: p.value }))} />
+  <BestSellingProductList title="Produk yang sering gagal" products={mostFailedProducts.map(p => ({ product_name: p.product_name, sales: p.value }))} />
   <div className="w-full bg-white rounded-2xl p-6 flex flex-col items-start" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
-    <div className="text-xl font-bold mb-4 text-center w-full">Mitra dengan transaksi gagal terbanyak (perhari)</div>
+    <div className="text-xl font-bold mb-4 text-center w-full">Mitra dengan transaksi gagal terbanyak</div>
     <DynamicTable
       columns={[
         { key: 'no', label: 'No.' },
@@ -250,10 +251,10 @@ const filters = [
     />
   </div>
 </div>
-{/* Section: Total Transaksi Gagal (perhari) */}
+{/* Section: Total Transaksi Gagal */}
 <div className="my-4">
   <TotalTransactionBarChart
-    title="Total Transaksi Gagal (perhari)"
+    title="Total Transaksi Gagal"
     totalLabel="Total Kegagalan"
     totalValue={totalFailedTransactionsDaily.reduce((a, b) => a + (b.total || 0), 0)}
     data={totalFailedTransactionsDaily}
@@ -266,7 +267,7 @@ const filters = [
           data={data}
           searchPlaceholder="Cari produk disini . . ."
           onSearch={setSearch}
-          filters={filters}
+          // filters={filters}
           pagination={{
             page,
             totalPages: Math.ceil(totalData / pageSize),

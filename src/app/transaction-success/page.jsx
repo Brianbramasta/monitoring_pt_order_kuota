@@ -222,21 +222,21 @@ export default function TransactionSuccessPage() {
         <AreaGrafik
           totalLabel="TOTAL TRANSAKSI"
           totalValue={chartData.reduce((a, b) => a + b.value, 0).toLocaleString('id-ID')}
-          filters={[]}
           data={chartData.map(d => ({ x: d.label, y: d.value }))}
           dataKeyX="x"
           dataKeyY="y"
           tooltipFormatter={(value, name, props) => [value, props && props.payload && props.payload.x ? props.payload.x : name]}
           loading={loading}
+          filters={filters}
         />
       </div>
 
       
-      {/* Section: Produk yang sering sukses (perhari) & Mitra dengan transaksi sukses terbanyak (perhari) */}
+      {/* Section: Produk yang sering sukses & Mitra dengan transaksi sukses terbanyak */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
-        <BestSellingProductList title="Produk yang sering sukses (perhari)" products={mostSuccessProducts.map(p => ({ product_name: p.product_name, sales: p.value }))} />
+        <BestSellingProductList title="Produk yang sering sukses" products={mostSuccessProducts.map(p => ({ product_name: p.product_name, sales: p.value }))} />
         <div className="w-full bg-white rounded-2xl p-6 flex flex-col items-start" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
-          <div className="text-xl font-bold mb-4 text-center w-full">Mitra dengan transaksi sukses terbanyak (perhari)</div>
+          <div className="text-xl font-bold mb-4 text-center w-full">Mitra dengan transaksi sukses terbanyak</div>
           <DynamicTable
             columns={[
               { key: 'no', label: 'No.' },
@@ -252,10 +252,10 @@ export default function TransactionSuccessPage() {
           />
         </div>
       </div>
-      {/* Section: Total Transaksi Sukses (perhari) */}
+      {/* Section: Total Transaksi Sukses */}
       <div className="my-4">
         <TotalTransactionBarChart
-          title="Total Transaksi Sukses (perhari)"
+          title="Total Transaksi Sukses"
           totalLabel="Total Sukses"
           totalValue={totalSuccessTransactionsDaily.reduce((a, b) => a + (b.total || 0), 0)}
           data={totalSuccessTransactionsDaily}
@@ -269,7 +269,6 @@ export default function TransactionSuccessPage() {
           data={data}
           searchPlaceholder="Cari produk disini . . ."
           onSearch={setSearch}
-          filters={filters}
           pagination={{
             page,
             totalPages: Math.ceil(totalData / pageSize),

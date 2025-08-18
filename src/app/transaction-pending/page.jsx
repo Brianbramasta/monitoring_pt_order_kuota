@@ -230,15 +230,16 @@ const cards = [
           dataKeyY="y"
           tooltipFormatter={(value, name, props) => [value, props && props.payload && props.payload.x ? props.payload.x : name]}
           loading={loading}
+          filters={filters}
         />
       </div>
 
       
-      {/* Section: Produk yang sering pending (perhari) & Mitra dengan transaksi pending terbanyak (perhari) */}
+      {/* Section: Produk yang sering pending & Mitra dengan transaksi pending terbanyak */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
-        <BestSellingProductList title="Produk yang sering pending (perhari)" products={mostPendingProducts.map(p => ({ product_name: p.product_name, sales: p.value }))} />
+        <BestSellingProductList title="Produk yang sering pending" products={mostPendingProducts.map(p => ({ product_name: p.product_name, sales: p.value }))} />
         <div className="w-full bg-white rounded-2xl p-6 flex flex-col items-start" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
-          <div className="text-xl font-bold mb-4 text-center w-full">Mitra dengan transaksi pending terbanyak (perhari)</div>
+          <div className="text-xl font-bold mb-4 text-center w-full">Mitra dengan transaksi pending terbanyak</div>
           <DynamicTable
             columns={[
               { key: 'no', label: 'No.' },
@@ -254,10 +255,10 @@ const cards = [
           />
         </div>
       </div>
-      {/* Section: Total Transaksi Pending (perhari) */}
+      {/* Section: Total Transaksi Pending */}
       <div className="my-4">
         <TotalTransactionBarChart
-          title="Total Transaksi Pending (perhari)"
+          title="Total Transaksi Pending"
           totalLabel="Total Pending"
           totalValue={totalPendingTransactionsDaily.reduce((a, b) => a + (b.total || 0), 0)}
           data={totalPendingTransactionsDaily}
@@ -271,7 +272,6 @@ const cards = [
           data={data}
           searchPlaceholder="Cari produk disini . . ."
           onSearch={setSearch}
-          filters={filters}
           pagination={{
             page,
             totalPages: Math.ceil(totalData / pageSize),
