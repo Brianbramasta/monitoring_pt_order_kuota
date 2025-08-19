@@ -703,12 +703,12 @@
     { "id": 11, "name": "Pulsa Telkomsel 10rb" }
   ],
   "transactions_failed_chart": [
-    { "label": "Jan 2025", "value": 120 },
-    { "label": "Feb 2025", "value": 90 },
-    { "label": "Mar 2025", "value": 150 },
-    { "label": "Apr 2025", "value": 80 },
-    { "label": "Mei 2025", "value": 200 },
-    { "label": "Jun 2025", "value": 170 }
+    { "label": "Jan 2025", "value": 120, "date": "2025-01-01T08:00:00" },
+    { "label": "Feb 2025", "value": 90, "date": "2025-02-01T08:00:00" },
+    { "label": "Mar 2025", "value": 150, "date": "2025-03-01T08:00:00" },
+    { "label": "Apr 2025", "value": 80, "date": "2025-04-01T08:00:00" },
+    { "label": "May 2025", "value": 200, "date": "2025-05-01T08:00:00" },
+    { "label": "Jun 2025", "value": 170, "date": "2025-06-01T08:00:00" }
   ],
   "transactions_pending_chart": [
     { "label": "Jan 2025", "value": 100 },

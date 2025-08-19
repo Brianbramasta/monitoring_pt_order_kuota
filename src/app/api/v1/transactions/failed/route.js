@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import dayjs from 'dayjs';
 
 // Fungsi untuk membaca data dari db.json
 function readDbData() {
@@ -151,7 +152,30 @@ export async function GET(request) {
 
     // Chart data filtered by same date range
     let chart_data = dbData.transactions_failed_chart || [];
-    // chart_data = filterByDate(chart_data, startDate, endDate);
+    
+    // Format label sesuai dengan periode yang dipilih
+    const periode = searchParams.get('periode') || '4hours';
+    chart_data = chart_data.map(item => {
+      let label = item.label;
+      switch (periode) {
+        case '4hours':
+          label = dayjs(item.date).format('DD MMM YYYY HH:mm');
+          break;
+        case 'daily':
+          label = dayjs(item.date).format('DD MMM YYYY');
+          break;
+        case '3days':
+          label = `${dayjs(item.date).format('DD')}–${dayjs(item.date).add(2, 'day').format('DD MMM YYYY')}`;
+          break;
+        case 'weekly':
+          label = `${dayjs(item.date).format('DD')}–${dayjs(item.date).add(6, 'day').format('DD MMM YYYY')}`;
+          break;
+        case 'monthly':
+          label = dayjs(item.date).format('MMM YYYY');
+          break;
+      }
+      return { ...item, label };
+    });
 
     const response = NextResponse.json({
       code: 200,
