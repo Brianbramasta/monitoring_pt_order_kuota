@@ -33,10 +33,8 @@ function getRandomNumber(min, max) {
 }
 
 // Fungsi untuk generate data transaksi gagal
-function generateFailedTransactions() {
-  const now = dayjs();
-  const minutesAgo = getRandomNumber(1, 240); // Random dalam 4 jam terakhir
-  const transactionTime = now.subtract(minutesAgo, 'minute');
+function generateFailedTransactions(count = 10, customDate = null) {
+  const baseDate = customDate ? dayjs(customDate) : dayjs();
   const products = [
     { name: "Pulsa Telkomsel 5rb", code: "TSEL5K", price: 5200 },
     { name: "Pulsa Telkomsel 10rb", code: "TSEL10K", price: 10500 },
@@ -55,18 +53,20 @@ function generateFailedTransactions() {
 
   // Generate chart data untuk 4 jam terakhir
   const chartData = Array.from({ length: 15 }, (_, index) => {
-    const timePoint = now.subtract(4, 'hour').add(16 * index, 'minute');
+    const timePoint = baseDate.subtract(4, 'hour').add(16 * index, 'minute');
     return {
-      date: timePoint.format('YYYY-MM-DDTHH:mm:ss'),
+      date: timePoint.format('YYYY-MM-DD HH:mm:ss'),
       label: timePoint.format('DD MMM YYYY HH:mm'),
       value: getRandomNumber(50, 200)
     };
   });
 
   // Generate data transaksi gagal
-  const transactions = Array.from({ length: 10 }, (_, index) => {
+  const transactions = Array.from({ length: count }, (_, index) => {
     const product = products[Math.floor(Math.random() * products.length)];
     const quantity = getRandomNumber(1, 10);
+    const minutesAgo = getRandomNumber(0, 240); // Random dalam 4 jam terakhir
+    const transactionTime = baseDate.subtract(minutesAgo, 'minute');
     
     return {
       no: index + 1,
@@ -88,6 +88,10 @@ function generateFailedTransactions() {
 
 export async function GET(request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const count = parseInt(searchParams.get('count')) || 10;
+    const date = searchParams.get('date'); // Format expected: YYYY-MM-DD HH:mm:ss
+
     // Baca data existing
     const dbData = readDbData();
     if (!dbData) {
@@ -99,7 +103,7 @@ export async function GET(request) {
     }
 
     // Generate data baru
-    const { transactions, chartData } = generateFailedTransactions();
+    const { transactions, chartData } = generateFailedTransactions(count, date);
 
     // Tambahkan data baru ke database (tidak mereplace)
     // Untuk transactions_failed

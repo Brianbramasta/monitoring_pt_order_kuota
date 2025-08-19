@@ -25,7 +25,7 @@ function writeDbData(data) {
   }
 }
 
-function generateTransaction() {
+function generateTransaction(customDate = null) {
   const products = [
     { name: 'Indosat 5GB', code: 'IND5GB', price: 25000 },
     { name: 'Telkomsel 10GB', code: 'TSEL10GB', price: 50000 },
@@ -47,13 +47,17 @@ function generateTransaction() {
     'Nomor tidak valid'
   ];
 
+  const baseDate = customDate ? dayjs(customDate) : dayjs();
+  const minutesAgo = Math.floor(Math.random() * 240); // Random dalam 4 jam terakhir
+  const transactionTime = baseDate.subtract(minutesAgo, 'minute');
+
   const randomProduct = products[Math.floor(Math.random() * products.length)];
   const randomSupplier = suppliers[Math.floor(Math.random() * suppliers.length)];
   const randomComplaint = complaints[Math.floor(Math.random() * complaints.length)];
   const quantity = Math.floor(Math.random() * 5) + 1;
 
   return {
-    date: dayjs().format(),
+    date: transactionTime.format('YYYY-MM-DD HH:mm:ss'),
     product_name: randomProduct.name,
     product_code: randomProduct.code,
     supplier_name: randomSupplier,
@@ -70,8 +74,12 @@ function addCorsHeaders(response) {
   return response;
 }
 
-export async function POST(request) {
+export async function GET(request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const count = parseInt(searchParams.get('count')) || 10;
+    const date = searchParams.get('date'); // Format expected: YYYY-MM-DD HH:mm:ss
+
     const db = readDbData();
     if (!db) {
       const errorResponse = NextResponse.json({
@@ -82,21 +90,24 @@ export async function POST(request) {
       return addCorsHeaders(errorResponse);
     }
 
-    const newTransaction = generateTransaction();
+    // Generate multiple transactions
+    const transactions = Array.from({ length: count }, () => generateTransaction(date));
 
     // Add to transactions_complaints
     if (!db.transactions_complaints) {
       db.transactions_complaints = [];
     }
-    db.transactions_complaints.push(newTransaction);
+    db.transactions_complaints.push(...transactions);
 
     // Add to chart data
     if (!db.transactions_complaints_chart) {
       db.transactions_complaints_chart = [];
     }
-    db.transactions_complaints_chart.push({
-      date: newTransaction.date,
-      value: 1
+    transactions.forEach(transaction => {
+      db.transactions_complaints_chart.push({
+        date: transaction.date,
+        value: 1
+      });
     });
 
     // Write back to database
@@ -113,7 +124,10 @@ export async function POST(request) {
       code: 200,
       status: "success",
       message: "Berhasil menambahkan transaksi komplain",
-      data: newTransaction
+      data: {
+        transactions,
+        count: transactions.length
+      }
     });
 
     return addCorsHeaders(response);

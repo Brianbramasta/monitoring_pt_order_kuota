@@ -702,6 +702,22 @@
       "supplier_name": "PT Supplier C",
       "quantity": 3,
       "price": 75000
+    },
+    {
+      "date": "2025-08-19 07:42:18",
+      "product_name": "XL 15GB",
+      "product_code": "XL15GB",
+      "supplier_name": "PT Supplier D",
+      "quantity": 4,
+      "price": 75000
+    },
+    {
+      "date": "2025-08-19 09:30:18",
+      "product_name": "Indosat 5GB",
+      "product_code": "IND5GB",
+      "supplier_name": "PT Supplier B",
+      "quantity": 2,
+      "price": 25000
     }
   ],
   "transactions_pending": [
@@ -774,6 +790,38 @@
       "price": 15000,
       "quantity": 3,
       "void": null
+    },
+    {
+      "date": "2025-08-19 09:00:18",
+      "product_name": "Indosat 5GB",
+      "product_code": "IND5GB",
+      "supplier_name": "PT Supplier C",
+      "quantity": 3,
+      "price": 25000
+    },
+    {
+      "date": "2025-08-19 08:41:18",
+      "product_name": "Telkomsel 10GB",
+      "product_code": "TSEL10GB",
+      "supplier_name": "PT Supplier A",
+      "quantity": 1,
+      "price": 50000
+    },
+    {
+      "date": "2025-08-19 08:00:18",
+      "product_name": "Indosat 5GB",
+      "product_code": "IND5GB",
+      "supplier_name": "PT Supplier B",
+      "quantity": 4,
+      "price": 25000
+    },
+    {
+      "date": "2025-08-19 08:46:18",
+      "product_name": "Smartfren 20GB",
+      "product_code": "SMART20GB",
+      "supplier_name": "PT Supplier B",
+      "quantity": 4,
+      "price": 100000
     }
   ],
   "transactions_failed": [
@@ -1263,6 +1311,22 @@
     {
       "label": "Jun 2025",
       "value": 140
+    },
+    {
+      "date": "2025-08-19 09:00:18",
+      "value": 1
+    },
+    {
+      "date": "2025-08-19 08:41:18",
+      "value": 1
+    },
+    {
+      "date": "2025-08-19 08:00:18",
+      "value": 1
+    },
+    {
+      "date": "2025-08-19 08:46:18",
+      "value": 1
     }
   ],
   "transactions_success_chart": [
@@ -1296,6 +1360,14 @@
     },
     {
       "date": "2025-08-19T14:27:49+07:00",
+      "value": 1
+    },
+    {
+      "date": "2025-08-19 07:42:18",
+      "value": 1
+    },
+    {
+      "date": "2025-08-19 09:30:18",
       "value": 1
     }
   ],
