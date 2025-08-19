@@ -694,6 +694,14 @@
       "supplier_name": "PT Supplier B",
       "quantity": 2,
       "price": 50000
+    },
+    {
+      "date": "2025-08-19T14:27:49+07:00",
+      "product_name": "XL 15GB",
+      "product_code": "XL15GB",
+      "supplier_name": "PT Supplier C",
+      "quantity": 3,
+      "price": 75000
     }
   ],
   "transactions_pending": [
@@ -1284,6 +1292,10 @@
     },
     {
       "date": "2025-08-19T13:58:24+07:00",
+      "value": 1
+    },
+    {
+      "date": "2025-08-19T14:27:49+07:00",
       "value": 1
     }
   ],
