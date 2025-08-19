@@ -45,40 +45,48 @@
   ],
   "products": [
     {
-      "no": 1,
-      "product_type": "Pulsa",
-      "product_name": "Pulsa Telkomsel 5rb",
-      "vd_id_code": "PULSA001"
+      "id": 1,
+      "name": "Pulsa Telkomsel 5rb"
     },
     {
-      "no": 2,
-      "product_type": "Paket Data",
-      "product_name": "Paket Data XL 1GB",
-      "vd_id_code": "DATA002"
+      "id": 2,
+      "name": "Paket Data XL 1GB"
     },
     {
-      "no": 3,
-      "product_type": "Token PLN",
-      "product_name": "Token PLN 20rb",
-      "vd_id_code": "PLN003"
+      "id": 3,
+      "name": "Token PLN 20rb"
     },
     {
-      "no": 4,
-      "product_type": "Pulsa",
-      "product_name": "Pulsa Indosat 10rb",
-      "vd_id_code": "PULSA004"
+      "id": 4,
+      "name": "Pulsa Indosat 10rb"
     },
     {
-      "no": 5,
-      "product_type": "Paket Data",
-      "product_name": "Paket Data Telkomsel 2GB",
-      "vd_id_code": "DATA005"
+      "id": 5,
+      "name": "Paket Data Telkomsel 2GB"
     },
     {
-      "no": 6,
-      "product_type": "Pulsa",
-      "product_name": "Pulsa Telkomsel 10rb",
-      "vd_id_code": "PULSA006"
+      "id": 6,
+      "name": "Game Voucher Mobile Legends 50Diamonds"
+    },
+    {
+      "id": 7,
+      "name": "Pulsa Smartfren 10rb"
+    },
+    {
+      "id": 8,
+      "name": "Token PLN 50rb"
+    },
+    {
+      "id": 9,
+      "name": "Pembayaran BPJS"
+    },
+    {
+      "id": 10,
+      "name": "Game Voucher Free Fire 100Diamonds"
+    },
+    {
+      "id": 11,
+      "name": "Pulsa Telkomsel 10rb"
     }
   ],
   "products_best_selling": [
@@ -198,138 +206,315 @@
       "no": 1,
       "supplier_name": "Telkomsel API",
       "supplier_code": "TSL001",
-      "supplier_balance": 100000.0,
+      "supplier_balance": 100000,
       "server_status": "Stabil",
-      "product_transaction_analysis": { "success": 120, "pending": 20, "failed": 5 },
+      "product_transaction_analysis": {
+        "success": 120,
+        "pending": 20,
+        "failed": 5
+      },
       "total_revenue": [
-        { "label": "Jan", "value": 10000000 },
-        { "label": "Feb", "value": 12000000 },
-        { "label": "Mar", "value": 9000000 }
+        {
+          "label": "Jan",
+          "value": 10000000
+        },
+        {
+          "label": "Feb",
+          "value": 12000000
+        },
+        {
+          "label": "Mar",
+          "value": 9000000
+        }
       ],
       "best_selling_products": [
-        { "product_name": "Pulsa Telkomsel 5rb", "sales": 23400 },
-        { "product_name": "Pulsa Indosat 5rb", "sales": 12000 },
-        { "product_name": "Token PLN 20rb", "sales": 8000 }
+        {
+          "product_name": "Pulsa Telkomsel 5rb",
+          "sales": 23400
+        },
+        {
+          "product_name": "Pulsa Indosat 5rb",
+          "sales": 12000
+        },
+        {
+          "product_name": "Token PLN 20rb",
+          "sales": 8000
+        }
       ],
       "product_sales": [
-        { "label": "Jan", "value": 5000 },
-        { "label": "Feb", "value": 6000 },
-        { "label": "Mar", "value": 4000 }
+        {
+          "label": "Jan",
+          "value": 5000
+        },
+        {
+          "label": "Feb",
+          "value": 6000
+        },
+        {
+          "label": "Mar",
+          "value": 4000
+        }
       ]
     },
     {
       "no": 2,
       "supplier_name": "Indosat Ooredoo API",
       "supplier_code": "IDS002",
-      "supplier_balance": 300000.0,
+      "supplier_balance": 300000,
       "server_status": "Down",
-      "product_transaction_analysis": { "success": 100, "pending": 35, "failed": 15 },
+      "product_transaction_analysis": {
+        "success": 100,
+        "pending": 35,
+        "failed": 15
+      },
       "total_revenue": [
-        { "label": "Jan", "value": 8000000 },
-        { "label": "Feb", "value": 9500000 },
-        { "label": "Mar", "value": 11000000 }
+        {
+          "label": "Jan",
+          "value": 8000000
+        },
+        {
+          "label": "Feb",
+          "value": 9500000
+        },
+        {
+          "label": "Mar",
+          "value": 11000000
+        }
       ],
       "best_selling_products": [
-        { "product_name": "Pulsa Telkomsel 5rb", "sales": 18000 },
-        { "product_name": "Pulsa Indosat 5rb", "sales": 15000 },
-        { "product_name": "Token PLN 20rb", "sales": 10000 }
+        {
+          "product_name": "Pulsa Telkomsel 5rb",
+          "sales": 18000
+        },
+        {
+          "product_name": "Pulsa Indosat 5rb",
+          "sales": 15000
+        },
+        {
+          "product_name": "Token PLN 20rb",
+          "sales": 10000
+        }
       ],
       "product_sales": [
-        { "label": "Jan", "value": 4000 },
-        { "label": "Feb", "value": 7000 },
-        { "label": "Mar", "value": 6500 }
+        {
+          "label": "Jan",
+          "value": 4000
+        },
+        {
+          "label": "Feb",
+          "value": 7000
+        },
+        {
+          "label": "Mar",
+          "value": 6500
+        }
       ]
     },
     {
       "no": 3,
       "supplier_name": "XL Axiata API",
       "supplier_code": "XL003",
-      "supplier_balance": 250000.0,
+      "supplier_balance": 250000,
       "server_status": "Stabil",
-      "product_transaction_analysis": { "success": 140, "pending": 25, "failed": 8 },
+      "product_transaction_analysis": {
+        "success": 140,
+        "pending": 25,
+        "failed": 8
+      },
       "total_revenue": [
-        { "label": "Jan", "value": 9500000 },
-        { "label": "Feb", "value": 10500000 },
-        { "label": "Mar", "value": 10000000 }
+        {
+          "label": "Jan",
+          "value": 9500000
+        },
+        {
+          "label": "Feb",
+          "value": 10500000
+        },
+        {
+          "label": "Mar",
+          "value": 10000000
+        }
       ],
       "best_selling_products": [
-        { "product_name": "Pulsa Telkomsel 5rb", "sales": 21000 },
-        { "product_name": "Pulsa Indosat 5rb", "sales": 17000 },
-        { "product_name": "Token PLN 20rb", "sales": 9000 }
+        {
+          "product_name": "Pulsa Telkomsel 5rb",
+          "sales": 21000
+        },
+        {
+          "product_name": "Pulsa Indosat 5rb",
+          "sales": 17000
+        },
+        {
+          "product_name": "Token PLN 20rb",
+          "sales": 9000
+        }
       ],
       "product_sales": [
-        { "label": "Jan", "value": 6000 },
-        { "label": "Feb", "value": 5500 },
-        { "label": "Mar", "value": 7000 }
+        {
+          "label": "Jan",
+          "value": 6000
+        },
+        {
+          "label": "Feb",
+          "value": 5500
+        },
+        {
+          "label": "Mar",
+          "value": 7000
+        }
       ]
     },
     {
       "no": 4,
       "supplier_name": "Smartfren API",
       "supplier_code": "SMF004",
-      "supplier_balance": 150000.0,
+      "supplier_balance": 150000,
       "server_status": "Stabil"
     },
     {
       "no": 5,
       "supplier_name": "PLN API",
       "supplier_code": "PLN005",
-      "supplier_balance": 500000.0,
+      "supplier_balance": 500000,
       "server_status": "Down"
     },
     {
       "no": 6,
       "supplier_name": "Tri API",
       "supplier_code": "TRI006",
-      "supplier_balance": 200000.0,
+      "supplier_balance": 200000,
       "server_status": "Stabil"
     }
   ],
   "monitor_qris_chart": [
-    { "label": "Jan 2025", "value": 5000000.0 },
-    { "label": "Feb 2025", "value": 6500000.0 },
-    { "label": "Mar 2025", "value": 6000000.0 },
-    { "label": "Apr 2025", "value": 7000000.0 },
-    { "label": "Mei 2025", "value": 7800000.0 },
-    { "label": "Jun 2025", "value": 7200000.0 },
-    { "label": "Jul 2025", "value": 8000000.0 }
+    {
+      "label": "Jan 2025",
+      "value": 5000000
+    },
+    {
+      "label": "Feb 2025",
+      "value": 6500000
+    },
+    {
+      "label": "Mar 2025",
+      "value": 6000000
+    },
+    {
+      "label": "Apr 2025",
+      "value": 7000000
+    },
+    {
+      "label": "Mei 2025",
+      "value": 7800000
+    },
+    {
+      "label": "Jun 2025",
+      "value": 7200000
+    },
+    {
+      "label": "Jul 2025",
+      "value": 8000000
+    }
   ],
   "monitor_qris_static_chart": [
-    { "label": "Jan 2025", "value": 2500000.0 },
-    { "label": "Feb 2025", "value": 3200000.0 },
-    { "label": "Mar 2025", "value": 2800000.0 },
-    { "label": "Apr 2025", "value": 3500000.0 },
-    { "label": "Mei 2025", "value": 3900000.0 },
-    { "label": "Jun 2025", "value": 3600000.0 },
-    { "label": "Jul 2025", "value": 4000000.0 }
+    {
+      "label": "Jan 2025",
+      "value": 2500000
+    },
+    {
+      "label": "Feb 2025",
+      "value": 3200000
+    },
+    {
+      "label": "Mar 2025",
+      "value": 2800000
+    },
+    {
+      "label": "Apr 2025",
+      "value": 3500000
+    },
+    {
+      "label": "Mei 2025",
+      "value": 3900000
+    },
+    {
+      "label": "Jun 2025",
+      "value": 3600000
+    },
+    {
+      "label": "Jul 2025",
+      "value": 4000000
+    }
   ],
   "monitor_qris_deposit_chart": [
-    { "label": "Jan 2025", "value": 1500000.0 },
-    { "label": "Feb 2025", "value": 1800000.0 },
-    { "label": "Mar 2025", "value": 1700000.0 },
-    { "label": "Apr 2025", "value": 2000000.0 },
-    { "label": "Mei 2025", "value": 2200000.0 },
-    { "label": "Jun 2025", "value": 1900000.0 },
-    { "label": "Jul 2025", "value": 2100000.0 }
+    {
+      "label": "Jan 2025",
+      "value": 1500000
+    },
+    {
+      "label": "Feb 2025",
+      "value": 1800000
+    },
+    {
+      "label": "Mar 2025",
+      "value": 1700000
+    },
+    {
+      "label": "Apr 2025",
+      "value": 2000000
+    },
+    {
+      "label": "Mei 2025",
+      "value": 2200000
+    },
+    {
+      "label": "Jun 2025",
+      "value": 1900000
+    },
+    {
+      "label": "Jul 2025",
+      "value": 2100000
+    }
   ],
   "monitor_qris_comparison": {
     "transactions": {
-      "winpay": 6500000.0,
-      "nobu": 4500000.0
+      "winpay": 6500000,
+      "nobu": 4500000
     },
     "revenue": {
-      "winpay": 7800000.0,
-      "nobu": 2400000.0
+      "winpay": 7800000,
+      "nobu": 2400000
     }
   },
   "monitor_transactions_chart": [
-    { "label": "Jan 2025", "value": 15000000.0 },
-    { "label": "Feb 2025", "value": 18000000.0 },
-    { "label": "Mar 2025", "value": 17500000.0 },
-    { "label": "Apr 2025", "value": 20000000.0 },
-    { "label": "Mei 2025", "value": 22000000.0 },
-    { "label": "Jun 2025", "value": 19500000.0 },
-    { "label": "Jul 2025", "value": 21000000.0 }
+    {
+      "label": "Jan 2025",
+      "value": 15000000
+    },
+    {
+      "label": "Feb 2025",
+      "value": 18000000
+    },
+    {
+      "label": "Mar 2025",
+      "value": 17500000
+    },
+    {
+      "label": "Apr 2025",
+      "value": 20000000
+    },
+    {
+      "label": "Mei 2025",
+      "value": 22000000
+    },
+    {
+      "label": "Jun 2025",
+      "value": 19500000
+    },
+    {
+      "label": "Jul 2025",
+      "value": 21000000
+    }
   ],
   "transactions_complaints": [
     {
@@ -338,7 +523,7 @@
       "product_name": "Pulsa Indosat 10rb",
       "supplier_name": "Supplier A",
       "product_code": "IND10K",
-      "price": 10200.0,
+      "price": 10200,
       "quantity": 1,
       "void": "PULSA004",
       "is_read": false
@@ -349,7 +534,7 @@
       "product_name": "Paket Data Telkomsel 2GB",
       "supplier_name": "Supplier E",
       "product_code": "TSEL2GB",
-      "price": 22000.0,
+      "price": 22000,
       "quantity": 1,
       "void": "DATA005",
       "is_read": true
@@ -360,7 +545,7 @@
       "product_name": "Token PLN 50rb",
       "supplier_name": "Supplier C",
       "product_code": "PLN50K",
-      "price": 50500.0,
+      "price": 50500,
       "quantity": 2,
       "void": "PLN003",
       "is_read": false
@@ -371,7 +556,7 @@
       "product_name": "Pulsa XL 5rb",
       "supplier_name": "Supplier B",
       "product_code": "XL5K",
-      "price": 5200.0,
+      "price": 5200,
       "quantity": 3,
       "void": null,
       "is_read": true
@@ -382,7 +567,7 @@
       "product_name": "Pulsa Telkomsel 10rb",
       "supplier_name": "Tri API",
       "product_code": "PULSA006",
-      "price": 10500.0,
+      "price": 10500,
       "quantity": 2,
       "void": "PULSA006",
       "is_read": false
@@ -393,7 +578,7 @@
       "product_name": "Paket Data XL 1GB",
       "supplier_name": "Supplier B",
       "product_code": "XL1GB",
-      "price": 11000.0,
+      "price": 11000,
       "quantity": 1,
       "void": null,
       "is_read": false
@@ -404,7 +589,7 @@
       "product_name": "Game Voucher Free Fire 100Diamonds",
       "supplier_name": "Supplier H",
       "product_code": "FF100D",
-      "price": 30000.0,
+      "price": 30000,
       "quantity": 2,
       "void": "FF100D",
       "is_read": true
@@ -415,7 +600,7 @@
       "product_name": "Pembayaran BPJS",
       "supplier_name": "Supplier D",
       "product_code": "BPJS001",
-      "price": 25000.0,
+      "price": 25000,
       "quantity": 1,
       "void": null,
       "is_read": false
@@ -428,7 +613,7 @@
       "product_name": "Pulsa Telkomsel 10rb",
       "supplier_name": "Supplier E",
       "product_code": "TSEL10K",
-      "price": 10500.0,
+      "price": 10500,
       "quantity": 50,
       "void": "PULSA006"
     },
@@ -438,7 +623,7 @@
       "product_name": "Game Voucher Mobile Legends 50Diamonds",
       "supplier_name": "Supplier F",
       "product_code": "ML50D",
-      "price": 15000.0,
+      "price": 15000,
       "quantity": 10,
       "void": null
     },
@@ -448,7 +633,7 @@
       "product_name": "Paket Data XL 5GB",
       "supplier_name": "Supplier B",
       "product_code": "XL5GB",
-      "price": 25000.0,
+      "price": 25000,
       "quantity": 25,
       "void": "DATA002"
     },
@@ -458,7 +643,7 @@
       "product_name": "Token PLN 20rb",
       "supplier_name": "Supplier C",
       "product_code": "PLN20K",
-      "price": 20200.0,
+      "price": 20200,
       "quantity": 15,
       "void": "PLN003"
     },
@@ -468,7 +653,7 @@
       "product_name": "Pulsa Indosat 5rb",
       "supplier_name": "Supplier A",
       "product_code": "IND5K",
-      "price": 5200.0,
+      "price": 5200,
       "quantity": 30,
       "void": "PULSA001"
     },
@@ -478,7 +663,7 @@
       "product_name": "Pulsa Telkomsel 10rb",
       "supplier_name": "Tri API",
       "product_code": "PULSA006",
-      "price": 10500.0,
+      "price": 10500,
       "quantity": 100,
       "void": "PULSA006"
     },
@@ -488,7 +673,7 @@
       "product_name": "Pulsa Smartfren 10rb",
       "supplier_name": "Smartfren API",
       "product_code": "SMF10K",
-      "price": 10200.0,
+      "price": 10200,
       "quantity": 20,
       "void": null
     },
@@ -498,7 +683,7 @@
       "product_name": "Token PLN 50rb",
       "supplier_name": "PLN API",
       "product_code": "PLN50K",
-      "price": 50500.0,
+      "price": 50500,
       "quantity": 10,
       "void": "PLN003"
     }
@@ -510,7 +695,7 @@
       "product_name": "Token PLN 50rb",
       "supplier_name": "Supplier C",
       "product_code": "PLN50K",
-      "price": 50500.0,
+      "price": 50500,
       "quantity": 5,
       "void": "PLN003"
     },
@@ -520,7 +705,7 @@
       "product_name": "Pembayaran BPJS",
       "supplier_name": "Supplier D",
       "product_code": "BPJS001",
-      "price": 25000.0,
+      "price": 25000,
       "quantity": 2,
       "void": null
     },
@@ -530,7 +715,7 @@
       "product_name": "Pulsa Smartfren 10rb",
       "supplier_name": "Supplier G",
       "product_code": "SMF10K",
-      "price": 10200.0,
+      "price": 10200,
       "quantity": 8,
       "void": null
     },
@@ -540,7 +725,7 @@
       "product_name": "Paket Data Telkomsel 1GB",
       "supplier_name": "Supplier E",
       "product_code": "TSEL1GB",
-      "price": 12000.0,
+      "price": 12000,
       "quantity": 12,
       "void": "DATA005"
     },
@@ -550,7 +735,7 @@
       "product_name": "Pulsa Telkomsel 10rb",
       "supplier_name": "Tri API",
       "product_code": "PULSA006",
-      "price": 10500.0,
+      "price": 10500,
       "quantity": 5,
       "void": "PULSA006"
     },
@@ -560,7 +745,7 @@
       "product_name": "Pulsa Indosat 10rb",
       "supplier_name": "Indosat Ooredoo API",
       "product_code": "IND10K",
-      "price": 10200.0,
+      "price": 10200,
       "quantity": 4,
       "void": null
     },
@@ -570,7 +755,7 @@
       "product_name": "Game Voucher Mobile Legends 50Diamonds",
       "supplier_name": "Supplier F",
       "product_code": "ML50D",
-      "price": 15000.0,
+      "price": 15000,
       "quantity": 3,
       "void": null
     }
@@ -578,219 +763,558 @@
   "transactions_failed": [
     {
       "no": 1,
-      "date": "2025-08-22",
-      "product_name": "Pulsa Indosat 5rb",
-      "supplier_name": "Supplier A",
-      "product_code": "IND5K",
-      "price": 5200.0,
-      "quantity": 10,
-      "void": "PULSA001"
+      "date": "2025-08-19",
+      "product_name": "Token PLN 20rb",
+      "supplier_name": "XL API",
+      "product_code": "PLN20K",
+      "price": 20200,
+      "quantity": 4,
+      "void": null
     },
     {
       "no": 2,
-      "date": "2025-08-18",
-      "product_name": "Paket Data XL 1GB",
-      "supplier_name": "Supplier B",
-      "product_code": "XL1GB",
-      "price": 11000.0,
+      "date": "2025-08-19",
+      "product_name": "Paket Data Telkomsel 2GB",
+      "supplier_name": "PLN API",
+      "product_code": "TSEL2GB",
+      "price": 25000,
+      "quantity": 10,
+      "void": "TSEL2GB"
+    },
+    {
+      "no": 3,
+      "date": "2025-08-19",
+      "product_name": "Paket Data Telkomsel 2GB",
+      "supplier_name": "PLN API",
+      "product_code": "TSEL2GB",
+      "price": 25000,
+      "quantity": 9,
+      "void": "TSEL2GB"
+    },
+    {
+      "no": 4,
+      "date": "2025-08-19",
+      "product_name": "Token PLN 20rb",
+      "supplier_name": "Smartfren API",
+      "product_code": "PLN20K",
+      "price": 20200,
       "quantity": 5,
       "void": null
     },
     {
-      "no": 3,
-      "date": "2025-08-18",
-      "product_name": "Token PLN 100rb",
-      "supplier_name": "Supplier C",
-      "product_code": "PLN100K",
-      "price": 101000.0,
-      "quantity": 2,
-      "void": null
-    },
-    {
-      "no": 4,
-      "date": "2025-08-18",
-      "product_name": "Pulsa Telkomsel 25rb",
-      "supplier_name": "Supplier E",
-      "product_code": "TSEL25K",
-      "price": 25500.0,
+      "no": 5,
+      "date": "2025-08-19",
+      "product_name": "Paket Data Telkomsel 2GB",
+      "supplier_name": "Telkomsel API",
+      "product_code": "TSEL2GB",
+      "price": 25000,
       "quantity": 7,
       "void": null
     },
     {
-      "no": 5,
-      "date": "2025-08-18",
-      "product_name": "Game Voucher Free Fire 100Diamonds",
-      "supplier_name": "Supplier H",
-      "product_code": "FF100D",
-      "price": 30000.0,
-      "quantity": 3,
-      "void": null
-    },
-    {
       "no": 6,
-      "date": "2025-07-01",
-      "product_name": "Pulsa Telkomsel 10rb",
-      "supplier_name": "Tri API",
-      "product_code": "PULSA006",
-      "price": 10500.0,
-      "quantity": 1,
-      "void": "PULSA006"
+      "date": "2025-08-19",
+      "product_name": "Paket Data XL 1GB",
+      "supplier_name": "Smartfren API",
+      "product_code": "XL1GB",
+      "price": 15000,
+      "quantity": 4,
+      "void": "XL1GB"
     },
     {
       "no": 7,
-      "date": "2025-07-01",
-      "product_name": "Pulsa Telkomsel 5rb",
-      "supplier_name": "Telkomsel API",
-      "product_code": "PULSA001",
-      "price": 5200.0,
+      "date": "2025-08-19",
+      "product_name": "Paket Data Telkomsel 2GB",
+      "supplier_name": "XL API",
+      "product_code": "TSEL2GB",
+      "price": 25000,
       "quantity": 2,
       "void": null
     },
     {
       "no": 8,
-      "date": "2025-07-01",
+      "date": "2025-08-19",
+      "product_name": "Pulsa Telkomsel 5rb",
+      "supplier_name": "Smartfren API",
+      "product_code": "TSEL5K",
+      "price": 5200,
+      "quantity": 9,
+      "void": "TSEL5K"
+    },
+    {
+      "no": 9,
+      "date": "2025-08-19",
+      "product_name": "Token PLN 20rb",
+      "supplier_name": "Telkomsel API",
+      "product_code": "PLN20K",
+      "price": 20200,
+      "quantity": 7,
+      "void": null
+    },
+    {
+      "no": 10,
+      "date": "2025-08-19",
       "product_name": "Paket Data Telkomsel 2GB",
-      "supplier_name": "Supplier E",
+      "supplier_name": "PLN API",
       "product_code": "TSEL2GB",
-      "price": 22000.0,
-      "quantity": 1,
-      "void": "DATA005"
+      "price": 25000,
+      "quantity": 3,
+      "void": null
     }
   ],
   "most_failed_products_daily": [
-    { "product_name": "Pulsa Telkomsel 5rb", "value": 23400 },
-    { "product_name": "Pulsa Telkomsel 10rb", "value": 30000 },
-    { "product_name": "Pulsa Telkomsel 15rb", "value": 23400 },
-    { "product_name": "Pulsa Telkomsel 20rb", "value": 22000 },
-    { "product_name": "Pulsa Telkomsel 25rb", "value": 15000 }
+    {
+      "product_name": "Pulsa Telkomsel 5rb",
+      "value": 23400
+    },
+    {
+      "product_name": "Pulsa Telkomsel 10rb",
+      "value": 30000
+    },
+    {
+      "product_name": "Pulsa Telkomsel 15rb",
+      "value": 23400
+    },
+    {
+      "product_name": "Pulsa Telkomsel 20rb",
+      "value": 22000
+    },
+    {
+      "product_name": "Pulsa Telkomsel 25rb",
+      "value": 15000
+    }
   ],
   "top_failed_partners_daily": [
-    { "no": 1, "partner_name": "PT ABC", "total_failed_transactions": 170 },
-    { "no": 2, "partner_name": "PT XYZ", "total_failed_transactions": 120 },
-    { "no": 3, "partner_name": "PT DEF", "total_failed_transactions": 100 },
-    { "no": 4, "partner_name": "PT GHI", "total_failed_transactions": 90 },
-    { "no": 5, "partner_name": "PT JKL", "total_failed_transactions": 80 }
+    {
+      "no": 1,
+      "partner_name": "PT ABC",
+      "total_failed_transactions": 170
+    },
+    {
+      "no": 2,
+      "partner_name": "PT XYZ",
+      "total_failed_transactions": 120
+    },
+    {
+      "no": 3,
+      "partner_name": "PT DEF",
+      "total_failed_transactions": 100
+    },
+    {
+      "no": 4,
+      "partner_name": "PT GHI",
+      "total_failed_transactions": 90
+    },
+    {
+      "no": 5,
+      "partner_name": "PT JKL",
+      "total_failed_transactions": 80
+    }
   ],
   "total_failed_transactions_daily": [
-    { "date": "2025-06-01", "total": 80 },
-    { "date": "2025-06-02", "total": 90 },
-    { "date": "2025-06-03", "total": 100 },
-    { "date": "2025-06-04", "total": 95 },
-    { "date": "2025-06-05", "total": 110 },
-    { "date": "2025-06-06", "total": 120 },
-    { "date": "2025-06-07", "total": 130 }
+    {
+      "date": "2025-06-01",
+      "total": 80
+    },
+    {
+      "date": "2025-06-02",
+      "total": 90
+    },
+    {
+      "date": "2025-06-03",
+      "total": 100
+    },
+    {
+      "date": "2025-06-04",
+      "total": 95
+    },
+    {
+      "date": "2025-06-05",
+      "total": 110
+    },
+    {
+      "date": "2025-06-06",
+      "total": 120
+    },
+    {
+      "date": "2025-06-07",
+      "total": 130
+    }
   ],
   "product_types": [
-    { "id": 1, "name": "Telkomsel" },
-    { "id": 2, "name": "Indosat" },
-    { "id": 3, "name": "XL" },
-    { "id": 4, "name": "Smartfren" },
-    { "id": 5, "name": "Pembayaran Tagihan" },
-    { "id": 6, "name": "Token PLN" },
-    { "id": 7, "name": "Game Voucher" }
-  ],
-  "products": [
-    { "id": 1, "name": "Pulsa Telkomsel 5rb" },
-    { "id": 2, "name": "Paket Data XL 1GB" },
-    { "id": 3, "name": "Token PLN 20rb" },
-    { "id": 4, "name": "Pulsa Indosat 10rb" },
-    { "id": 5, "name": "Paket Data Telkomsel 2GB" },
-    { "id": 6, "name": "Game Voucher Mobile Legends 50Diamonds" },
-    { "id": 7, "name": "Pulsa Smartfren 10rb" },
-    { "id": 8, "name": "Token PLN 50rb" },
-    { "id": 9, "name": "Pembayaran BPJS" },
-    { "id": 10, "name": "Game Voucher Free Fire 100Diamonds" },
-    { "id": 11, "name": "Pulsa Telkomsel 10rb" }
+    {
+      "id": 1,
+      "name": "Telkomsel"
+    },
+    {
+      "id": 2,
+      "name": "Indosat"
+    },
+    {
+      "id": 3,
+      "name": "XL"
+    },
+    {
+      "id": 4,
+      "name": "Smartfren"
+    },
+    {
+      "id": 5,
+      "name": "Pembayaran Tagihan"
+    },
+    {
+      "id": 6,
+      "name": "Token PLN"
+    },
+    {
+      "id": 7,
+      "name": "Game Voucher"
+    }
   ],
   "transactions_failed_chart": [
-    { "label": "Jan 2025", "value": 120, "date": "2025-01-01T08:00:00" },
-    { "label": "Feb 2025", "value": 90, "date": "2025-02-01T08:00:00" },
-    { "label": "Mar 2025", "value": 150, "date": "2025-03-01T08:00:00" },
-    { "label": "Apr 2025", "value": 80, "date": "2025-04-01T08:00:00" },
-    { "label": "May 2025", "value": 200, "date": "2025-05-01T08:00:00" },
-    { "label": "Jun 2025", "value": 170, "date": "2025-06-01T08:00:00" }
+    {
+      "date": "2025-08-19T09:04:32",
+      "label": "19 Aug 2025 09:04",
+      "value": 99
+    },
+    {
+      "date": "2025-08-19T09:20:32",
+      "label": "19 Aug 2025 09:20",
+      "value": 150
+    },
+    {
+      "date": "2025-08-19T09:36:32",
+      "label": "19 Aug 2025 09:36",
+      "value": 153
+    },
+    {
+      "date": "2025-08-19T09:52:32",
+      "label": "19 Aug 2025 09:52",
+      "value": 132
+    },
+    {
+      "date": "2025-08-19T10:08:32",
+      "label": "19 Aug 2025 10:08",
+      "value": 124
+    },
+    {
+      "date": "2025-08-19T10:24:32",
+      "label": "19 Aug 2025 10:24",
+      "value": 72
+    },
+    {
+      "date": "2025-08-19T10:40:32",
+      "label": "19 Aug 2025 10:40",
+      "value": 161
+    },
+    {
+      "date": "2025-08-19T10:56:32",
+      "label": "19 Aug 2025 10:56",
+      "value": 164
+    },
+    {
+      "date": "2025-08-19T11:12:32",
+      "label": "19 Aug 2025 11:12",
+      "value": 162
+    },
+    {
+      "date": "2025-08-19T11:28:32",
+      "label": "19 Aug 2025 11:28",
+      "value": 149
+    },
+    {
+      "date": "2025-08-19T11:44:32",
+      "label": "19 Aug 2025 11:44",
+      "value": 65
+    },
+    {
+      "date": "2025-08-19T12:00:32",
+      "label": "19 Aug 2025 12:00",
+      "value": 100
+    },
+    {
+      "date": "2025-08-19T12:16:32",
+      "label": "19 Aug 2025 12:16",
+      "value": 158
+    },
+    {
+      "date": "2025-08-19T12:32:32",
+      "label": "19 Aug 2025 12:32",
+      "value": 162
+    },
+    {
+      "date": "2025-08-19T12:48:32",
+      "label": "19 Aug 2025 12:48",
+      "value": 163
+    }
   ],
   "transactions_pending_chart": [
-    { "label": "Jan 2025", "value": 100 },
-    { "label": "Feb 2025", "value": 80 },
-    { "label": "Mar 2025", "value": 130 },
-    { "label": "Apr 2025", "value": 70 },
-    { "label": "Mei 2025", "value": 160 },
-    { "label": "Jun 2025", "value": 140 }
+    {
+      "label": "Jan 2025",
+      "value": 100
+    },
+    {
+      "label": "Feb 2025",
+      "value": 80
+    },
+    {
+      "label": "Mar 2025",
+      "value": 130
+    },
+    {
+      "label": "Apr 2025",
+      "value": 70
+    },
+    {
+      "label": "Mei 2025",
+      "value": 160
+    },
+    {
+      "label": "Jun 2025",
+      "value": 140
+    }
   ],
   "transactions_success_chart": [
-    { "label": "Jan 2025", "value": 200 },
-    { "label": "Feb 2025", "value": 150 },
-    { "label": "Mar 2025", "value": 250 },
-    { "label": "Apr 2025", "value": 180 },
-    { "label": "Mei 2025", "value": 300 },
-    { "label": "Jun 2025", "value": 270 }
+    {
+      "label": "Jan 2025",
+      "value": 200
+    },
+    {
+      "label": "Feb 2025",
+      "value": 150
+    },
+    {
+      "label": "Mar 2025",
+      "value": 250
+    },
+    {
+      "label": "Apr 2025",
+      "value": 180
+    },
+    {
+      "label": "Mei 2025",
+      "value": 300
+    },
+    {
+      "label": "Jun 2025",
+      "value": 270
+    }
   ],
   "transactions_complaints_chart": [
-    { "label": "Jan 2025", "value": 50 },
-    { "label": "Feb 2025", "value": 40 },
-    { "label": "Mar 2025", "value": 60 },
-    { "label": "Apr 2025", "value": 30 },
-    { "label": "Mei 2025", "value": 80 },
-    { "label": "Jun 2025", "value": 70 }
+    {
+      "label": "Jan 2025",
+      "value": 50
+    },
+    {
+      "label": "Feb 2025",
+      "value": 40
+    },
+    {
+      "label": "Mar 2025",
+      "value": 60
+    },
+    {
+      "label": "Apr 2025",
+      "value": 30
+    },
+    {
+      "label": "Mei 2025",
+      "value": 80
+    },
+    {
+      "label": "Jun 2025",
+      "value": 70
+    }
   ],
   "most_complaint_products_daily": [
-    { "product_name": "Pulsa Telkomsel 5rb", "value": 10 },
-    { "product_name": "Pulsa Indosat 10rb", "value": 8 }
+    {
+      "product_name": "Pulsa Telkomsel 5rb",
+      "value": 10
+    },
+    {
+      "product_name": "Pulsa Indosat 10rb",
+      "value": 8
+    }
   ],
   "top_complaint_partners_daily": [
-    { "no": 1, "partner_name": "PT ABC", "total_complaint_transactions": 7 },
-    { "no": 2, "partner_name": "PT XYZ", "total_complaint_transactions": 5 }
+    {
+      "no": 1,
+      "partner_name": "PT ABC",
+      "total_complaint_transactions": 7
+    },
+    {
+      "no": 2,
+      "partner_name": "PT XYZ",
+      "total_complaint_transactions": 5
+    }
   ],
   "total_complaint_transactions_daily": [
-    { "date": "2025-06-01", "total": 5 },
-    { "date": "2025-06-02", "total": 6 }
+    {
+      "date": "2025-06-01",
+      "total": 5
+    },
+    {
+      "date": "2025-06-02",
+      "total": 6
+    }
   ],
   "most_pending_products_daily": [
-    { "product_name": "Pulsa Telkomsel 5rb", "value": 18000 },
-    { "product_name": "Pulsa Indosat 10rb", "value": 12000 },
-    { "product_name": "Token PLN 20rb", "value": 9000 },
-    { "product_name": "Paket Data XL 1GB", "value": 7000 },
-    { "product_name": "Game Voucher Mobile Legends 50Diamonds", "value": 5000 }
+    {
+      "product_name": "Pulsa Telkomsel 5rb",
+      "value": 18000
+    },
+    {
+      "product_name": "Pulsa Indosat 10rb",
+      "value": 12000
+    },
+    {
+      "product_name": "Token PLN 20rb",
+      "value": 9000
+    },
+    {
+      "product_name": "Paket Data XL 1GB",
+      "value": 7000
+    },
+    {
+      "product_name": "Game Voucher Mobile Legends 50Diamonds",
+      "value": 5000
+    }
   ],
   "top_pending_partners_daily": [
-    { "no": 1, "partner_name": "PT Pending A", "total_pending_transactions": 90 },
-    { "no": 2, "partner_name": "PT Pending B", "total_pending_transactions": 80 },
-    { "no": 3, "partner_name": "PT Pending C", "total_pending_transactions": 70 },
-    { "no": 4, "partner_name": "PT Pending D", "total_pending_transactions": 60 },
-    { "no": 5, "partner_name": "PT Pending E", "total_pending_transactions": 50 }
+    {
+      "no": 1,
+      "partner_name": "PT Pending A",
+      "total_pending_transactions": 90
+    },
+    {
+      "no": 2,
+      "partner_name": "PT Pending B",
+      "total_pending_transactions": 80
+    },
+    {
+      "no": 3,
+      "partner_name": "PT Pending C",
+      "total_pending_transactions": 70
+    },
+    {
+      "no": 4,
+      "partner_name": "PT Pending D",
+      "total_pending_transactions": 60
+    },
+    {
+      "no": 5,
+      "partner_name": "PT Pending E",
+      "total_pending_transactions": 50
+    }
   ],
   "total_pending_transactions_daily": [
-    { "date": "2025-06-01", "total": 60 },
-    { "date": "2025-06-02", "total": 65 },
-    { "date": "2025-06-03", "total": 70 },
-    { "date": "2025-06-04", "total": 75 },
-    { "date": "2025-06-05", "total": 80 },
-    { "date": "2025-06-06", "total": 85 },
-    { "date": "2025-06-07", "total": 90 }
+    {
+      "date": "2025-06-01",
+      "total": 60
+    },
+    {
+      "date": "2025-06-02",
+      "total": 65
+    },
+    {
+      "date": "2025-06-03",
+      "total": 70
+    },
+    {
+      "date": "2025-06-04",
+      "total": 75
+    },
+    {
+      "date": "2025-06-05",
+      "total": 80
+    },
+    {
+      "date": "2025-06-06",
+      "total": 85
+    },
+    {
+      "date": "2025-06-07",
+      "total": 90
+    }
   ],
   "most_successful_products_daily": [
-    { "product_name": "Pulsa Telkomsel 10rb", "value": 25000 },
-    { "product_name": "Pulsa Indosat 10rb", "value": 20000 },
-    { "product_name": "Token PLN 20rb", "value": 15000 },
-    { "product_name": "Paket Data XL 1GB", "value": 12000 },
-    { "product_name": "Game Voucher Mobile Legends 50Diamonds", "value": 10000 }
+    {
+      "product_name": "Pulsa Telkomsel 10rb",
+      "value": 25000
+    },
+    {
+      "product_name": "Pulsa Indosat 10rb",
+      "value": 20000
+    },
+    {
+      "product_name": "Token PLN 20rb",
+      "value": 15000
+    },
+    {
+      "product_name": "Paket Data XL 1GB",
+      "value": 12000
+    },
+    {
+      "product_name": "Game Voucher Mobile Legends 50Diamonds",
+      "value": 10000
+    }
   ],
   "top_success_partners_daily": [
-    { "no": 1, "partner_name": "PT Sukses A", "total_successful_transactions": 200 },
-    { "no": 2, "partner_name": "PT Sukses B", "total_successful_transactions": 180 },
-    { "no": 3, "partner_name": "PT Sukses C", "total_successful_transactions": 160 },
-    { "no": 4, "partner_name": "PT Sukses D", "total_successful_transactions": 140 },
-    { "no": 5, "partner_name": "PT Sukses E", "total_successful_transactions": 120 }
+    {
+      "no": 1,
+      "partner_name": "PT Sukses A",
+      "total_successful_transactions": 200
+    },
+    {
+      "no": 2,
+      "partner_name": "PT Sukses B",
+      "total_successful_transactions": 180
+    },
+    {
+      "no": 3,
+      "partner_name": "PT Sukses C",
+      "total_successful_transactions": 160
+    },
+    {
+      "no": 4,
+      "partner_name": "PT Sukses D",
+      "total_successful_transactions": 140
+    },
+    {
+      "no": 5,
+      "partner_name": "PT Sukses E",
+      "total_successful_transactions": 120
+    }
   ],
   "total_successful_transactions_daily": [
-    { "date": "2025-06-01", "total": 100 },
-    { "date": "2025-06-02", "total": 110 },
-    { "date": "2025-06-03", "total": 120 },
-    { "date": "2025-06-04", "total": 130 },
-    { "date": "2025-06-05", "total": 140 },
-    { "date": "2025-06-06", "total": 150 },
-    { "date": "2025-06-07", "total": 160 }
+    {
+      "date": "2025-06-01",
+      "total": 100
+    },
+    {
+      "date": "2025-06-02",
+      "total": 110
+    },
+    {
+      "date": "2025-06-03",
+      "total": 120
+    },
+    {
+      "date": "2025-06-04",
+      "total": 130
+    },
+    {
+      "date": "2025-06-05",
+      "total": 140
+    },
+    {
+      "date": "2025-06-06",
+      "total": 150
+    },
+    {
+      "date": "2025-06-07",
+      "total": 160
+    }
   ],
   "monitor_transactions": {
     "recap": {
