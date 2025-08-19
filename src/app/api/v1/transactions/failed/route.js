@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import dayjs from 'dayjs';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+
+dayjs.extend(isSameOrAfter);
 
 // Fungsi untuk membaca data dari db.json
 function readDbData() {
@@ -107,6 +110,19 @@ function addCorsHeaders(response) {
   return response;
 }
 
+// Add this helper function before the GET handler
+function generateChartDataPoints(startPoint, count, intervalHours, labelFormat) {
+  return Array.from({ length: count }, (_, index) => {
+    const blockStart = startPoint.add(index * intervalHours, 'hour');
+    const blockEnd = blockStart.add(intervalHours, 'hour');
+    return {
+      date: blockStart.format(),
+      label: labelFormat(blockStart, blockEnd),
+      value: 0
+    };
+  });
+}
+
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -133,7 +149,7 @@ export async function GET(request) {
 
     // Filter berdasarkan tanggal
      //comment Brian - tampilkan semua data dulu
-    // transactions = filterByDate(transactions, startDate, endDate);
+    transactions = filterByDate(transactions, startDate, endDate);
 
     // Filter berdasarkan search
     transactions = searchData(transactions, search);
@@ -150,83 +166,88 @@ export async function GET(request) {
       ...item
     }));
 
-    // Generate 15 data points berdasarkan periode
+    // Generate data points berdasarkan periode
     const periode = searchParams.get('periode') || '4hours';
     const now = dayjs();
     let startPoint;
-    let interval;
-    let dateFormat;
+    let chart_data = [];
+    let intervalHours; // Add interval in hours
     
     switch (periode) {
       case '4hours':
-        startPoint = now.subtract(4, 'hour');
-        interval = 16; // 4 jam / 15 = 16 menit
-        dateFormat = 'minute';
+        startPoint = now.startOf('day');
+        intervalHours = 4;
+        const blocks24Hours = 6; // 24 hours / 4 hours interval
+        chart_data = generateChartDataPoints(
+          startPoint, 
+          blocks24Hours, 
+          intervalHours,
+          (start, end) => `${start.format('DD MMM YYYY')} ${start.format('HH:mm')}-${end.format('HH:mm')}`
+        );
         break;
       case 'daily':
-        startPoint = now.subtract(24, 'hour');
-        interval = 96; // 24 jam / 15 = 96 menit
-        dateFormat = 'minute';
+        // Start from beginning of current month
+        startPoint = now.startOf('month');
+        intervalHours = 24;
+        const daysInMonth = now.daysInMonth();
+        chart_data = generateChartDataPoints(
+          startPoint, 
+          daysInMonth,
+          intervalHours,
+          (start) => start.format('DD MMM YYYY')
+        );
         break;
       case '3days':
-        startPoint = now.subtract(3, 'day');
-        interval = 288; // (3 * 24 * 60) / 15 = 288 menit
-        dateFormat = 'minute';
+        // Start from beginning of current month
+        startPoint = now.startOf('month');
+        intervalHours = 24 * 3;
+        const threeDayBlocksInMonth = Math.ceil(now.daysInMonth() / 3);
+        chart_data = generateChartDataPoints(
+          startPoint,
+          threeDayBlocksInMonth,
+          intervalHours,
+          (start) => `${start.format('DD')}–${start.add(2, 'day').format('DD MMM YYYY')}`
+        );
         break;
       case 'weekly':
-        startPoint = now.subtract(7, 'day');
-        interval = 672; // (7 * 24 * 60) / 15 = 672 menit
-        dateFormat = 'minute';
+        // Start from 3 months ago
+        startPoint = now.subtract(3, 'month').startOf('month');
+        intervalHours = 24 * 7;
+        const weeksInThreeMonths = 12; // ~4 weeks per month * 3 months
+        chart_data = generateChartDataPoints(
+          startPoint,
+          weeksInThreeMonths,
+          intervalHours,
+          (start) => `${start.format('DD')}–${start.add(6, 'day').format('DD MMM YYYY')}`
+        );
         break;
       case 'monthly':
-        startPoint = now.subtract(14, 'month'); // mulai dari 14 bulan yang lalu
-        interval = 1; // interval 1 bulan
-        dateFormat = 'month';
+        // Start from beginning of current year
+        startPoint = now.startOf('year');
+        intervalHours = 24 * 30;
+        chart_data = Array.from({ length: 12 }, (_, index) => ({
+          date: startPoint.add(index, 'month').format(),
+          label: startPoint.add(index, 'month').format('MMM YYYY'),
+          value: 0
+        }));
         break;
     }
 
-    // Generate 15 empty data points
-    let chart_data = Array.from({ length: 15 }, (_, index) => {
-      const pointDate = periode === 'monthly' 
-        ? startPoint.add(index, 'month')
-        : startPoint.add(interval * index, 'minute');
-      let label;
-      
-      switch (periode) {
-        case '4hours':
-          label = pointDate.format('DD MMM YYYY HH:mm');
-          break;
-        case 'daily':
-          label = pointDate.format('DD MMM YYYY');
-          break;
-        case '3days':
-          label = `${pointDate.format('DD')}–${pointDate.add(2, 'day').format('DD MMM YYYY')}`;
-          break;
-        case 'weekly':
-          label = `${pointDate.format('DD')}–${pointDate.add(6, 'day').format('DD MMM YYYY')}`;
-          break;
-        case 'monthly':
-          label = pointDate.format('MMM YYYY');
-          break;
-      }
-      
-      return {
-        date: pointDate.format(),
-        label: label,
-        value: 0
-      };
-    });
-
-    // Merge dengan data aktual dari database
+    // Kelompokkan dan jumlahkan data berdasarkan interval
     const dbChartData = dbData.transactions_failed_chart || [];
     dbChartData.forEach(dbItem => {
       const dbDate = dayjs(dbItem.date);
       const matchingPoint = chart_data.find(point => {
         const pointDate = dayjs(point.date);
-        return dbDate.isAfter(pointDate) && dbDate.isBefore(pointDate.add(interval, 'minute'));
+        const nextPointDate = periode === 'monthly' 
+          ? pointDate.add(1, 'month')
+          : pointDate.add(intervalHours, 'hour');
+        
+        return dbDate.isSameOrAfter(pointDate) && dbDate.isBefore(nextPointDate);
       });
+      
       if (matchingPoint) {
-        matchingPoint.value = dbItem.value;
+        matchingPoint.value += dbItem.value;
       }
     });
 

@@ -98,7 +98,7 @@ export async function GET(request) {
     }
     let transactions = dbData.transactions_success || [];
      //comment Brian - tampilkan semua data dulu
-    // transactions = filterByDate(transactions, startDate, endDate);
+    transactions = filterByDate(transactions, startDate, endDate);
     transactions = searchData(transactions, search);
     const recap = calculateRecap(transactions);
     const { data: paginatedTransactions, pagination } = paginateData(transactions, page, limit);

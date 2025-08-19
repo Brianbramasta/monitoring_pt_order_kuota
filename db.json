@@ -686,6 +686,14 @@
       "price": 50500,
       "quantity": 10,
       "void": "PLN003"
+    },
+    {
+      "date": "2025-08-19T13:58:24+07:00",
+      "product_name": "Telkomsel 10GB",
+      "product_code": "TSEL10GB",
+      "supplier_name": "PT Supplier B",
+      "quantity": 2,
+      "price": 50000
     }
   ],
   "transactions_pending": [
@@ -859,6 +867,106 @@
       "product_code": "TSEL2GB",
       "price": 25000,
       "quantity": 3,
+      "void": null
+    },
+    {
+      "no": 11,
+      "date": "2025-08-19 10:10:18",
+      "product_name": "Paket Data Telkomsel 2GB",
+      "supplier_name": "Indosat API",
+      "product_code": "TSEL2GB",
+      "price": 25000,
+      "quantity": 4,
+      "void": "TSEL2GB"
+    },
+    {
+      "no": 12,
+      "date": "2025-08-19 10:10:18",
+      "product_name": "Paket Data Telkomsel 2GB",
+      "supplier_name": "Smartfren API",
+      "product_code": "TSEL2GB",
+      "price": 25000,
+      "quantity": 1,
+      "void": null
+    },
+    {
+      "no": 13,
+      "date": "2025-08-19 10:10:18",
+      "product_name": "Pulsa Telkomsel 5rb",
+      "supplier_name": "PLN API",
+      "product_code": "TSEL5K",
+      "price": 5200,
+      "quantity": 1,
+      "void": null
+    },
+    {
+      "no": 14,
+      "date": "2025-08-19 10:10:18",
+      "product_name": "Pulsa Telkomsel 5rb",
+      "supplier_name": "XL API",
+      "product_code": "TSEL5K",
+      "price": 5200,
+      "quantity": 8,
+      "void": "TSEL5K"
+    },
+    {
+      "no": 15,
+      "date": "2025-08-19 10:10:18",
+      "product_name": "Token PLN 20rb",
+      "supplier_name": "PLN API",
+      "product_code": "PLN20K",
+      "price": 20200,
+      "quantity": 8,
+      "void": null
+    },
+    {
+      "no": 16,
+      "date": "2025-08-19 10:10:18",
+      "product_name": "Token PLN 20rb",
+      "supplier_name": "XL API",
+      "product_code": "PLN20K",
+      "price": 20200,
+      "quantity": 1,
+      "void": "PLN20K"
+    },
+    {
+      "no": 17,
+      "date": "2025-08-19 10:10:18",
+      "product_name": "Paket Data Telkomsel 2GB",
+      "supplier_name": "XL API",
+      "product_code": "TSEL2GB",
+      "price": 25000,
+      "quantity": 3,
+      "void": null
+    },
+    {
+      "no": 18,
+      "date": "2025-08-19 10:10:18",
+      "product_name": "Pulsa Telkomsel 5rb",
+      "supplier_name": "Telkomsel API",
+      "product_code": "TSEL5K",
+      "price": 5200,
+      "quantity": 5,
+      "void": "TSEL5K"
+    },
+    {
+      "no": 19,
+      "date": "2025-08-19 10:10:18",
+      "product_name": "Pulsa Telkomsel 5rb",
+      "supplier_name": "Smartfren API",
+      "product_code": "TSEL5K",
+      "price": 5200,
+      "quantity": 7,
+      "void": null
+    },
+    {
+      "no": 20,
+      "date": "2025-08-19 10:10:18",
+      "product_name": "Pulsa Telkomsel 10rb",
+      "supplier_name": "Indosat API",
+      "product_code": "TSEL10K",
+      "price": 10500,
+      "quantity": 1,
       "void": null
     }
   ],
@@ -1046,6 +1154,81 @@
       "date": "2025-08-19T12:48:32",
       "label": "19 Aug 2025 12:48",
       "value": 163
+    },
+    {
+      "date": "2025-08-19T09:12:18",
+      "label": "19 Aug 2025 09:12",
+      "value": 165
+    },
+    {
+      "date": "2025-08-19T09:28:18",
+      "label": "19 Aug 2025 09:28",
+      "value": 180
+    },
+    {
+      "date": "2025-08-19T09:44:18",
+      "label": "19 Aug 2025 09:44",
+      "value": 185
+    },
+    {
+      "date": "2025-08-19T10:00:18",
+      "label": "19 Aug 2025 10:00",
+      "value": 122
+    },
+    {
+      "date": "2025-08-19T10:16:18",
+      "label": "19 Aug 2025 10:16",
+      "value": 61
+    },
+    {
+      "date": "2025-08-19T10:32:18",
+      "label": "19 Aug 2025 10:32",
+      "value": 86
+    },
+    {
+      "date": "2025-08-19T10:48:18",
+      "label": "19 Aug 2025 10:48",
+      "value": 164
+    },
+    {
+      "date": "2025-08-19T11:04:18",
+      "label": "19 Aug 2025 11:04",
+      "value": 85
+    },
+    {
+      "date": "2025-08-19T11:20:18",
+      "label": "19 Aug 2025 11:20",
+      "value": 86
+    },
+    {
+      "date": "2025-08-19T11:36:18",
+      "label": "19 Aug 2025 11:36",
+      "value": 130
+    },
+    {
+      "date": "2025-08-19T11:52:18",
+      "label": "19 Aug 2025 11:52",
+      "value": 159
+    },
+    {
+      "date": "2025-08-19T12:08:18",
+      "label": "19 Aug 2025 12:08",
+      "value": 100
+    },
+    {
+      "date": "2025-08-19T12:24:18",
+      "label": "19 Aug 2025 12:24",
+      "value": 111
+    },
+    {
+      "date": "2025-08-19T12:40:18",
+      "label": "19 Aug 2025 12:40",
+      "value": 150
+    },
+    {
+      "date": "2025-08-19T12:56:18",
+      "label": "19 Aug 2025 12:56",
+      "value": 159
     }
   ],
   "transactions_pending_chart": [
@@ -1098,6 +1281,10 @@
     {
       "label": "Jun 2025",
       "value": 270
+    },
+    {
+      "date": "2025-08-19T13:58:24+07:00",
+      "value": 1
     }
   ],
   "transactions_complaints_chart": [
