@@ -107,11 +107,11 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
   - `most_failed_products_daily`: Array produk yang sering gagal per hari
     - `product_name`: Nama produk (string)
     - `value`: Jumlah transaksi gagal per hari (integer)
-  - `top_partners_daily`: Array mitra dengan transaksi gagal terbanyak per hari
+  - `top_failed_partners_daily`: Array mitra dengan transaksi gagal terbanyak per hari
     - `no`: Nomor urut (integer)
     - `partner_name`: Nama mitra (string)
     - `total_failed_transactions`: Total transaksi gagal (integer)
-  - `total_transactions_daily`: Array total transaksi gagal per hari
+  - `total_failed_transactions_daily`: Array total transaksi gagal per hari
     - `date`: Tanggal (string, format `YYYY-MM-DD`)
     - `total`: Total transaksi gagal (integer)
   - `chart_data`: Array data grafik (jika parameter `period` diberikan)
@@ -207,11 +207,11 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
   - `most_pending_products_daily`: Array produk yang sering pending per hari
     - `product_name`: Nama produk (string)
     - `value`: Jumlah transaksi pending per hari (integer)
-  - `top_partners_daily`: Array mitra dengan transaksi pending terbanyak per hari
+  - `top_pending_partners_daily`: Array mitra dengan transaksi pending terbanyak per hari
     - `no`: Nomor urut (integer)
     - `partner_name`: Nama mitra (string)
     - `total_pending_transactions`: Total transaksi pending (integer)
-  - `total_transactions_daily`: Array total transaksi pending per hari
+  - `total_pending_transactions_daily`: Array total transaksi pending per hari
     - `date`: Tanggal (string, format `YYYY-MM-DD`)
     - `total`: Total transaksi pending (integer)
   - `chart_data`: Array data grafik (jika parameter `period` diberikan)
@@ -302,11 +302,11 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
   - `most_successful_products_daily": Array produk yang sering sukses per hari
     - `product_name": Nama produk (string)
     - `value": Jumlah transaksi sukses per hari (integer)
-  - `top_partners_daily": Array mitra dengan transaksi sukses terbanyak per hari
+  - `top_successful_partners_daily": Array mitra dengan transaksi sukses terbanyak per hari
     - `no": Nomor urut (integer)
     - `partner_name": Nama mitra (string)
     - `total_successful_transactions": Total transaksi sukses (integer)
-  - `total_transactions_daily": Array total transaksi sukses per hari
+  - `total_successful_transactions_daily": Array total transaksi sukses per hari
     - `date": Tanggal (string, format `YYYY-MM-DD`)
     - `total": Total transaksi sukses (integer)
   - `chart_data`: Array data grafik (jika parameter `period` diberikan)
@@ -401,11 +401,11 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
   - `most_complaint_products_daily": Array produk yang sering komplain per hari
     - `product_name": Nama produk (string)
     - `value": Jumlah komplain per hari (integer)
-  - `top_partners_daily": Array mitra dengan komplain terbanyak per hari
+  - `top_complaint_partners_daily": Array mitra dengan komplain terbanyak per hari
     - `no": Nomor urut (integer)
     - `partner_name": Nama mitra (string)
     - `total_complaint_transactions": Total komplain transaksi (integer)
-  - `total_transactions_daily": Array total komplain transaksi per hari
+  - `total_complaint_transactions_daily": Array total komplain transaksi per hari
     - `date": Tanggal (string, format `YYYY-MM-DD`)
     - `total": Total komplain transaksi (integer)
   - `chart_data`: Array data grafik (jika parameter `period` diberikan)
