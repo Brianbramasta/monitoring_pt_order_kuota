@@ -112,7 +112,7 @@ export async function GET(request) {
     
     let transactions = dbData.transactions_complaints || [];
     //comment Brian - tampilkan semua data dulu
-    // transactions = filterByDate(transactions, startDate, endDate);
+    transactions = filterByDate(transactions, startDate, endDate);
     transactions = searchData(transactions, search);
     
     // Hitung recap langsung dari data transaksi
