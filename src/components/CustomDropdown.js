@@ -25,7 +25,7 @@ function CustomDropdown({ label, options, value, onChange, type = "default", add
     <div className="relative" ref={ref} style={{fontFamily: 'Poppins, Arial, sans-serif'}}>
       <button
         type="button"
-        className={`flex items-center justify-between w-full ${additionalClass || 'bg-[#F4F8FB]'} text-[#545454] ${type === 'radio' ? 'rounded-[6px]' : 'rounded-full'} px-4 py-2 text-[14px] font-light focus:outline-none focus:ring-2 focus:ring-[#177F7E]`}
+        className={`flex items-center justify-between w-full cursor-pointer ${additionalClass || 'bg-[#F4F8FB]'} text-[#545454] ${type === 'radio' ? 'rounded-[6px]' : 'rounded-full'} px-4 py-2 text-[14px] font-light focus:outline-none focus:ring-2 focus:ring-[#177F7E]`}
         onClick={() => setOpen(v => !v)}
       >
         {selected.label}

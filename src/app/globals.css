@@ -150,3 +150,7 @@ color-base{
 .dark input {
   color: var(--color-base);
 }
+
+g, svg, path{
+  outline: unset !important;
+}
