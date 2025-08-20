@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Line } from 'recharts';
 import CustomDropdown from "./CustomDropdown";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
@@ -21,8 +21,23 @@ export default function QrisLineChart({
     setExpanded(!expanded);
   };
 
+  useEffect(() => {
+    if (expanded) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [expanded]);
+
   return (
     <> 
+    {expanded && (
+      <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={toggleExpand}></div>
+    )}
     <div className='flex flex-col gap-2'>
         <h2 className="text-lg font-semibold">{title}</h2>
         <div className={`bg-white rounded-lg p-4 ${expanded ? 'fixed inset-4 z-50' : ''}`}>
