@@ -3,8 +3,10 @@ import fs from 'fs';
 import path from 'path';
 import dayjs from 'dayjs';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 
 dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
 
 function readDbData() {
   try {
@@ -80,8 +82,8 @@ export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
     const period = searchParams.get('period') || 'monthly';
-    const startDate = searchParams.get('startDate');
-    const endDate = searchParams.get('endDate');
+    const startDate = searchParams.get('start_date');
+    const endDate = searchParams.get('end_date');
 
     const dbData = readDbData();
     if (!dbData) {
@@ -177,45 +179,130 @@ export async function GET(request) {
     let merchant_chart = [];
     let static_chart = [];
     let deposit_chart = [];
+    let chartStartDate, chartEndDate;
+    let intervalHours = 24; // Default interval in hours
     
+    // Jika ada parameter tanggal, gunakan range tanggal tersebut untuk chart
     if (startDate && endDate) {
-      // Generate chart data based on custom date range
-      const start = dayjs(startDate);
-      const end = dayjs(endDate);
-      const diffDays = end.diff(start, 'day');
+      chartStartDate = dayjs(startDate);
+      chartEndDate = dayjs(endDate);
+      const daysDiff = chartEndDate.diff(chartStartDate, 'day');
       
-      let intervalHours, labelFormat, dataPoints;
-      
-      if (diffDays <= 1) {
-        // Hourly intervals for 1 day or less
+      if (period==='4hours') {
+        // Jika range 1 hari atau kurang, gunakan interval per jam
         intervalHours = 1;
-        dataPoints = 24;
-        labelFormat = (point) => point.format('HH:mm');
-      } else if (diffDays <= 7) {
-        // Daily intervals for up to 7 days
+        const hours = Math.max(24, chartEndDate.diff(chartStartDate, 'hour') + 1);
+        merchant_chart = generateChartDataPoints(
+          chartStartDate.startOf('hour'),
+          hours,
+          intervalHours,
+          (blockStart, blockEnd) => `${blockStart.format('DD MMM YYYY HH:mm')}-${blockEnd.format('HH:mm')}`
+        );
+        static_chart = generateChartDataPoints(
+          chartStartDate.startOf('hour'),
+          hours,
+          intervalHours,
+          (blockStart, blockEnd) => `${blockStart.format('DD MMM YYYY HH:mm')}-${blockEnd.format('HH:mm')}`
+        );
+        deposit_chart = generateChartDataPoints(
+          chartStartDate.startOf('hour'),
+          hours,
+          intervalHours,
+          (blockStart, blockEnd) => `${blockStart.format('DD MMM YYYY HH:mm')}-${blockEnd.format('HH:mm')}`
+        );
+      } else if (period==='daily') {
+        // Jika range 1 minggu atau kurang, gunakan interval per hari
         intervalHours = 24;
-        dataPoints = diffDays + 1;
-        labelFormat = (point) => point.format('DD MMM');
-      } else if (diffDays <= 30) {
-        // Weekly intervals for up to 30 days
+        const days = daysDiff + 1;
+        merchant_chart = generateChartDataPoints(
+          chartStartDate.startOf('day'),
+          days,
+          intervalHours,
+          (blockStart) => blockStart.format('DD MMM YYYY')
+        );
+        static_chart = generateChartDataPoints(
+          chartStartDate.startOf('day'),
+          days,
+          intervalHours,
+          (blockStart) => blockStart.format('DD MMM YYYY')
+        );
+        deposit_chart = generateChartDataPoints(
+          chartStartDate.startOf('day'),
+          days,
+          intervalHours,
+          (blockStart) => blockStart.format('DD MMM YYYY')
+        );
+      } else if (period==='3days') {
+        // Jika range 1 bulan atau kurang, gunakan interval 3 hari
+        intervalHours = 24 * 3;
+        const weeks = Math.ceil(daysDiff / 3);
+        merchant_chart = generateChartDataPoints(
+          chartStartDate.startOf('day'),
+          weeks,
+          intervalHours,
+          (blockStart) => `${blockStart.format('DD')}–${blockStart.add(2, 'day').format('DD MMM YYYY')}`
+        );
+        static_chart = generateChartDataPoints(
+          chartStartDate.startOf('day'),
+          weeks,
+          intervalHours,
+          (blockStart) => `${blockStart.format('DD')}–${blockStart.add(2, 'day').format('DD MMM YYYY')}`
+        );
+        deposit_chart = generateChartDataPoints(
+          chartStartDate.startOf('day'),
+          weeks,
+          intervalHours,
+          (blockStart) => `${blockStart.format('DD')}–${blockStart.add(2, 'day').format('DD MMM YYYY')}`
+        );
+      } else if (period==='weekly') {
+        // Jika range 3 bulan atau kurang, gunakan interval per minggu
         intervalHours = 24 * 7;
-        dataPoints = Math.ceil(diffDays / 7);
-        labelFormat = (point) => `${point.format('DD MMM')} - ${point.add(6, 'day').format('DD MMM')}`;
+        const weeks = Math.ceil(daysDiff / 7);
+        merchant_chart = generateChartDataPoints(
+          chartStartDate.startOf('day'),
+          weeks,
+          intervalHours,
+          (blockStart) => `${blockStart.format('DD')}–${blockStart.add(6, 'day').format('DD MMM YYYY')}`
+        );
+        static_chart = generateChartDataPoints(
+          chartStartDate.startOf('day'),
+          weeks,
+          intervalHours,
+          (blockStart) => `${blockStart.format('DD')}–${blockStart.add(6, 'day').format('DD MMM YYYY')}`
+        );
+        deposit_chart = generateChartDataPoints(
+          chartStartDate.startOf('day'),
+          weeks,
+          intervalHours,
+          (blockStart) => `${blockStart.format('DD')}–${blockStart.add(6, 'day').format('DD MMM YYYY')}`
+        );
       } else {
-        // Monthly intervals for longer periods
+        // Jika range lebih dari 3 bulan, gunakan interval per bulan
         intervalHours = 24 * 30;
-        dataPoints = Math.ceil(diffDays / 30);
-        labelFormat = (point) => point.format('MMM YYYY');
+        const months = chartEndDate.diff(chartStartDate, 'month') + 1;
+        merchant_chart = generateChartDataPoints(
+          chartStartDate.startOf('month'),
+          months,
+          intervalHours,
+          (blockStart) => blockStart.format('MMM YYYY')
+        );
+        static_chart = generateChartDataPoints(
+          chartStartDate.startOf('month'),
+          months,
+          intervalHours,
+          (blockStart) => blockStart.format('MMM YYYY')
+        );
+        deposit_chart = generateChartDataPoints(
+          chartStartDate.startOf('month'),
+          months,
+          intervalHours,
+          (blockStart) => blockStart.format('MMM YYYY')
+        );
       }
-      
-      merchant_chart = generateChartDataPoints(start, dataPoints, intervalHours, labelFormat);
-      static_chart = generateChartDataPoints(start, dataPoints, intervalHours, labelFormat);
-      deposit_chart = generateChartDataPoints(start, dataPoints, intervalHours, labelFormat);
     } else {
       // Generate data points berdasarkan periode
       const now = dayjs();
       let startPoint;
-      let intervalHours; // Add interval in hours
       
       switch (period) {
       case '4hours':
@@ -405,8 +492,9 @@ export async function GET(request) {
     });
     return addCorsHeaders(response);
   } catch (error) {
+    console.error('Error in QRIS transaction API:', error);
     const errorResponse = NextResponse.json(
-      { code: 500, status: "error", message: "Terjadi kesalahan server" },
+      { code: 500, status: "error", message: "Terjadi kesalahan server", error: error.message },
       { status: 500 }
     );
     return addCorsHeaders(errorResponse);
