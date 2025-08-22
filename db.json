@@ -541,6 +541,56 @@
       "date": "2025-08-22T09:00:00+07:00",
       "label": "22 Aug 2025 09:00",
       "value": 1833709
+    },
+    {
+      "date": "2025-08-22T00:00:00+07:00",
+      "label": "22 Aug 2025 00:00",
+      "value": 4837867
+    },
+    {
+      "date": "2025-08-22T01:00:00+07:00",
+      "label": "22 Aug 2025 01:00",
+      "value": 4087759
+    },
+    {
+      "date": "2025-08-22T02:00:00+07:00",
+      "label": "22 Aug 2025 02:00",
+      "value": 3747461
+    },
+    {
+      "date": "2025-08-22T03:00:00+07:00",
+      "label": "22 Aug 2025 03:00",
+      "value": 3248335
+    },
+    {
+      "date": "2025-08-22T04:00:00+07:00",
+      "label": "22 Aug 2025 04:00",
+      "value": 4218644
+    },
+    {
+      "date": "2025-08-22T05:00:00+07:00",
+      "label": "22 Aug 2025 05:00",
+      "value": 1932781
+    },
+    {
+      "date": "2025-08-22T06:00:00+07:00",
+      "label": "22 Aug 2025 06:00",
+      "value": 1390823
+    },
+    {
+      "date": "2025-08-22T07:00:00+07:00",
+      "label": "22 Aug 2025 07:00",
+      "value": 1900144
+    },
+    {
+      "date": "2025-08-22T08:00:00+07:00",
+      "label": "22 Aug 2025 08:00",
+      "value": 3938353
+    },
+    {
+      "date": "2025-08-22T09:00:00+07:00",
+      "label": "22 Aug 2025 09:00",
+      "value": 3730962
     }
   ],
   "monitor_qris_static_chart": [
@@ -698,6 +748,56 @@
       "date": "2025-08-22T09:00:00+07:00",
       "label": "22 Aug 2025 09:00",
       "value": 2255200
+    },
+    {
+      "date": "2025-08-22T00:00:00+07:00",
+      "label": "22 Aug 2025 00:00",
+      "value": 651077
+    },
+    {
+      "date": "2025-08-22T01:00:00+07:00",
+      "label": "22 Aug 2025 01:00",
+      "value": 840855
+    },
+    {
+      "date": "2025-08-22T02:00:00+07:00",
+      "label": "22 Aug 2025 02:00",
+      "value": 316013
+    },
+    {
+      "date": "2025-08-22T03:00:00+07:00",
+      "label": "22 Aug 2025 03:00",
+      "value": 1642693
+    },
+    {
+      "date": "2025-08-22T04:00:00+07:00",
+      "label": "22 Aug 2025 04:00",
+      "value": 1455606
+    },
+    {
+      "date": "2025-08-22T05:00:00+07:00",
+      "label": "22 Aug 2025 05:00",
+      "value": 2588245
+    },
+    {
+      "date": "2025-08-22T06:00:00+07:00",
+      "label": "22 Aug 2025 06:00",
+      "value": 2227360
+    },
+    {
+      "date": "2025-08-22T07:00:00+07:00",
+      "label": "22 Aug 2025 07:00",
+      "value": 326979
+    },
+    {
+      "date": "2025-08-22T08:00:00+07:00",
+      "label": "22 Aug 2025 08:00",
+      "value": 1344502
+    },
+    {
+      "date": "2025-08-22T09:00:00+07:00",
+      "label": "22 Aug 2025 09:00",
+      "value": 2840690
     }
   ],
   "monitor_qris_deposit_chart": [
@@ -855,16 +955,66 @@
       "date": "2025-08-22T09:00:00+07:00",
       "label": "22 Aug 2025 09:00",
       "value": 1899319
+    },
+    {
+      "date": "2025-08-22T00:00:00+07:00",
+      "label": "22 Aug 2025 00:00",
+      "value": 1549742
+    },
+    {
+      "date": "2025-08-22T01:00:00+07:00",
+      "label": "22 Aug 2025 01:00",
+      "value": 264815
+    },
+    {
+      "date": "2025-08-22T02:00:00+07:00",
+      "label": "22 Aug 2025 02:00",
+      "value": 1892832
+    },
+    {
+      "date": "2025-08-22T03:00:00+07:00",
+      "label": "22 Aug 2025 03:00",
+      "value": 1225527
+    },
+    {
+      "date": "2025-08-22T04:00:00+07:00",
+      "label": "22 Aug 2025 04:00",
+      "value": 498614
+    },
+    {
+      "date": "2025-08-22T05:00:00+07:00",
+      "label": "22 Aug 2025 05:00",
+      "value": 532045
+    },
+    {
+      "date": "2025-08-22T06:00:00+07:00",
+      "label": "22 Aug 2025 06:00",
+      "value": 277842
+    },
+    {
+      "date": "2025-08-22T07:00:00+07:00",
+      "label": "22 Aug 2025 07:00",
+      "value": 639698
+    },
+    {
+      "date": "2025-08-22T08:00:00+07:00",
+      "label": "22 Aug 2025 08:00",
+      "value": 217096
+    },
+    {
+      "date": "2025-08-22T09:00:00+07:00",
+      "label": "22 Aug 2025 09:00",
+      "value": 623201
     }
   ],
   "monitor_qris_comparison": {
     "transactions": {
-      "winpay": 7912233,
-      "nobu": 3645456
+      "winpay": 7921266,
+      "nobu": 4860414
     },
     "revenue": {
-      "winpay": 6807912,
-      "nobu": 3058183
+      "winpay": 6085911,
+      "nobu": 4091081
     }
   },
   "monitor_transactions_chart": [
@@ -1165,6 +1315,96 @@
       "quantity": 1,
       "price": 75000,
       "complaint": "Nominal tidak sesuai"
+    },
+    {
+      "date": "2025-08-22 14:12:48",
+      "product_name": "Smartfren 20GB",
+      "product_code": "SMART20GB",
+      "supplier_name": "PT Supplier C",
+      "quantity": 5,
+      "price": 100000,
+      "complaint": "Nominal tidak sesuai"
+    },
+    {
+      "date": "2025-08-22 14:21:48",
+      "product_name": "Telkomsel 10GB",
+      "product_code": "TSEL10GB",
+      "supplier_name": "PT Supplier C",
+      "quantity": 4,
+      "price": 50000,
+      "complaint": "Delay pengisian"
+    },
+    {
+      "date": "2025-08-22 13:54:48",
+      "product_name": "XL 15GB",
+      "product_code": "XL15GB",
+      "supplier_name": "PT Supplier C",
+      "quantity": 4,
+      "price": 75000,
+      "complaint": "Nominal tidak sesuai"
+    },
+    {
+      "date": "2025-08-22 13:55:48",
+      "product_name": "Telkomsel 10GB",
+      "product_code": "TSEL10GB",
+      "supplier_name": "PT Supplier B",
+      "quantity": 1,
+      "price": 50000,
+      "complaint": "Delay pengisian"
+    },
+    {
+      "date": "2025-08-22 13:08:48",
+      "product_name": "Indosat 5GB",
+      "product_code": "IND5GB",
+      "supplier_name": "PT Supplier A",
+      "quantity": 3,
+      "price": 25000,
+      "complaint": "Nominal tidak sesuai"
+    },
+    {
+      "date": "2025-08-22 12:12:48",
+      "product_name": "Telkomsel 10GB",
+      "product_code": "TSEL10GB",
+      "supplier_name": "PT Supplier D",
+      "quantity": 3,
+      "price": 50000,
+      "complaint": "Nominal tidak sesuai"
+    },
+    {
+      "date": "2025-08-22 10:49:48",
+      "product_name": "Telkomsel 10GB",
+      "product_code": "TSEL10GB",
+      "supplier_name": "PT Supplier A",
+      "quantity": 2,
+      "price": 50000,
+      "complaint": "Kuota tidak masuk"
+    },
+    {
+      "date": "2025-08-22 12:01:48",
+      "product_name": "Indosat 5GB",
+      "product_code": "IND5GB",
+      "supplier_name": "PT Supplier A",
+      "quantity": 2,
+      "price": 25000,
+      "complaint": "Nominal tidak sesuai"
+    },
+    {
+      "date": "2025-08-22 13:42:48",
+      "product_name": "Smartfren 20GB",
+      "product_code": "SMART20GB",
+      "supplier_name": "PT Supplier B",
+      "quantity": 4,
+      "price": 100000,
+      "complaint": "Kuota tidak masuk"
+    },
+    {
+      "date": "2025-08-22 13:38:48",
+      "product_name": "XL 15GB",
+      "product_code": "XL15GB",
+      "supplier_name": "PT Supplier A",
+      "quantity": 1,
+      "price": 75000,
+      "complaint": "Nomor tidak valid"
     }
   ],
   "transactions_success": [
@@ -1439,6 +1679,86 @@
       "supplier_name": "PT Supplier A",
       "quantity": 5,
       "price": 75000
+    },
+    {
+      "date": "2025-08-22 11:55:00",
+      "product_name": "Indosat 5GB",
+      "product_code": "IND5GB",
+      "supplier_name": "PT Supplier B",
+      "quantity": 2,
+      "price": 25000
+    },
+    {
+      "date": "2025-08-22 11:39:00",
+      "product_name": "XL 15GB",
+      "product_code": "XL15GB",
+      "supplier_name": "PT Supplier B",
+      "quantity": 3,
+      "price": 75000
+    },
+    {
+      "date": "2025-08-22 13:12:00",
+      "product_name": "Indosat 5GB",
+      "product_code": "IND5GB",
+      "supplier_name": "PT Supplier B",
+      "quantity": 5,
+      "price": 25000
+    },
+    {
+      "date": "2025-08-22 13:37:00",
+      "product_name": "Smartfren 20GB",
+      "product_code": "SMART20GB",
+      "supplier_name": "PT Supplier D",
+      "quantity": 5,
+      "price": 100000
+    },
+    {
+      "date": "2025-08-22 12:17:00",
+      "product_name": "Indosat 5GB",
+      "product_code": "IND5GB",
+      "supplier_name": "PT Supplier C",
+      "quantity": 3,
+      "price": 25000
+    },
+    {
+      "date": "2025-08-22 13:26:00",
+      "product_name": "XL 15GB",
+      "product_code": "XL15GB",
+      "supplier_name": "PT Supplier C",
+      "quantity": 3,
+      "price": 75000
+    },
+    {
+      "date": "2025-08-22 14:07:00",
+      "product_name": "Telkomsel 10GB",
+      "product_code": "TSEL10GB",
+      "supplier_name": "PT Supplier D",
+      "quantity": 3,
+      "price": 50000
+    },
+    {
+      "date": "2025-08-22 14:00:00",
+      "product_name": "XL 15GB",
+      "product_code": "XL15GB",
+      "supplier_name": "PT Supplier D",
+      "quantity": 4,
+      "price": 75000
+    },
+    {
+      "date": "2025-08-22 13:55:00",
+      "product_name": "Smartfren 20GB",
+      "product_code": "SMART20GB",
+      "supplier_name": "PT Supplier C",
+      "quantity": 4,
+      "price": 100000
+    },
+    {
+      "date": "2025-08-22 12:45:00",
+      "product_name": "Telkomsel 10GB",
+      "product_code": "TSEL10GB",
+      "supplier_name": "PT Supplier A",
+      "quantity": 4,
+      "price": 50000
     }
   ],
   "transactions_pending": [
@@ -2105,6 +2425,106 @@
       "price": 5200,
       "quantity": 4,
       "void": "TSEL5K"
+    },
+    {
+      "no": 41,
+      "date": "2025-08-22 12:33:42",
+      "product_name": "Pulsa Telkomsel 5rb",
+      "supplier_name": "PLN API",
+      "product_code": "TSEL5K",
+      "price": 5200,
+      "quantity": 5,
+      "void": "TSEL5K"
+    },
+    {
+      "no": 42,
+      "date": "2025-08-22 11:40:42",
+      "product_name": "Pulsa Telkomsel 5rb",
+      "supplier_name": "XL API",
+      "product_code": "TSEL5K",
+      "price": 5200,
+      "quantity": 2,
+      "void": "TSEL5K"
+    },
+    {
+      "no": 43,
+      "date": "2025-08-22 12:10:42",
+      "product_name": "Token PLN 20rb",
+      "supplier_name": "XL API",
+      "product_code": "PLN20K",
+      "price": 20200,
+      "quantity": 6,
+      "void": null
+    },
+    {
+      "no": 44,
+      "date": "2025-08-22 12:33:42",
+      "product_name": "Token PLN 20rb",
+      "supplier_name": "XL API",
+      "product_code": "PLN20K",
+      "price": 20200,
+      "quantity": 3,
+      "void": "PLN20K"
+    },
+    {
+      "no": 45,
+      "date": "2025-08-22 12:56:42",
+      "product_name": "Token PLN 20rb",
+      "supplier_name": "PLN API",
+      "product_code": "PLN20K",
+      "price": 20200,
+      "quantity": 7,
+      "void": "PLN20K"
+    },
+    {
+      "no": 46,
+      "date": "2025-08-22 11:20:42",
+      "product_name": "Paket Data XL 1GB",
+      "supplier_name": "Telkomsel API",
+      "product_code": "XL1GB",
+      "price": 15000,
+      "quantity": 8,
+      "void": "XL1GB"
+    },
+    {
+      "no": 47,
+      "date": "2025-08-22 12:11:42",
+      "product_name": "Pulsa Telkomsel 5rb",
+      "supplier_name": "XL API",
+      "product_code": "TSEL5K",
+      "price": 5200,
+      "quantity": 8,
+      "void": null
+    },
+    {
+      "no": 48,
+      "date": "2025-08-22 14:17:42",
+      "product_name": "Paket Data XL 1GB",
+      "supplier_name": "Indosat API",
+      "product_code": "XL1GB",
+      "price": 15000,
+      "quantity": 10,
+      "void": "XL1GB"
+    },
+    {
+      "no": 49,
+      "date": "2025-08-22 11:47:42",
+      "product_name": "Pulsa Telkomsel 5rb",
+      "supplier_name": "PLN API",
+      "product_code": "TSEL5K",
+      "price": 5200,
+      "quantity": 4,
+      "void": "TSEL5K"
+    },
+    {
+      "no": 50,
+      "date": "2025-08-22 13:42:42",
+      "product_name": "Pulsa Telkomsel 10rb",
+      "supplier_name": "PLN API",
+      "product_code": "TSEL10K",
+      "price": 10500,
+      "quantity": 9,
+      "void": null
     }
   ],
   "most_failed_products_daily": [
@@ -2516,6 +2936,81 @@
       "date": "2025-08-22 07:49:05",
       "label": "22 Aug 2025 07:49",
       "value": 76
+    },
+    {
+      "date": "2025-08-22 10:34:42",
+      "label": "22 Aug 2025 10:34",
+      "value": 192
+    },
+    {
+      "date": "2025-08-22 10:50:42",
+      "label": "22 Aug 2025 10:50",
+      "value": 85
+    },
+    {
+      "date": "2025-08-22 11:06:42",
+      "label": "22 Aug 2025 11:06",
+      "value": 116
+    },
+    {
+      "date": "2025-08-22 11:22:42",
+      "label": "22 Aug 2025 11:22",
+      "value": 111
+    },
+    {
+      "date": "2025-08-22 11:38:42",
+      "label": "22 Aug 2025 11:38",
+      "value": 102
+    },
+    {
+      "date": "2025-08-22 11:54:42",
+      "label": "22 Aug 2025 11:54",
+      "value": 73
+    },
+    {
+      "date": "2025-08-22 12:10:42",
+      "label": "22 Aug 2025 12:10",
+      "value": 83
+    },
+    {
+      "date": "2025-08-22 12:26:42",
+      "label": "22 Aug 2025 12:26",
+      "value": 103
+    },
+    {
+      "date": "2025-08-22 12:42:42",
+      "label": "22 Aug 2025 12:42",
+      "value": 62
+    },
+    {
+      "date": "2025-08-22 12:58:42",
+      "label": "22 Aug 2025 12:58",
+      "value": 85
+    },
+    {
+      "date": "2025-08-22 13:14:42",
+      "label": "22 Aug 2025 13:14",
+      "value": 95
+    },
+    {
+      "date": "2025-08-22 13:30:42",
+      "label": "22 Aug 2025 13:30",
+      "value": 84
+    },
+    {
+      "date": "2025-08-22 13:46:42",
+      "label": "22 Aug 2025 13:46",
+      "value": 99
+    },
+    {
+      "date": "2025-08-22 14:02:42",
+      "label": "22 Aug 2025 14:02",
+      "value": 176
+    },
+    {
+      "date": "2025-08-22 14:18:42",
+      "label": "22 Aug 2025 14:18",
+      "value": 83
     }
   ],
   "transactions_pending_chart": [
@@ -2760,6 +3255,46 @@
     {
       "date": "2025-08-22 06:53:17",
       "value": 1
+    },
+    {
+      "date": "2025-08-22 11:55:00",
+      "value": 1
+    },
+    {
+      "date": "2025-08-22 11:39:00",
+      "value": 1
+    },
+    {
+      "date": "2025-08-22 13:12:00",
+      "value": 1
+    },
+    {
+      "date": "2025-08-22 13:37:00",
+      "value": 1
+    },
+    {
+      "date": "2025-08-22 12:17:00",
+      "value": 1
+    },
+    {
+      "date": "2025-08-22 13:26:00",
+      "value": 1
+    },
+    {
+      "date": "2025-08-22 14:07:00",
+      "value": 1
+    },
+    {
+      "date": "2025-08-22 14:00:00",
+      "value": 1
+    },
+    {
+      "date": "2025-08-22 13:55:00",
+      "value": 1
+    },
+    {
+      "date": "2025-08-22 12:45:00",
+      "value": 1
     }
   ],
   "transactions_complaints_chart": [
@@ -2865,6 +3400,46 @@
     },
     {
       "date": "2025-08-22 06:22:12",
+      "value": 1
+    },
+    {
+      "date": "2025-08-22 14:12:48",
+      "value": 1
+    },
+    {
+      "date": "2025-08-22 14:21:48",
+      "value": 1
+    },
+    {
+      "date": "2025-08-22 13:54:48",
+      "value": 1
+    },
+    {
+      "date": "2025-08-22 13:55:48",
+      "value": 1
+    },
+    {
+      "date": "2025-08-22 13:08:48",
+      "value": 1
+    },
+    {
+      "date": "2025-08-22 12:12:48",
+      "value": 1
+    },
+    {
+      "date": "2025-08-22 10:49:48",
+      "value": 1
+    },
+    {
+      "date": "2025-08-22 12:01:48",
+      "value": 1
+    },
+    {
+      "date": "2025-08-22 13:42:48",
+      "value": 1
+    },
+    {
+      "date": "2025-08-22 13:38:48",
       "value": 1
     }
   ],
