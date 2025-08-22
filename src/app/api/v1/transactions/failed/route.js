@@ -3,8 +3,10 @@ import fs from 'fs';
 import path from 'path';
 import dayjs from 'dayjs';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 
 dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
 
 // Fungsi untuk membaca data dari db.json
 function readDbData() {
@@ -210,14 +212,15 @@ export async function GET(request) {
     let startPoint;
     let chart_data = [];
     let intervalHours; // Add interval in hours
+    let chartStartDate, chartEndDate;
     
     // Jika ada parameter tanggal, gunakan range tanggal tersebut untuk chart
     if (startDate && endDate) {
-      const chartStartDate = dayjs(startDate);
-      const chartEndDate = dayjs(endDate);
+      chartStartDate = dayjs(startDate);
+      chartEndDate = dayjs(endDate);
       const daysDiff = chartEndDate.diff(chartStartDate, 'day');
       
-      if (daysDiff <= 1) {
+      if (periode==='4hours') {
         // Jika range 1 hari atau kurang, gunakan interval per jam
         intervalHours = 1;
         const hours = Math.max(24, chartEndDate.diff(chartStartDate, 'hour') + 1);
@@ -225,9 +228,9 @@ export async function GET(request) {
           chartStartDate.startOf('hour'),
           hours,
           intervalHours,
-          (start) => start.format('DD MMM HH:mm')
+          (start, end) => `${start.format('DD MMM YYYY HH:mm')}-${end.format('HH:mm')}`
         );
-      } else if (daysDiff <= 7) {
+      } else if (periode==='daily') {
         // Jika range 1 minggu atau kurang, gunakan interval per hari
         intervalHours = 24;
         const days = daysDiff + 1;
@@ -235,27 +238,38 @@ export async function GET(request) {
           chartStartDate.startOf('day'),
           days,
           intervalHours,
-          (start) => start.format('DD MMM YYYY')
+          (start, end) => start.format('DD MMM YYYY')
         );
-      } else if (daysDiff <= 90) {
+      } else if (periode==='3days') {
+        // Jika range 1 bulan atau kurang, gunakan interval 4 jam
+        intervalHours = 24 * 3;
+        const weeks = Math.ceil(daysDiff / 3);
+        chart_data = generateChartDataPoints(
+          chartStartDate.startOf('day'),
+          weeks,
+          intervalHours,
+          (start, end) => `${start.format('DD')}–${start.add(2, 'day').format('DD MMM YYYY')}`
+        );
+      } else if (periode==='weekly') {
         // Jika range 3 bulan atau kurang, gunakan interval per minggu
         intervalHours = 24 * 7;
         const weeks = Math.ceil(daysDiff / 7);
         chart_data = generateChartDataPoints(
-          chartStartDate.startOf('week'),
+          chartStartDate.startOf('day'),
           weeks,
           intervalHours,
-          (start) => `${start.format('DD')}–${start.add(6, 'day').format('DD MMM YYYY')}`
+          (start, end) => `${start.format('DD')}–${start.add(6, 'day').format('DD MMM YYYY')}`
         );
       } else {
         // Jika range lebih dari 3 bulan, gunakan interval per bulan
         intervalHours = 24 * 30;
         const months = chartEndDate.diff(chartStartDate, 'month') + 1;
-        chart_data = Array.from({ length: months }, (_, index) => ({
-          date: chartStartDate.startOf('month').add(index, 'month').format(),
-          label: chartStartDate.startOf('month').add(index, 'month').format('MMM YYYY'),
-          value: 0
-        }));
+        chart_data = generateChartDataPoints(
+          chartStartDate.startOf('month'),
+          months,
+          intervalHours,
+          (start, end) => start.format('MMM YYYY')
+        );
       }
     } else {
       // Gunakan logika periode default jika tidak ada parameter tanggal
@@ -268,7 +282,7 @@ export async function GET(request) {
             startPoint, 
             blocks24Hours, 
             intervalHours,
-            (start, end) => `${start.format('DD MMM YYYY')} ${start.format('HH:mm')}-${end.format('HH:mm')}`
+            (start, end) => `${start.format('DD MMM YYYY HH:mm')}-${end.format('HH:mm')}`
           );
           break;
         case 'daily':
@@ -280,7 +294,7 @@ export async function GET(request) {
             startPoint, 
             daysInMonth,
             intervalHours,
-            (start) => start.format('DD MMM YYYY')
+            (start, end) => start.format('DD MMM YYYY')
           );
           break;
         case '3days':
@@ -292,7 +306,7 @@ export async function GET(request) {
             startPoint,
             threeDayBlocksInMonth,
             intervalHours,
-            (start) => `${start.format('DD')}–${start.add(2, 'day').format('DD MMM YYYY')}`
+            (start, end) => `${start.format('DD')}–${start.add(2, 'day').format('DD MMM YYYY')}`
           );
           break;
         case 'weekly':
@@ -304,31 +318,54 @@ export async function GET(request) {
             startPoint,
             weeksInThreeMonths,
             intervalHours,
-            (start) => `${start.format('DD')}–${start.add(6, 'day').format('DD MMM YYYY')}`
+            (start, end) => `${start.format('DD')}–${start.add(6, 'day').format('DD MMM YYYY')}`
           );
           break;
         case 'monthly':
           // Start from beginning of current year
           startPoint = now.startOf('year');
           intervalHours = 24 * 30;
-          chart_data = Array.from({ length: 12 }, (_, index) => ({
-            date: startPoint.add(index, 'month').format(),
-            label: startPoint.add(index, 'month').format('MMM YYYY'),
-            value: 0
-          }));
+          chart_data = generateChartDataPoints(
+            startPoint,
+            12,
+            intervalHours,
+            (start, end) => start.format('MMM YYYY')
+          );
           break;
       }
     }
 
     // Kelompokkan dan jumlahkan data berdasarkan interval
-    const dbChartData = dbData.transactions_failed_chart || [];
+    let dbChartData = dbData.transactions_failed_chart || [];
+    
+    // Filter chart data berdasarkan rentang tanggal jika ada parameter tanggal
+    if (startDate && endDate) {
+      dbChartData = dbChartData.filter(item => {
+        const itemDate = dayjs(item.date);
+        return itemDate.isSameOrAfter(chartStartDate) && itemDate.isSameOrBefore(chartEndDate);
+      });
+    }
+    
     dbChartData.forEach(dbItem => {
       const dbDate = dayjs(dbItem.date);
       const matchingPoint = chart_data.find(point => {
         const pointDate = dayjs(point.date);
-        const nextPointDate = periode === 'monthly' 
-          ? pointDate.add(1, 'month')
-          : pointDate.add(intervalHours, 'hour');
+        let nextPointDate;
+        
+        if (startDate && endDate) {
+          // Untuk custom date range, gunakan intervalHours yang sudah ditentukan
+          if (intervalHours === 24 * 30) {
+            // Monthly interval
+            nextPointDate = pointDate.add(1, 'month');
+          } else {
+            nextPointDate = pointDate.add(intervalHours, 'hour');
+          }
+        } else {
+          // Untuk periode default
+          nextPointDate = periode === 'monthly' 
+            ? pointDate.add(1, 'month')
+            : pointDate.add(intervalHours, 'hour');
+        }
         
         return dbDate.isSameOrAfter(pointDate) && dbDate.isBefore(nextPointDate);
       });
