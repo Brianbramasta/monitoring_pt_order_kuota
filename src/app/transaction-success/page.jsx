@@ -38,13 +38,31 @@ export default function TransactionSuccessPage() {
   const [mostSuccessProducts, setMostSuccessProducts] = useState([]);
   const [topSuccessPartners, setTopSuccessPartners] = useState([]);
   const [totalSuccessTransactionsDaily, setTotalSuccessTransactionsDaily] = useState([]);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   /**
-   * Menghitung start_date dan end_date berdasarkan filter yang dipilih user.
+   * Menghitung start_date dan end_date berdasarkan filter yang dipilih user atau custom date.
    * @param {string} filter - Nilai filter yang dipilih (today, last_3_days, this_week, this_month)
-   * @returns {{start_date: string, end_date: string}} - Objek berisi tanggal mulai dan akhir
+   * @param {string} customStartDate - Custom start date
+   * @param {string} customEndDate - Custom end date
+   * @returns {{start_date: string|null, end_date: string|null}} - Objek berisi tanggal mulai dan akhir
    */
-  const getDateRange = (filter) => {
+  const getDateRange = (filter, customStartDate = '', customEndDate = '') => {
+    // If both custom dates are empty, return null to let API use periode-based filtering
+    if (!customStartDate && !customEndDate) {
+      return { start_date: null, end_date: null };
+    }
+    
+    // If custom dates are provided, use them
+    if (customStartDate && customEndDate) {
+      return {
+        start_date: dayjs(customStartDate).format('YYYY-MM-DD HH:mm:ss'),
+        end_date: dayjs(customEndDate).format('YYYY-MM-DD HH:mm:ss')
+      };
+    }
+    
+    // Fallback to periode-based filtering (shouldn't reach here with current logic)
     const today = dayjs();
     let start_date = null;
     let end_date = null;
@@ -70,8 +88,8 @@ export default function TransactionSuccessPage() {
         end_date = today.format('YYYY-MM-DD HH:mm:ss');
         break;
       default:
-        start_date = today.format('YYYY-MM-DD HH:mm:ss');
-        end_date = today.format('YYYY-MM-DD HH:mm:ss');
+        start_date = null;
+        end_date = null;
     }
     return { start_date, end_date };
   };
@@ -82,7 +100,7 @@ export default function TransactionSuccessPage() {
    */
   const fetchData = () => {
     setLoading(true);
-    const { start_date, end_date } = getDateRange(selectedFilter);
+    const { start_date, end_date } = getDateRange(selectedFilter, startDate, endDate);
     getSuccessTransactions({
       search,
       page,
@@ -122,6 +140,13 @@ export default function TransactionSuccessPage() {
       .finally(() => setLoading(false));
   };
 
+  /**
+   * Handle filter change
+   */
+  const handleFilterChange = (newFilter) => {
+    setSelectedFilter(newFilter);
+  };
+
   useEffect(() => {
     fetchData();
     // Auto refresh setiap 10 detik
@@ -129,7 +154,7 @@ export default function TransactionSuccessPage() {
       fetchData();
     }, 10000);
     return () => clearInterval(interval);
-  }, [search, page, pageSize, selectedFilter]);
+  }, [search, page, pageSize, selectedFilter, startDate, endDate]);
 
   const cards = [
     {
@@ -229,6 +254,11 @@ export default function TransactionSuccessPage() {
           tooltipFormatter={(value, name, props) => [value, props && props.payload && props.payload.x ? props.payload.x : name]}
           loading={loading}
           filters={filters}
+          startDate={startDate}
+          endDate={endDate}
+          onStartDateChange={setStartDate}
+          onEndDateChange={setEndDate}
+          onFilterChange={handleFilterChange}
         />
       </div>
 

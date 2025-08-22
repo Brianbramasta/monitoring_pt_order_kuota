@@ -43,40 +43,57 @@ export default function TransactionFailPage() {
   const [mostFailedProducts, setMostFailedProducts] = useState([]);
   const [topFailedPartners, setTopFailedPartners] = useState([]);
   const [totalFailedTransactionsDaily, setTotalFailedTransactionsDaily] = useState([]);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   /**
  * Menghitung start_date dan end_date berdasarkan filter yang dipilih user.
  * @param {string} filter - Nilai filter yang dipilih (today, last_3_days, this_week, this_month)
+ * @param {string} customStartDate - Tanggal mulai custom dari date picker
+ * @param {string} customEndDate - Tanggal akhir custom dari date picker
  * @returns {{start_date: string, end_date: string}} - Objek berisi tanggal mulai dan akhir
  */
-const getDateRange = (filter) => {
+const getDateRange = (filter, customStartDate = null, customEndDate = null) => {
+  // Jika ada custom date dari date picker, gunakan itu
+  if (customStartDate && customEndDate) {
+    return {
+      start_date: dayjs(customStartDate).startOf('day').format('YYYY-MM-DD HH:mm:ss'),
+      end_date: dayjs(customEndDate).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+    };
+  }
+
+  // Jika date picker kosong, return null agar API tidak menggunakan filter tanggal
+  if (!customStartDate && !customEndDate) {
+    return { start_date: null, end_date: null };
+  }
+
   const today = dayjs();
   let start_date = null;
   let end_date = null;
   switch (filter) {
     case '4hours':
-      start_date = today.subtract(4, 'hour').format('YYYY-MM-DD HH:mm:ss');
-      end_date = today.format('YYYY-MM-DD HH:mm:ss');
+      // start_date = today.subtract(4, 'hour').format('YYYY-MM-DD HH:mm:ss');
+      // end_date = today.format('YYYY-MM-DD HH:mm:ss');
       break;
     case 'daily':
-      start_date = today.startOf('day').format('YYYY-MM-DD HH:mm:ss');
-      end_date = today.endOf('day').format('YYYY-MM-DD HH:mm:ss');
+      // start_date = today.startOf('day').format('YYYY-MM-DD HH:mm:ss');
+      // end_date = today.endOf('day').format('YYYY-MM-DD HH:mm:ss');
       break;
     case '3days':
-      start_date = today.subtract(3, 'day').startOf('day').format('YYYY-MM-DD HH:mm:ss');
-      end_date = today.endOf('day').format('YYYY-MM-DD HH:mm:ss');
+      // start_date = today.subtract(3, 'day').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+      // end_date = today.endOf('day').format('YYYY-MM-DD HH:mm:ss');
       break;
     case 'weekly':
-      start_date = today.subtract(7, 'day').startOf('day').format('YYYY-MM-DD HH:mm:ss');
-      end_date = today.format('YYYY-MM-DD HH:mm:ss');
+      // start_date = today.subtract(7, 'day').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+      // end_date = today.format('YYYY-MM-DD HH:mm:ss');
       break;
     case 'monthly':
-      start_date = today.subtract(1, 'month').startOf('day').format('YYYY-MM-DD HH:mm:ss');
-      end_date = today.format('YYYY-MM-DD HH:mm:ss');
+      // start_date = today.subtract(1, 'month').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+      // end_date = today.format('YYYY-MM-DD HH:mm:ss');
       break;
     default:
-      start_date = today.format('YYYY-MM-DD HH:mm:ss');
-      end_date = today.format('YYYY-MM-DD HH:mm:ss');
+      start_date = null;
+      end_date = null;
   }
   return { start_date, end_date };
 };
@@ -87,7 +104,7 @@ const getDateRange = (filter) => {
  */
 const fetchData = () => {
   setLoading(true);
-  const { start_date, end_date } = getDateRange(selectedFilter);
+  const { start_date, end_date } = getDateRange(selectedFilter, startDate, endDate);
   getFailedTransactions({
     search,
     page,
@@ -127,6 +144,12 @@ const fetchData = () => {
     .finally(() => setLoading(false));
 };
 
+// Handler untuk mengubah filter
+const handleFilterChange = (newFilter) => {
+  setSelectedFilter(newFilter);
+  // Date picker tetap kosong, user bisa memilih untuk mengisi manual atau biarkan kosong
+};
+
 useEffect(() => {
     fetchData();
     // Auto refresh setiap 10 detik
@@ -134,7 +157,7 @@ useEffect(() => {
       fetchData();
     }, 10000);
     return () => clearInterval(interval);
-  }, [search, page, pageSize, selectedFilter]);
+  }, [search, page, pageSize, selectedFilter, startDate, endDate]);
 
 const cards = [
   {
@@ -171,7 +194,7 @@ const filters = [
       { value: 'monthly', label: 'Bulanan' },
     ],
     value: selectedFilter,
-    onChange: setSelectedFilter,
+    onChange: handleFilterChange,
   },
 ];
 
@@ -228,6 +251,10 @@ const filters = [
           tooltipFormatter={(value, name, props) => [value, props && props.payload && props.payload.x ? props.payload.x : name]}
           loading={loading}
           filters={filters}
+          startDate={startDate}
+          endDate={endDate}
+          onStartDateChange={setStartDate}
+          onEndDateChange={setEndDate}
         />
       </div>
 

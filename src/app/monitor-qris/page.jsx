@@ -13,6 +13,8 @@ export default function MonitorQrisPage() {
   const [depositData, setDepositData] = useState([]);
   const [merchantData, setMerchantData] = useState([]);
   const [comparisonData, setComparisonData] = useState([]);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [loading, setLoading] = useState({
     merchant: false,
     static: false,
@@ -35,7 +37,20 @@ export default function MonitorQrisPage() {
     },
   ];
 
-  const getDateRange = (filter) => {
+  const getDateRange = (filter, customStartDate = '', customEndDate = '') => {
+    // If custom dates are provided, use them
+    if (customStartDate && customEndDate) {
+      return {
+        start_date: dayjs(customStartDate).format('YYYY-MM-DD HH:mm:ss'),
+        end_date: dayjs(customEndDate).format('YYYY-MM-DD HH:mm:ss')
+      };
+    }
+    
+    // If both custom dates are empty, return null to let API handle period filtering
+    if (!customStartDate && !customEndDate) {
+      return { start_date: null, end_date: null };
+    }
+    
     const today = dayjs();
     let start_date = null;
     let end_date = null;
@@ -61,8 +76,8 @@ export default function MonitorQrisPage() {
         end_date = today.format('YYYY-MM-DD HH:mm:ss');
         break;
       default:
-        start_date = today.format('YYYY-MM-DD HH:mm:ss');
-        end_date = today.format('YYYY-MM-DD HH:mm:ss');
+        start_date = null;
+        end_date = null;
     }
     return { start_date, end_date };
   };
@@ -78,7 +93,7 @@ export default function MonitorQrisPage() {
       comparison: true
     });
 
-    const { start_date, end_date } = getDateRange(selectedFilter);
+    const { start_date, end_date } = getDateRange(selectedFilter, startDate, endDate);
     getQrisTransactions({ period: selectedFilter, start_date, end_date })
       .then(res => {
         const data = res.data.data || {};
@@ -132,10 +147,19 @@ export default function MonitorQrisPage() {
 
     // Cleanup interval saat component unmount atau dependency berubah
     return () => clearInterval(interval);
-  }, [selectedFilter]);
+  }, [selectedFilter, startDate, endDate]);
 
   const calculateTotal = (data) => {
     return data.reduce((sum, item) => sum + (item.y || 0), 0);
+  };
+
+  const handleFilterChange = (newFilter) => {
+    setSelectedFilter(newFilter);
+    // Reset custom dates if switching away from custom filter
+    if (newFilter !== 'custom') {
+      setStartDate('');
+      setEndDate('');
+    }
   };
 
   return (
@@ -145,8 +169,10 @@ export default function MonitorQrisPage() {
       </div>
 
       <AreaGrafik
-        totalLabel="NOMINAL TRANSAKSI QRIS"
-        totalValue={<span>Rp {Number(calculateTotal(merchantData)).toLocaleString('id-ID')}</span>}
+        title="Transaksi QRIS Merchant"
+        totalLabel="NOMINAL"
+        totalValue={<span style={{ color: '#1EC98B' }}>Rp {Number(calculateTotal(merchantData)).toLocaleString('id-ID')}</span>}
+        loading={loading.merchant}
         filters={filters}
         data={merchantData}
         dataKeyX="x"
@@ -155,6 +181,11 @@ export default function MonitorQrisPage() {
           `Rp ${Number(value).toLocaleString('id-ID')}`,
           props?.payload?.x || name
         ]}
+        startDate={startDate}
+        endDate={endDate}
+        onStartDateChange={setStartDate}
+        onEndDateChange={setEndDate}
+        onFilterChange={handleFilterChange}
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -198,4 +229,4 @@ export default function MonitorQrisPage() {
       </div>
     </div>
   );
-} 
+}

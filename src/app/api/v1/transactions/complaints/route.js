@@ -103,6 +103,7 @@ export async function GET(request) {
     const page = parseInt(searchParams.get('page')) || 1;
     const limit = parseInt(searchParams.get('limit')) || 10;
     const period = searchParams.get('period'); // chart period
+    const periode = searchParams.get('periode') || '4hours'; // periode for filtering
     
     const dbData = await readDbData();
     if (!dbData) {
@@ -111,8 +112,47 @@ export async function GET(request) {
     }
     
     let transactions = dbData.transactions_complaints || [];
-    //comment Brian - tampilkan semua data dulu
-    transactions = filterByDate(transactions, startDate, endDate);
+    
+    // Apply date filtering based on provided parameters
+    if (startDate && endDate) {
+      // Use custom date range if provided
+      transactions = filterByDate(transactions, startDate, endDate);
+    } else {
+      // Use periode-based filtering if no custom dates
+      const now = dayjs();
+      let filterStartDate, filterEndDate;
+      
+      switch (periode) {
+        case '4hours':
+          filterStartDate = now.subtract(4, 'hour').format('YYYY-MM-DD HH:mm:ss');
+          filterEndDate = now.format('YYYY-MM-DD HH:mm:ss');
+          break;
+        case 'daily':
+          filterStartDate = now.startOf('day').format('YYYY-MM-DD HH:mm:ss');
+          filterEndDate = now.endOf('day').format('YYYY-MM-DD HH:mm:ss');
+          break;
+        case '3days':
+          filterStartDate = now.subtract(3, 'day').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+          filterEndDate = now.endOf('day').format('YYYY-MM-DD HH:mm:ss');
+          break;
+        case 'weekly':
+          filterStartDate = now.subtract(7, 'day').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+          filterEndDate = now.format('YYYY-MM-DD HH:mm:ss');
+          break;
+        case 'monthly':
+          filterStartDate = now.subtract(1, 'month').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+          filterEndDate = now.format('YYYY-MM-DD HH:mm:ss');
+          break;
+        default:
+          filterStartDate = null;
+          filterEndDate = null;
+      }
+      
+      if (filterStartDate && filterEndDate) {
+        transactions = filterByDate(transactions, filterStartDate, filterEndDate);
+      }
+    }
+    
     transactions = searchData(transactions, search);
     
     // Hitung recap langsung dari data transaksi
@@ -124,60 +164,111 @@ export async function GET(request) {
       ...item
     }));
 
-    // Generate data points berdasarkan periode
-    const periode = searchParams.get('periode') || '4hours';
+    // Generate chart data points
     const now = dayjs();
     let startPoint;
     let chart_data = [];
     let intervalHours;
 
-    switch (periode) {
-      case '4hours':
-        startPoint = now.startOf('day');
-        intervalHours = 4;
-        const blocks24Hours = 6; // 24 hours / 4 hours interval
+    // If custom date range is provided, use it for chart data
+    if (startDate && endDate) {
+      const start = dayjs(startDate);
+      const end = dayjs(endDate);
+      const diffDays = end.diff(start, 'day');
+      
+      if (diffDays <= 1) {
+        // Hourly intervals for 1 day or less
+        startPoint = start.startOf('day');
+        intervalHours = 1;
+        const hours = 24;
         chart_data = generateChartDataPoints(
-          startPoint, 
-          blocks24Hours, 
+          startPoint,
+          hours,
           intervalHours,
-          (start, end) => `${start.format('DD MMM YYYY')} ${start.format('HH:mm')}-${end.format('HH:mm')}`
+          (start) => start.format('HH:mm')
         );
-        break;
-      case 'daily':
-        // Start from beginning of current month
-        startPoint = now.startOf('month');
+      } else if (diffDays <= 7) {
+        // Daily intervals for up to 7 days
+        startPoint = start.startOf('day');
         intervalHours = 24;
-        const daysInMonth = now.daysInMonth();
-        chart_data = generateChartDataPoints(
-          startPoint, 
-          daysInMonth,
-          intervalHours,
-          (start) => start.format('DD MMM YYYY')
-        );
-        break;
-      case '3days':
-        // Start from beginning of current month
-        startPoint = now.startOf('month');
-        intervalHours = 24 * 3;
-        const threeDayBlocksInMonth = Math.ceil(now.daysInMonth() / 3);
         chart_data = generateChartDataPoints(
           startPoint,
-          threeDayBlocksInMonth,
+          diffDays + 1,
           intervalHours,
-          (start) => `${start.format('DD')}–${start.add(2, 'day').format('DD MMM YYYY')}`
+          (start) => start.format('DD MMM')
         );
-        break;
-      case 'weekly':
-        // Start from 3 months ago
-        startPoint = now.subtract(3, 'month').startOf('month');
+      } else if (diffDays <= 30) {
+        // Weekly intervals for up to 30 days
+        startPoint = start.startOf('week');
         intervalHours = 24 * 7;
-        const weeksInThreeMonths = 12; // ~4 weeks per month * 3 months
+        const weeks = Math.ceil(diffDays / 7);
         chart_data = generateChartDataPoints(
           startPoint,
-          weeksInThreeMonths,
+          weeks,
           intervalHours,
-          (start) => `${start.format('DD')}–${start.add(6, 'day').format('DD MMM YYYY')}`
+          (start) => `${start.format('DD')}–${start.add(6, 'day').format('DD MMM')}`
         );
+      } else {
+        // Monthly intervals for longer periods
+        startPoint = start.startOf('month');
+        intervalHours = 24 * 30;
+        const months = end.diff(start, 'month') + 1;
+        chart_data = Array.from({ length: months }, (_, index) => ({
+          date: startPoint.add(index, 'month').format(),
+          label: startPoint.add(index, 'month').format('MMM YYYY'),
+          value: 0
+        }));
+      }
+    } else {
+      // Use periode-based chart data generation
+      const periode = searchParams.get('periode') || '4hours';
+      switch (periode) {
+        case '4hours':
+          startPoint = now.startOf('day');
+          intervalHours = 4;
+          const blocks24Hours = 6; // 24 hours / 4 hours interval
+          chart_data = generateChartDataPoints(
+            startPoint, 
+            blocks24Hours, 
+            intervalHours,
+            (start, end) => `${start.format('DD MMM YYYY')} ${start.format('HH:mm')}-${end.format('HH:mm')}`
+          );
+          break;
+        case 'daily':
+          // Start from beginning of current month
+          startPoint = now.startOf('month');
+          intervalHours = 24;
+          const daysInMonth = now.daysInMonth();
+          chart_data = generateChartDataPoints(
+            startPoint, 
+            daysInMonth,
+            intervalHours,
+            (start) => start.format('DD MMM YYYY')
+          );
+          break;
+        case '3days':
+          // Start from beginning of current month
+          startPoint = now.startOf('month');
+          intervalHours = 24 * 3;
+          const threeDayBlocksInMonth = Math.ceil(now.daysInMonth() / 3);
+          chart_data = generateChartDataPoints(
+            startPoint,
+            threeDayBlocksInMonth,
+            intervalHours,
+            (start) => `${start.format('DD')}–${start.add(2, 'day').format('DD MMM YYYY')}`
+          );
+          break;
+        case 'weekly':
+          // Start from 3 months ago
+          startPoint = now.subtract(3, 'month').startOf('month');
+          intervalHours = 24 * 7;
+          const weeksInThreeMonths = 12; // ~4 weeks per month * 3 months
+          chart_data = generateChartDataPoints(
+            startPoint,
+            weeksInThreeMonths,
+            intervalHours,
+            (start) => `${start.format('DD')}–${start.add(6, 'day').format('DD MMM YYYY')}`
+          );
         break;
       case 'monthly':
         // Start from beginning of current year
@@ -189,7 +280,7 @@ export async function GET(request) {
           value: 0
         }));
         break;
-    }
+    }}
 
     // Kelompokkan dan jumlahkan data berdasarkan interval
     const dbChartData = dbData.transactions_complaints_chart || [];

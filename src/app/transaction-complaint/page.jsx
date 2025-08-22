@@ -39,13 +39,30 @@ export default function TransactionComplaintPage() {
   const [mostComplaintProducts, setMostComplaintProducts] = useState([]);
   const [topComplaintPartners, setTopComplaintPartners] = useState([]);
   const [totalComplaintTransactionsDaily, setTotalComplaintTransactionsDaily] = useState([]);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   /**
-   * Menghitung start_date dan end_date berdasarkan filter yang dipilih user.
+   * Menghitung start_date dan end_date berdasarkan filter yang dipilih user atau custom date.
    * @param {string} filter - Nilai filter yang dipilih (today, last_3_days, this_week, this_month)
+   * @param {string} customStartDate - Custom start date
+   * @param {string} customEndDate - Custom end date
    * @returns {{start_date: string, end_date: string}} - Objek berisi tanggal mulai dan akhir
    */
-  const getDateRange = (filter) => {
+  const getDateRange = (filter, customStartDate = '', customEndDate = '') => {
+    // If custom dates are provided, use them
+    if (customStartDate && customEndDate) {
+      return {
+        start_date: dayjs(customStartDate).format('YYYY-MM-DD HH:mm:ss'),
+        end_date: dayjs(customEndDate).format('YYYY-MM-DD HH:mm:ss')
+      };
+    }
+    
+    // If both custom dates are empty, return null to let API handle period filtering
+    if (!customStartDate && !customEndDate) {
+      return { start_date: null, end_date: null };
+    }
+    
     const today = dayjs();
     let start_date = null;
     let end_date = null;
@@ -71,8 +88,8 @@ export default function TransactionComplaintPage() {
         end_date = today.format('YYYY-MM-DD HH:mm:ss');
         break;
       default:
-        start_date = today.format('YYYY-MM-DD HH:mm:ss');
-        end_date = today.format('YYYY-MM-DD HH:mm:ss');
+        start_date = null;
+        end_date = null;
     }
     return { start_date, end_date };
   };
@@ -83,7 +100,7 @@ export default function TransactionComplaintPage() {
    */
   const fetchData = () => {
     setLoading(true);
-    const { start_date, end_date } = getDateRange(selectedFilter);
+    const { start_date, end_date } = getDateRange(selectedFilter, startDate, endDate);
     getComplaintTransactions({
       search,
       page,
@@ -123,11 +140,20 @@ export default function TransactionComplaintPage() {
       .finally(() => setLoading(false));
   };
 
+  const handleFilterChange = (newFilter) => {
+    setSelectedFilter(newFilter);
+    // Reset custom dates when filter changes
+    if (newFilter !== 'custom') {
+      setStartDate('');
+      setEndDate('');
+    }
+  };
+
   useEffect(() => {
     fetchData();
     const interval = setInterval(fetchData, 10000);
     return () => clearInterval(interval);
-  }, [search, page, pageSize, selectedFilter]);
+  }, [search, page, pageSize, selectedFilter, startDate, endDate]);
 
   // Dummy data card
 const cards = [
@@ -215,6 +241,11 @@ const cards = [
           tooltipFormatter={(value, name, props) => [value, props?.payload?.x || name]}
           loading={loading}
           filters={filters}
+          startDate={startDate}
+          endDate={endDate}
+          onStartDateChange={setStartDate}
+          onEndDateChange={setEndDate}
+          onFilterChange={handleFilterChange}
         />
       </div>
 

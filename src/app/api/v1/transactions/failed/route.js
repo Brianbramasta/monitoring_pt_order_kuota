@@ -148,8 +148,46 @@ export async function GET(request) {
     let transactions = dbData.transactions_failed || [];
 
     // Filter berdasarkan tanggal
-     //comment Brian - tampilkan semua data dulu
-    transactions = filterByDate(transactions, startDate, endDate);
+    // Jika ada parameter tanggal, gunakan itu. Jika tidak, gunakan filter periode default
+    if (startDate && endDate) {
+      transactions = filterByDate(transactions, startDate, endDate);
+    } else {
+      // Gunakan filter periode default jika tidak ada parameter tanggal
+      const periode = searchParams.get('periode') || '4hours';
+      const now = dayjs();
+      let defaultStartDate, defaultEndDate;
+      
+      switch (periode) {
+        case '4hours':
+          defaultStartDate = now.subtract(4, 'hour').format('YYYY-MM-DD HH:mm:ss');
+          defaultEndDate = now.format('YYYY-MM-DD HH:mm:ss');
+          break;
+        case 'daily':
+          defaultStartDate = now.startOf('day').format('YYYY-MM-DD HH:mm:ss');
+          defaultEndDate = now.endOf('day').format('YYYY-MM-DD HH:mm:ss');
+          break;
+        case '3days':
+          defaultStartDate = now.subtract(3, 'day').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+          defaultEndDate = now.endOf('day').format('YYYY-MM-DD HH:mm:ss');
+          break;
+        case 'weekly':
+          defaultStartDate = now.subtract(7, 'day').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+          defaultEndDate = now.format('YYYY-MM-DD HH:mm:ss');
+          break;
+        case 'monthly':
+          defaultStartDate = now.subtract(1, 'month').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+          defaultEndDate = now.format('YYYY-MM-DD HH:mm:ss');
+          break;
+        default:
+          // Tampilkan semua data jika periode tidak dikenali
+          defaultStartDate = null;
+          defaultEndDate = null;
+      }
+      
+      if (defaultStartDate && defaultEndDate) {
+        transactions = filterByDate(transactions, defaultStartDate, defaultEndDate);
+      }
+    }
 
     // Filter berdasarkan search
     transactions = searchData(transactions, search);
@@ -166,71 +204,120 @@ export async function GET(request) {
       ...item
     }));
 
-    // Generate data points berdasarkan periode
+    // Generate data points berdasarkan periode atau parameter tanggal
     const periode = searchParams.get('periode') || '4hours';
     const now = dayjs();
     let startPoint;
     let chart_data = [];
     let intervalHours; // Add interval in hours
     
-    switch (periode) {
-      case '4hours':
-        startPoint = now.startOf('day');
-        intervalHours = 4;
-        const blocks24Hours = 6; // 24 hours / 4 hours interval
+    // Jika ada parameter tanggal, gunakan range tanggal tersebut untuk chart
+    if (startDate && endDate) {
+      const chartStartDate = dayjs(startDate);
+      const chartEndDate = dayjs(endDate);
+      const daysDiff = chartEndDate.diff(chartStartDate, 'day');
+      
+      if (daysDiff <= 1) {
+        // Jika range 1 hari atau kurang, gunakan interval per jam
+        intervalHours = 1;
+        const hours = Math.max(24, chartEndDate.diff(chartStartDate, 'hour') + 1);
         chart_data = generateChartDataPoints(
-          startPoint, 
-          blocks24Hours, 
+          chartStartDate.startOf('hour'),
+          hours,
           intervalHours,
-          (start, end) => `${start.format('DD MMM YYYY')} ${start.format('HH:mm')}-${end.format('HH:mm')}`
+          (start) => start.format('DD MMM HH:mm')
         );
-        break;
-      case 'daily':
-        // Start from beginning of current month
-        startPoint = now.startOf('month');
+      } else if (daysDiff <= 7) {
+        // Jika range 1 minggu atau kurang, gunakan interval per hari
         intervalHours = 24;
-        const daysInMonth = now.daysInMonth();
+        const days = daysDiff + 1;
         chart_data = generateChartDataPoints(
-          startPoint, 
-          daysInMonth,
+          chartStartDate.startOf('day'),
+          days,
           intervalHours,
           (start) => start.format('DD MMM YYYY')
         );
-        break;
-      case '3days':
-        // Start from beginning of current month
-        startPoint = now.startOf('month');
-        intervalHours = 24 * 3;
-        const threeDayBlocksInMonth = Math.ceil(now.daysInMonth() / 3);
-        chart_data = generateChartDataPoints(
-          startPoint,
-          threeDayBlocksInMonth,
-          intervalHours,
-          (start) => `${start.format('DD')}–${start.add(2, 'day').format('DD MMM YYYY')}`
-        );
-        break;
-      case 'weekly':
-        // Start from 3 months ago
-        startPoint = now.subtract(3, 'month').startOf('month');
+      } else if (daysDiff <= 90) {
+        // Jika range 3 bulan atau kurang, gunakan interval per minggu
         intervalHours = 24 * 7;
-        const weeksInThreeMonths = 12; // ~4 weeks per month * 3 months
+        const weeks = Math.ceil(daysDiff / 7);
         chart_data = generateChartDataPoints(
-          startPoint,
-          weeksInThreeMonths,
+          chartStartDate.startOf('week'),
+          weeks,
           intervalHours,
           (start) => `${start.format('DD')}–${start.add(6, 'day').format('DD MMM YYYY')}`
         );
-        break;
-      case 'monthly':
-        // Start from beginning of current year
-        startPoint = now.startOf('year');
+      } else {
+        // Jika range lebih dari 3 bulan, gunakan interval per bulan
         intervalHours = 24 * 30;
-        chart_data = Array.from({ length: 12 }, (_, index) => ({
-          date: startPoint.add(index, 'month').format(),
-          label: startPoint.add(index, 'month').format('MMM YYYY'),
+        const months = chartEndDate.diff(chartStartDate, 'month') + 1;
+        chart_data = Array.from({ length: months }, (_, index) => ({
+          date: chartStartDate.startOf('month').add(index, 'month').format(),
+          label: chartStartDate.startOf('month').add(index, 'month').format('MMM YYYY'),
           value: 0
         }));
-        break;
+      }
+    } else {
+      // Gunakan logika periode default jika tidak ada parameter tanggal
+      switch (periode) {
+        case '4hours':
+          startPoint = now.startOf('day');
+          intervalHours = 4;
+          const blocks24Hours = 6; // 24 hours / 4 hours interval
+          chart_data = generateChartDataPoints(
+            startPoint, 
+            blocks24Hours, 
+            intervalHours,
+            (start, end) => `${start.format('DD MMM YYYY')} ${start.format('HH:mm')}-${end.format('HH:mm')}`
+          );
+          break;
+        case 'daily':
+          // Start from beginning of current month
+          startPoint = now.startOf('month');
+          intervalHours = 24;
+          const daysInMonth = now.daysInMonth();
+          chart_data = generateChartDataPoints(
+            startPoint, 
+            daysInMonth,
+            intervalHours,
+            (start) => start.format('DD MMM YYYY')
+          );
+          break;
+        case '3days':
+          // Start from beginning of current month
+          startPoint = now.startOf('month');
+          intervalHours = 24 * 3;
+          const threeDayBlocksInMonth = Math.ceil(now.daysInMonth() / 3);
+          chart_data = generateChartDataPoints(
+            startPoint,
+            threeDayBlocksInMonth,
+            intervalHours,
+            (start) => `${start.format('DD')}–${start.add(2, 'day').format('DD MMM YYYY')}`
+          );
+          break;
+        case 'weekly':
+          // Start from 3 months ago
+          startPoint = now.subtract(3, 'month').startOf('month');
+          intervalHours = 24 * 7;
+          const weeksInThreeMonths = 12; // ~4 weeks per month * 3 months
+          chart_data = generateChartDataPoints(
+            startPoint,
+            weeksInThreeMonths,
+            intervalHours,
+            (start) => `${start.format('DD')}–${start.add(6, 'day').format('DD MMM YYYY')}`
+          );
+          break;
+        case 'monthly':
+          // Start from beginning of current year
+          startPoint = now.startOf('year');
+          intervalHours = 24 * 30;
+          chart_data = Array.from({ length: 12 }, (_, index) => ({
+            date: startPoint.add(index, 'month').format(),
+            label: startPoint.add(index, 'month').format('MMM YYYY'),
+            value: 0
+          }));
+          break;
+      }
     }
 
     // Kelompokkan dan jumlahkan data berdasarkan interval

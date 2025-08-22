@@ -80,8 +80,8 @@ export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
     const period = searchParams.get('period') || 'monthly';
-    const start_date = searchParams.get('start_date');
-    const end_date = searchParams.get('end_date');
+    const startDate = searchParams.get('startDate');
+    const endDate = searchParams.get('endDate');
 
     const dbData = readDbData();
     if (!dbData) {
@@ -92,20 +92,132 @@ export async function GET(request) {
       return addCorsHeaders(errorResponse);
     }
 
-    // Get date range based on period or custom dates
-    const dateRange = start_date && end_date 
-      ? { start_date, end_date }
-      : getDateRange(period);
+    // Kelompokkan dan jumlahkan data berdasarkan interval
+    const dbMerchantData = dbData.monitor_qris_chart || [];
+    const dbStaticData = dbData.monitor_qris_static_chart || [];
+    const dbDepositData = dbData.monitor_qris_deposit_chart || [];
+    
+    let filteredMerchantData = dbMerchantData;
+    let filteredStaticData = dbStaticData;
+    let filteredDepositData = dbDepositData;
+    
+    // Filter data based on date parameters or periode
+    if (startDate && endDate) {
+      // If both dates are provided, filter by date range
+      const start = dayjs(startDate);
+      const end = dayjs(endDate);
+      
+      filteredMerchantData = dbMerchantData.filter(item => {
+        const itemDate = dayjs(item.date);
+        return itemDate.isSameOrAfter(start) && itemDate.isSameOrBefore(end);
+      });
+      
+      filteredStaticData = dbStaticData.filter(item => {
+        const itemDate = dayjs(item.date);
+        return itemDate.isSameOrAfter(start) && itemDate.isSameOrBefore(end);
+      });
+      
+      filteredDepositData = dbDepositData.filter(item => {
+        const itemDate = dayjs(item.date);
+        return itemDate.isSameOrAfter(start) && itemDate.isSameOrBefore(end);
+      });
+    } else {
+      // If no dates provided, filter by periode
+      const now = dayjs();
+      let filterStartDate, filterEndDate;
+      
+      switch (period) {
+        case '4hours':
+          filterStartDate = now.subtract(4, 'hour').format('YYYY-MM-DD HH:mm:ss');
+          filterEndDate = now.format('YYYY-MM-DD HH:mm:ss');
+          break;
+        case 'daily':
+          filterStartDate = now.startOf('day').format('YYYY-MM-DD HH:mm:ss');
+          filterEndDate = now.endOf('day').format('YYYY-MM-DD HH:mm:ss');
+          break;
+        case '3days':
+          filterStartDate = now.subtract(3, 'day').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+          filterEndDate = now.endOf('day').format('YYYY-MM-DD HH:mm:ss');
+          break;
+        case 'weekly':
+          filterStartDate = now.subtract(7, 'day').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+          filterEndDate = now.format('YYYY-MM-DD HH:mm:ss');
+          break;
+        case 'monthly':
+          filterStartDate = now.subtract(1, 'month').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+          filterEndDate = now.format('YYYY-MM-DD HH:mm:ss');
+          break;
+        default:
+          filterStartDate = null;
+          filterEndDate = null;
+      }
+      
+      if (filterStartDate && filterEndDate) {
+        const start = dayjs(filterStartDate);
+        const end = dayjs(filterEndDate);
+        
+        filteredMerchantData = dbMerchantData.filter(item => {
+          const itemDate = dayjs(item.date);
+          return itemDate.isSameOrAfter(start) && itemDate.isSameOrBefore(end);
+        });
+        
+        filteredStaticData = dbStaticData.filter(item => {
+          const itemDate = dayjs(item.date);
+          return itemDate.isSameOrAfter(start) && itemDate.isSameOrBefore(end);
+        });
+        
+        filteredDepositData = dbDepositData.filter(item => {
+          const itemDate = dayjs(item.date);
+          return itemDate.isSameOrAfter(start) && itemDate.isSameOrBefore(end);
+        });
+      }
+    }
 
-    // Generate data points berdasarkan periode
-    const now = dayjs();
-    let startPoint;
+    // Generate chart data points
     let merchant_chart = [];
     let static_chart = [];
     let deposit_chart = [];
-    let intervalHours; // Add interval in hours
     
-    switch (period) {
+    if (startDate && endDate) {
+      // Generate chart data based on custom date range
+      const start = dayjs(startDate);
+      const end = dayjs(endDate);
+      const diffDays = end.diff(start, 'day');
+      
+      let intervalHours, labelFormat, dataPoints;
+      
+      if (diffDays <= 1) {
+        // Hourly intervals for 1 day or less
+        intervalHours = 1;
+        dataPoints = 24;
+        labelFormat = (point) => point.format('HH:mm');
+      } else if (diffDays <= 7) {
+        // Daily intervals for up to 7 days
+        intervalHours = 24;
+        dataPoints = diffDays + 1;
+        labelFormat = (point) => point.format('DD MMM');
+      } else if (diffDays <= 30) {
+        // Weekly intervals for up to 30 days
+        intervalHours = 24 * 7;
+        dataPoints = Math.ceil(diffDays / 7);
+        labelFormat = (point) => `${point.format('DD MMM')} - ${point.add(6, 'day').format('DD MMM')}`;
+      } else {
+        // Monthly intervals for longer periods
+        intervalHours = 24 * 30;
+        dataPoints = Math.ceil(diffDays / 30);
+        labelFormat = (point) => point.format('MMM YYYY');
+      }
+      
+      merchant_chart = generateChartDataPoints(start, dataPoints, intervalHours, labelFormat);
+      static_chart = generateChartDataPoints(start, dataPoints, intervalHours, labelFormat);
+      deposit_chart = generateChartDataPoints(start, dataPoints, intervalHours, labelFormat);
+    } else {
+      // Generate data points berdasarkan periode
+      const now = dayjs();
+      let startPoint;
+      let intervalHours; // Add interval in hours
+      
+      switch (period) {
       case '4hours':
         startPoint = now.startOf('day');
         intervalHours = 4;
@@ -222,14 +334,10 @@ export async function GET(request) {
         }));
         break;
     }
+  }
 
-    // Kelompokkan dan jumlahkan data berdasarkan interval
-    const dbMerchantData = dbData.monitor_qris_chart || [];
-    const dbStaticData = dbData.monitor_qris_static_chart || [];
-    const dbDepositData = dbData.monitor_qris_deposit_chart || [];
-    
-    // Process merchant chart data
-    dbMerchantData.forEach(dbItem => {
+    // Process merchant chart data using filtered data
+    filteredMerchantData.forEach(dbItem => {
       const dbDate = dayjs(dbItem.date);
       const matchingPoint = merchant_chart.find(point => {
         const pointDate = dayjs(point.date);
@@ -245,8 +353,8 @@ export async function GET(request) {
       }
     });
 
-    // Process static chart data
-    dbStaticData.forEach(dbItem => {
+    // Process static chart data using filtered data
+    filteredStaticData.forEach(dbItem => {
       const dbDate = dayjs(dbItem.date);
       const matchingPoint = static_chart.find(point => {
         const pointDate = dayjs(point.date);
@@ -262,8 +370,8 @@ export async function GET(request) {
       }
     });
 
-    // Process deposit chart data
-    dbDepositData.forEach(dbItem => {
+    // Process deposit chart data using filtered data
+    filteredDepositData.forEach(dbItem => {
       const dbDate = dayjs(dbItem.date);
       const matchingPoint = deposit_chart.find(point => {
         const pointDate = dayjs(point.date);

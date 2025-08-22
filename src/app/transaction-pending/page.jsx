@@ -39,13 +39,30 @@ export default function TransactionPendingPage() {
   const [mostPendingProducts, setMostPendingProducts] = useState([]);
   const [topPendingPartners, setTopPendingPartners] = useState([]);
   const [totalPendingTransactionsDaily, setTotalPendingTransactionsDaily] = useState([]);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   /**
    * Menghitung start_date dan end_date berdasarkan filter yang dipilih user.
    * @param {string} filter - Nilai filter yang dipilih (today, last_3_days, this_week, this_month)
+   * @param {string} customStartDate - Custom start date dari date picker
+   * @param {string} customEndDate - Custom end date dari date picker
    * @returns {{start_date: string, end_date: string}} - Objek berisi tanggal mulai dan akhir
    */
-  const getDateRange = (filter) => {
+  const getDateRange = (filter, customStartDate = '', customEndDate = '') => {
+    // Jika kedua custom date kosong, return null untuk tidak menggunakan filter tanggal
+    if (!customStartDate && !customEndDate) {
+      return { start_date: null, end_date: null };
+    }
+    
+    // Jika ada custom date, gunakan custom date
+    if (customStartDate || customEndDate) {
+      return {
+        start_date: customStartDate || null,
+        end_date: customEndDate || null
+      };
+    }
+
     const today = dayjs();
     let start_date = null;
     let end_date = null;
@@ -71,8 +88,8 @@ export default function TransactionPendingPage() {
         end_date = today.format('YYYY-MM-DD HH:mm:ss');
         break;
       default:
-        start_date = today.format('YYYY-MM-DD HH:mm:ss');
-        end_date = today.format('YYYY-MM-DD HH:mm:ss');
+        start_date = null;
+        end_date = null;
     }
     return { start_date, end_date };
   };
@@ -83,7 +100,7 @@ export default function TransactionPendingPage() {
    */
   const fetchData = () => {
     setLoading(true);
-    const { start_date, end_date } = getDateRange(selectedFilter);
+    const { start_date, end_date } = getDateRange(selectedFilter, startDate, endDate);
     getPendingTransactions({
       search,
       page,
@@ -123,6 +140,13 @@ export default function TransactionPendingPage() {
       .finally(() => setLoading(false));
   };
 
+  /**
+   * Handler untuk perubahan filter periode
+   */
+  const handleFilterChange = (newFilter) => {
+    setSelectedFilter(newFilter);
+  };
+
   useEffect(() => {
     fetchData();
     // Auto refresh setiap 10 detik
@@ -130,7 +154,7 @@ export default function TransactionPendingPage() {
       fetchData();
     }, 10000);
     return () => clearInterval(interval);
-  }, [search, page, pageSize, selectedFilter]);
+  }, [search, page, pageSize, selectedFilter, startDate, endDate]);
 
   // Dummy data card
 const cards = [
@@ -168,7 +192,7 @@ const cards = [
         { value: 'monthly', label: 'Bulanan' },
       ],
       value: selectedFilter,
-      onChange: setSelectedFilter,
+      onChange: handleFilterChange,
     },
   ];
 
@@ -225,13 +249,16 @@ const cards = [
         <AreaGrafik
           totalLabel="TOTAL TRANSAKSI"
           totalValue={chartData.reduce((a, b) => a + b.value, 0).toLocaleString('id-ID')}
-         
           data={chartData.map(d => ({ x: d.label, y: d.value }))}
           dataKeyX="x"
           dataKeyY="y"
           tooltipFormatter={(value, name, props) => [value, props && props.payload && props.payload.x ? props.payload.x : name]}
           loading={loading}
           filters={filters}
+          startDate={startDate}
+          endDate={endDate}
+          onStartDateChange={setStartDate}
+          onEndDateChange={setEndDate}
         />
       </div>
 

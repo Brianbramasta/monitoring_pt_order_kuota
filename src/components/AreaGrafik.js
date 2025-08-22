@@ -20,6 +20,10 @@ const AreaGrafik = ({
   dataKeyX = "x",
   dataKeyY = "y",
   tooltipFormatter,
+  startDate,
+  endDate,
+  onStartDateChange,
+  onEndDateChange,
 }) => {
   // Custom Tooltip agar label tidak double
 function CustomTooltipWrapper(props) {
@@ -59,7 +63,28 @@ function CustomTooltipWrapper(props) {
         <div className=" text-[clamp(12px,2vw,14px)]  font-normal">
           {totalLabel} : <span className="text-[#009688] font-bold">{totalValue}</span>
         </div>
-        <div className="flex gap-3 flex-wrap">
+        <div className="flex gap-3 flex-wrap items-center">
+          {/* Date Pickers */}
+          <div className="flex gap-2 items-center">
+             <label className="text-sm font-medium text-gray-700">Dari:</label>
+             <input
+               type="date"
+               value={startDate}
+               max={endDate || undefined}
+               onChange={(e) => onStartDateChange && onStartDateChange(e.target.value)}
+               className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#009688] focus:border-transparent"
+             />
+           </div>
+           <div className="flex gap-2 items-center">
+             <label className="text-sm font-medium text-gray-700">Sampai:</label>
+             <input
+               type="date"
+               value={endDate}
+               min={startDate || undefined}
+               onChange={(e) => onEndDateChange && onEndDateChange(e.target.value)}
+               className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#009688] focus:border-transparent"
+             />
+           </div>
           {filters.map((filter, idx) => (
             <CustomDropdown
               key={idx}
