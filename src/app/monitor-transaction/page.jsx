@@ -1,15 +1,15 @@
 'use client'
 import AreaGrafik from "@/components/AreaGrafik";
 import { useState, useEffect, useCallback } from "react";
-import { getTransactionChart } from "@/services/monitor";
 import { getProductsOptions } from '@/services/products';
 import RefreshButton from '@/components/RefreshButton';
 import Card from '@/components/Card';
 import DynamicTable from '@/components/DynamicTable';
 import { getMonitorTransactionList } from '@/services/monitor';
+import dayjs from 'dayjs';
 
 export default function MonitorTransactionPage() {
-  const [periode, setPeriode] = useState("bulan");
+  const [periode, setPeriode] = useState("4hours");
   const [produk, setProduk] = useState("");
   const [produkOptions, setProdukOptions] = useState([]);
   const [produkReady, setProdukReady] = useState(false);
@@ -21,6 +21,8 @@ export default function MonitorTransactionPage() {
   const [tableLoading, setTableLoading] = useState(false);
   const [tablePagination, setTablePagination] = useState({ page: 1, totalPages: 1, pageSize: 10, totalData: 0 });
   const [tableSearch, setTableSearch] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   useEffect(() => {
     getProductsOptions({ limit: 100 }).then(res => {
@@ -33,12 +35,35 @@ export default function MonitorTransactionPage() {
     });
   }, []);
 
+  /**
+   * Menghitung start_date dan end_date berdasarkan filter yang dipilih user.
+   */
+  const getDateRange = (filter, customStartDate = null, customEndDate = null) => {
+    // Jika ada custom date dari date picker, gunakan itu
+    if (customStartDate && customEndDate) {
+      return {
+        start_date: dayjs(customStartDate).startOf('day').format('YYYY-MM-DD HH:mm:ss'),
+        end_date: dayjs(customEndDate).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+      };
+    }
+
+    // Jika date picker kosong, return null agar API tidak menggunakan filter tanggal
+    if (!customStartDate && !customEndDate) {
+      return { start_date: null, end_date: null };
+    }
+
+    return { start_date: null, end_date: null };
+  };
+
   const filters = [
     {
-      label: "Bulanan",
+      label: "Periode",
       options: [
-        { label: "Bulanan", value: "monthly" },
-        { label: "Mingguan", value: "weekly" },
+        { value: '4hours', label: '4 Jam' },
+        { value: 'daily', label: 'Harian' },
+        { value: '3days', label: '3 Hari' },
+        { value: 'weekly', label: 'Mingguan' },
+        { value: 'monthly', label: 'Bulanan' },
       ],
       value: periode,
       onChange: setPeriode,
@@ -57,18 +82,45 @@ export default function MonitorTransactionPage() {
 
   const fetchData = () => {
     setLoading(true);
-    fetchTable();
-    getTransactionChart({ period: periode, product_id: produk })
+    setTableLoading(true);
+    const { start_date, end_date } = getDateRange(periode, startDate, endDate);
+    getMonitorTransactionList({
+      page: tablePagination.page,
+      limit: tablePagination.pageSize,
+      search: tableSearch,
+      start_date,
+      end_date,
+      periode,
+      product_id: produk
+    })
       .then(res => {
-        const arr = res.data.data?.chart_data || [];
+        const d = res.data.data || {};
+        // Set chart data
+        const arr = d.chart_data || [];
         setData(arr.map(item => ({ x: item.label, y: item.value })));
         setTotalValue(arr.reduce((sum, item) => sum + (item.value || 0), 0));
+        
+        // Set table data
+        setRekap(d.recap || {});
+        setTableData(d.transactions || []);
+        setTablePagination({
+          page: d.pagination?.current_page || 1,
+          totalPages: d.pagination?.total_pages || 1,
+          pageSize: d.pagination?.limit || 10,
+          totalData: d.pagination?.total_data || 0,
+        });
       })
       .catch(() => {
         setData([]);
         setTotalValue(0);
+        setRekap({});
+        setTableData([]);
+        setTablePagination({ page: 1, totalPages: 1, pageSize: 10, totalData: 0 });
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setLoading(false);
+        setTableLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -77,15 +129,20 @@ export default function MonitorTransactionPage() {
       if (produkReady && produk) fetchData();
     }, 10000);
     return () => clearInterval(interval);
-  }, [periode, produk, produkReady]);
+  }, [periode, produk, produkReady, startDate, endDate]);
 
-  // Ambil data rekap & tabel
+  // Ambil data rekap & tabel dengan parameter khusus (untuk pagination/search)
   const fetchTable = useCallback((params = {}) => {
     setTableLoading(true);
+    const { start_date, end_date } = getDateRange(periode, startDate, endDate);
     getMonitorTransactionList({
       page: params.page || tablePagination.page,
       limit: params.pageSize || tablePagination.pageSize,
       search: params.search || tableSearch,
+      start_date,
+      end_date,
+      periode,
+      product_id: produk
     })
       .then(res => {
         const d = res.data.data || {};
@@ -99,7 +156,7 @@ export default function MonitorTransactionPage() {
         });
       })
       .finally(() => setTableLoading(false));
-  }, [tablePagination.page, tablePagination.pageSize, tableSearch]);
+  }, [tablePagination.page, tablePagination.pageSize, tableSearch, periode, startDate, endDate, produk]);
 
   // useEffect(() => {
   //   fetchTable();
@@ -225,6 +282,10 @@ export default function MonitorTransactionPage() {
           props && props.payload && props.payload.x ? props.payload.x : name
         ]}
         loading={loading}
+        startDate={startDate}
+        endDate={endDate}
+        onStartDateChange={setStartDate}
+        onEndDateChange={setEndDate}
       />
       {/* Table */}
       <div className="mt-8">
@@ -268,4 +329,4 @@ export default function MonitorTransactionPage() {
       </div>
     </div>
   );
-} 
+}

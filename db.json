@@ -1169,32 +1169,744 @@
   },
   "monitor_transactions_chart": [
     {
-      "label": "Jan 2025",
+      "date": "2025-01-15T08:00:00.000Z",
+      "product_id": 1,
+      "value": 2500000
+    },
+    {
+      "date": "2025-01-15T12:00:00.000Z",
+      "product_id": 1,
+      "value": 3200000
+    },
+    {
+      "date": "2025-01-15T16:00:00.000Z",
+      "product_id": 1,
+      "value": 2800000
+    },
+    {
+      "date": "2025-01-15T20:00:00.000Z",
+      "product_id": 1,
+      "value": 3500000
+    },
+    {
+      "date": "2025-01-15T08:00:00.000Z",
+      "product_id": 2,
+      "value": 1800000
+    },
+    {
+      "date": "2025-01-15T12:00:00.000Z",
+      "product_id": 2,
+      "value": 2200000
+    },
+    {
+      "date": "2025-01-15T16:00:00.000Z",
+      "product_id": 2,
+      "value": 1900000
+    },
+    {
+      "date": "2025-01-15T20:00:00.000Z",
+      "product_id": 2,
+      "value": 2400000
+    },
+    {
+      "date": "2025-01-16T00:00:00.000Z",
+      "product_id": 1,
+      "value": 4200000
+    },
+    {
+      "date": "2025-01-16T00:00:00.000Z",
+      "product_id": 2,
+      "value": 3100000
+    },
+    {
+      "date": "2025-01-17T00:00:00.000Z",
+      "product_id": 1,
+      "value": 3800000
+    },
+    {
+      "date": "2025-01-17T00:00:00.000Z",
+      "product_id": 2,
+      "value": 2900000
+    },
+    {
+      "date": "2025-01-18T00:00:00.000Z",
+      "product_id": 1,
+      "value": 4500000
+    },
+    {
+      "date": "2025-01-18T00:00:00.000Z",
+      "product_id": 2,
+      "value": 3300000
+    },
+    {
+      "date": "2025-01-01T00:00:00.000Z",
+      "product_id": 1,
       "value": 15000000
     },
     {
-      "label": "Feb 2025",
+      "date": "2025-01-01T00:00:00.000Z",
+      "product_id": 2,
+      "value": 12000000
+    },
+    {
+      "date": "2025-02-01T00:00:00.000Z",
+      "product_id": 1,
       "value": 18000000
     },
     {
-      "label": "Mar 2025",
+      "date": "2025-02-01T00:00:00.000Z",
+      "product_id": 2,
+      "value": 14500000
+    },
+    {
+      "date": "2025-03-01T00:00:00.000Z",
+      "product_id": 1,
       "value": 17500000
     },
     {
-      "label": "Apr 2025",
+      "date": "2025-03-01T00:00:00.000Z",
+      "product_id": 2,
+      "value": 13800000
+    },
+    {
+      "date": "2025-04-01T00:00:00.000Z",
+      "product_id": 1,
       "value": 20000000
     },
     {
-      "label": "Mei 2025",
+      "date": "2025-04-01T00:00:00.000Z",
+      "product_id": 2,
+      "value": 16200000
+    },
+    {
+      "date": "2025-05-01T00:00:00.000Z",
+      "product_id": 1,
       "value": 22000000
     },
     {
-      "label": "Jun 2025",
+      "date": "2025-05-01T00:00:00.000Z",
+      "product_id": 2,
+      "value": 17800000
+    },
+    {
+      "date": "2025-06-01T00:00:00.000Z",
+      "product_id": 1,
       "value": 19500000
     },
     {
-      "label": "Jul 2025",
-      "value": 21000000
+      "date": "2025-06-01T00:00:00.000Z",
+      "product_id": 2,
+      "value": 15600000
+    },
+    {
+      "date": "2025-08-27 04:32:24",
+      "product_id": 6,
+      "value": 52
+    },
+    {
+      "date": "2025-08-27 04:47:24",
+      "product_id": 3,
+      "value": 75
+    },
+    {
+      "date": "2025-08-27 05:02:24",
+      "product_id": 1,
+      "value": 42
+    },
+    {
+      "date": "2025-08-27 05:17:24",
+      "product_id": 3,
+      "value": 11
+    },
+    {
+      "date": "2025-08-27 05:32:24",
+      "product_id": 3,
+      "value": 31
+    },
+    {
+      "date": "2025-08-27 05:47:24",
+      "product_id": 3,
+      "value": 92
+    },
+    {
+      "date": "2025-08-27 06:02:24",
+      "product_id": 1,
+      "value": 24
+    },
+    {
+      "date": "2025-08-27 06:17:24",
+      "product_id": 6,
+      "value": 78
+    },
+    {
+      "date": "2025-08-27 06:32:24",
+      "product_id": 5,
+      "value": 99
+    },
+    {
+      "date": "2025-08-27 06:47:24",
+      "product_id": 7,
+      "value": 77
+    },
+    {
+      "date": "2025-08-27 07:02:24",
+      "product_id": 4,
+      "value": 30
+    },
+    {
+      "date": "2025-08-27 07:17:24",
+      "product_id": 3,
+      "value": 20
+    },
+    {
+      "date": "2025-08-27 07:32:24",
+      "product_id": 7,
+      "value": 27
+    },
+    {
+      "date": "2025-08-27 07:47:24",
+      "product_id": 6,
+      "value": 75
+    },
+    {
+      "date": "2025-08-27 08:02:24",
+      "product_id": 3,
+      "value": 99
+    },
+    {
+      "date": "2025-08-27 08:17:24",
+      "product_id": 6,
+      "value": 58
+    },
+    {
+      "date": "2025-08-27 00:00:00",
+      "product_id": 4,
+      "value": 60
+    },
+    {
+      "date": "2025-08-27 01:00:00",
+      "product_id": 6,
+      "value": 113
+    },
+    {
+      "date": "2025-08-27 02:00:00",
+      "product_id": 4,
+      "value": 238
+    },
+    {
+      "date": "2025-08-27 03:00:00",
+      "product_id": 5,
+      "value": 156
+    },
+    {
+      "date": "2025-08-27 04:00:00",
+      "product_id": 1,
+      "value": 161
+    },
+    {
+      "date": "2025-08-27 05:00:00",
+      "product_id": 6,
+      "value": 179
+    },
+    {
+      "date": "2025-08-27 06:00:00",
+      "product_id": 7,
+      "value": 106
+    },
+    {
+      "date": "2025-08-27 07:00:00",
+      "product_id": 6,
+      "value": 268
+    },
+    {
+      "date": "2025-08-27 08:00:00",
+      "product_id": 5,
+      "value": 234
+    },
+    {
+      "date": "2025-08-27 09:00:00",
+      "product_id": 5,
+      "value": 166
+    },
+    {
+      "date": "2025-08-27 10:00:00",
+      "product_id": 3,
+      "value": 264
+    },
+    {
+      "date": "2025-08-27 11:00:00",
+      "product_id": 4,
+      "value": 185
+    },
+    {
+      "date": "2025-08-27 12:00:00",
+      "product_id": 7,
+      "value": 245
+    },
+    {
+      "date": "2025-08-27 13:00:00",
+      "product_id": 5,
+      "value": 286
+    },
+    {
+      "date": "2025-08-27 14:00:00",
+      "product_id": 3,
+      "value": 262
+    },
+    {
+      "date": "2025-08-27 15:00:00",
+      "product_id": 1,
+      "value": 289
+    },
+    {
+      "date": "2025-08-27 16:00:00",
+      "product_id": 2,
+      "value": 171
+    },
+    {
+      "date": "2025-08-27 17:00:00",
+      "product_id": 5,
+      "value": 68
+    },
+    {
+      "date": "2025-08-27 18:00:00",
+      "product_id": 5,
+      "value": 164
+    },
+    {
+      "date": "2025-08-27 19:00:00",
+      "product_id": 7,
+      "value": 222
+    },
+    {
+      "date": "2025-08-27 20:00:00",
+      "product_id": 3,
+      "value": 120
+    },
+    {
+      "date": "2025-08-27 21:00:00",
+      "product_id": 3,
+      "value": 166
+    },
+    {
+      "date": "2025-08-27 22:00:00",
+      "product_id": 5,
+      "value": 204
+    },
+    {
+      "date": "2025-08-27 23:00:00",
+      "product_id": 7,
+      "value": 94
+    },
+    {
+      "date": "2025-08-24 08:32:24",
+      "product_id": 4,
+      "value": 306
+    },
+    {
+      "date": "2025-08-24 11:32:24",
+      "product_id": 2,
+      "value": 399
+    },
+    {
+      "date": "2025-08-24 14:32:24",
+      "product_id": 5,
+      "value": 278
+    },
+    {
+      "date": "2025-08-24 17:32:24",
+      "product_id": 7,
+      "value": 191
+    },
+    {
+      "date": "2025-08-24 20:32:24",
+      "product_id": 6,
+      "value": 290
+    },
+    {
+      "date": "2025-08-24 23:32:24",
+      "product_id": 7,
+      "value": 230
+    },
+    {
+      "date": "2025-08-25 02:32:24",
+      "product_id": 5,
+      "value": 289
+    },
+    {
+      "date": "2025-08-25 05:32:24",
+      "product_id": 5,
+      "value": 150
+    },
+    {
+      "date": "2025-08-25 08:32:24",
+      "product_id": 4,
+      "value": 272
+    },
+    {
+      "date": "2025-08-25 11:32:24",
+      "product_id": 7,
+      "value": 350
+    },
+    {
+      "date": "2025-08-25 14:32:24",
+      "product_id": 4,
+      "value": 267
+    },
+    {
+      "date": "2025-08-25 17:32:24",
+      "product_id": 5,
+      "value": 370
+    },
+    {
+      "date": "2025-08-25 20:32:24",
+      "product_id": 5,
+      "value": 381
+    },
+    {
+      "date": "2025-08-25 23:32:24",
+      "product_id": 5,
+      "value": 448
+    },
+    {
+      "date": "2025-08-26 02:32:24",
+      "product_id": 6,
+      "value": 311
+    },
+    {
+      "date": "2025-08-26 05:32:24",
+      "product_id": 4,
+      "value": 287
+    },
+    {
+      "date": "2025-08-26 08:32:24",
+      "product_id": 4,
+      "value": 467
+    },
+    {
+      "date": "2025-08-26 11:32:24",
+      "product_id": 6,
+      "value": 358
+    },
+    {
+      "date": "2025-08-26 14:32:24",
+      "product_id": 2,
+      "value": 126
+    },
+    {
+      "date": "2025-08-26 17:32:24",
+      "product_id": 4,
+      "value": 170
+    },
+    {
+      "date": "2025-08-26 20:32:24",
+      "product_id": 4,
+      "value": 253
+    },
+    {
+      "date": "2025-08-26 23:32:24",
+      "product_id": 5,
+      "value": 362
+    },
+    {
+      "date": "2025-08-27 02:32:24",
+      "product_id": 5,
+      "value": 174
+    },
+    {
+      "date": "2025-08-27 05:32:24",
+      "product_id": 5,
+      "value": 478
+    },
+    {
+      "date": "2025-08-20 08:32:24",
+      "product_id": 7,
+      "value": 246
+    },
+    {
+      "date": "2025-08-20 14:32:24",
+      "product_id": 4,
+      "value": 642
+    },
+    {
+      "date": "2025-08-20 20:32:24",
+      "product_id": 3,
+      "value": 605
+    },
+    {
+      "date": "2025-08-21 02:32:24",
+      "product_id": 6,
+      "value": 558
+    },
+    {
+      "date": "2025-08-21 08:32:24",
+      "product_id": 1,
+      "value": 790
+    },
+    {
+      "date": "2025-08-21 14:32:24",
+      "product_id": 6,
+      "value": 735
+    },
+    {
+      "date": "2025-08-21 20:32:24",
+      "product_id": 7,
+      "value": 613
+    },
+    {
+      "date": "2025-08-22 02:32:24",
+      "product_id": 1,
+      "value": 584
+    },
+    {
+      "date": "2025-08-22 08:32:24",
+      "product_id": 6,
+      "value": 447
+    },
+    {
+      "date": "2025-08-22 14:32:24",
+      "product_id": 5,
+      "value": 727
+    },
+    {
+      "date": "2025-08-22 20:32:24",
+      "product_id": 7,
+      "value": 338
+    },
+    {
+      "date": "2025-08-23 02:32:24",
+      "product_id": 4,
+      "value": 302
+    },
+    {
+      "date": "2025-08-23 08:32:24",
+      "product_id": 1,
+      "value": 285
+    },
+    {
+      "date": "2025-08-23 14:32:24",
+      "product_id": 2,
+      "value": 410
+    },
+    {
+      "date": "2025-08-23 20:32:24",
+      "product_id": 4,
+      "value": 499
+    },
+    {
+      "date": "2025-08-24 02:32:24",
+      "product_id": 5,
+      "value": 534
+    },
+    {
+      "date": "2025-08-24 08:32:24",
+      "product_id": 4,
+      "value": 594
+    },
+    {
+      "date": "2025-08-24 14:32:24",
+      "product_id": 7,
+      "value": 303
+    },
+    {
+      "date": "2025-08-24 20:32:24",
+      "product_id": 2,
+      "value": 681
+    },
+    {
+      "date": "2025-08-25 02:32:24",
+      "product_id": 7,
+      "value": 250
+    },
+    {
+      "date": "2025-08-25 08:32:24",
+      "product_id": 4,
+      "value": 596
+    },
+    {
+      "date": "2025-08-25 14:32:24",
+      "product_id": 1,
+      "value": 613
+    },
+    {
+      "date": "2025-08-25 20:32:24",
+      "product_id": 2,
+      "value": 301
+    },
+    {
+      "date": "2025-08-26 02:32:24",
+      "product_id": 7,
+      "value": 509
+    },
+    {
+      "date": "2025-08-26 08:32:24",
+      "product_id": 4,
+      "value": 339
+    },
+    {
+      "date": "2025-08-26 14:32:24",
+      "product_id": 6,
+      "value": 503
+    },
+    {
+      "date": "2025-08-26 20:32:24",
+      "product_id": 7,
+      "value": 779
+    },
+    {
+      "date": "2025-08-27 02:32:24",
+      "product_id": 4,
+      "value": 204
+    },
+    {
+      "date": "2025-07-28 08:32:24",
+      "product_id": 4,
+      "value": 1453
+    },
+    {
+      "date": "2025-07-29 08:32:24",
+      "product_id": 2,
+      "value": 528
+    },
+    {
+      "date": "2025-07-30 08:32:24",
+      "product_id": 2,
+      "value": 1165
+    },
+    {
+      "date": "2025-07-31 08:32:24",
+      "product_id": 7,
+      "value": 686
+    },
+    {
+      "date": "2025-08-01 08:32:24",
+      "product_id": 5,
+      "value": 696
+    },
+    {
+      "date": "2025-08-02 08:32:24",
+      "product_id": 3,
+      "value": 1872
+    },
+    {
+      "date": "2025-08-03 08:32:24",
+      "product_id": 7,
+      "value": 1402
+    },
+    {
+      "date": "2025-08-04 08:32:24",
+      "product_id": 2,
+      "value": 1286
+    },
+    {
+      "date": "2025-08-05 08:32:24",
+      "product_id": 7,
+      "value": 1002
+    },
+    {
+      "date": "2025-08-06 08:32:24",
+      "product_id": 6,
+      "value": 1392
+    },
+    {
+      "date": "2025-08-07 08:32:24",
+      "product_id": 3,
+      "value": 1184
+    },
+    {
+      "date": "2025-08-08 08:32:24",
+      "product_id": 1,
+      "value": 1975
+    },
+    {
+      "date": "2025-08-09 08:32:24",
+      "product_id": 3,
+      "value": 832
+    },
+    {
+      "date": "2025-08-10 08:32:24",
+      "product_id": 2,
+      "value": 1973
+    },
+    {
+      "date": "2025-08-11 08:32:24",
+      "product_id": 4,
+      "value": 1308
+    },
+    {
+      "date": "2025-08-12 08:32:24",
+      "product_id": 1,
+      "value": 561
+    },
+    {
+      "date": "2025-08-13 08:32:24",
+      "product_id": 7,
+      "value": 1080
+    },
+    {
+      "date": "2025-08-14 08:32:24",
+      "product_id": 7,
+      "value": 1079
+    },
+    {
+      "date": "2025-08-15 08:32:24",
+      "product_id": 1,
+      "value": 978
+    },
+    {
+      "date": "2025-08-16 08:32:24",
+      "product_id": 1,
+      "value": 1782
+    },
+    {
+      "date": "2025-08-17 08:32:24",
+      "product_id": 5,
+      "value": 918
+    },
+    {
+      "date": "2025-08-18 08:32:24",
+      "product_id": 2,
+      "value": 1533
+    },
+    {
+      "date": "2025-08-19 08:32:24",
+      "product_id": 4,
+      "value": 859
+    },
+    {
+      "date": "2025-08-20 08:32:24",
+      "product_id": 3,
+      "value": 606
+    },
+    {
+      "date": "2025-08-21 08:32:24",
+      "product_id": 2,
+      "value": 1677
+    },
+    {
+      "date": "2025-08-22 08:32:24",
+      "product_id": 7,
+      "value": 1754
+    },
+    {
+      "date": "2025-08-23 08:32:24",
+      "product_id": 6,
+      "value": 1467
+    },
+    {
+      "date": "2025-08-24 08:32:24",
+      "product_id": 1,
+      "value": 652
+    },
+    {
+      "date": "2025-08-25 08:32:24",
+      "product_id": 7,
+      "value": 1338
+    },
+    {
+      "date": "2025-08-26 08:32:24",
+      "product_id": 5,
+      "value": 1771
     }
   ],
   "transactions_complaints": [
@@ -4330,10 +5042,10 @@
   ],
   "monitor_transactions": {
     "recap": {
-      "total_today_transaction": 4300000,
-      "total_retail_user": 120,
-      "total_h2h_user": 120,
-      "total_today_registration": 40
+      "total_successful_transactions": 0,
+      "total_retail_users": 1932,
+      "total_h2h_users": 1121,
+      "total_new_registrations": 130
     },
     "transactions": [
       {
@@ -4359,6 +5071,126 @@
         "payment": "Saldo Akun",
         "purchase_date": "04/08/2025 09:52",
         "status": "IP"
+      },
+      {
+        "id": "TRX1756258344300000",
+        "user": "User1194",
+        "server": "Server-01",
+        "provider": "Indosat",
+        "nominal": "Pulsa Telkomsel 5rb",
+        "phone_or_pln": "0857958300",
+        "price": "Rp 5.200",
+        "payment": "Virtual Account",
+        "purchase_date": "2025-08-27 07:37:24",
+        "status": "Failed"
+      },
+      {
+        "id": "TRX1756258344300001",
+        "user": "User4974",
+        "server": "Server-05",
+        "provider": "Indosat",
+        "nominal": "Pulsa Telkomsel 5rb",
+        "phone_or_pln": "0878759460",
+        "price": "Rp 5.200",
+        "payment": "Transfer Bank",
+        "purchase_date": "2025-08-27 04:59:24",
+        "status": "Failed"
+      },
+      {
+        "id": "TRX1756258344300002",
+        "user": "User2623",
+        "server": "Server-02",
+        "provider": "Telkomsel",
+        "nominal": "Paket Data Smartfren 3GB",
+        "phone_or_pln": "0822127251",
+        "price": "Rp 30.000",
+        "payment": "Transfer Bank",
+        "purchase_date": "2025-08-27 08:29:24",
+        "status": "Failed"
+      },
+      {
+        "id": "TRX1756258344300003",
+        "user": "User9721",
+        "server": "Server-03",
+        "provider": "PLN",
+        "nominal": "Paket Data Telkomsel 2GB",
+        "phone_or_pln": "0850236669",
+        "price": "Rp 25.000",
+        "payment": "QRIS",
+        "purchase_date": "2025-08-27 05:54:24",
+        "status": "Failed"
+      },
+      {
+        "id": "TRX1756258344301004",
+        "user": "User9581",
+        "server": "Server-05",
+        "provider": "XL Axiata",
+        "nominal": "Paket Data XL 1GB",
+        "phone_or_pln": "0819059604",
+        "price": "Rp 15.000",
+        "payment": "Transfer Bank",
+        "purchase_date": "2025-08-27 07:57:24",
+        "status": "Failed"
+      },
+      {
+        "id": "TRX1756258344301005",
+        "user": "User5504",
+        "server": "Server-01",
+        "provider": "PLN",
+        "nominal": "Token PLN 20rb",
+        "phone_or_pln": "0897080120",
+        "price": "Rp 20.200",
+        "payment": "QRIS",
+        "purchase_date": "2025-08-27 08:20:24",
+        "status": "Failed"
+      },
+      {
+        "id": "TRX1756258344301006",
+        "user": "User3531",
+        "server": "Server-05",
+        "provider": "XL Axiata",
+        "nominal": "Paket Data Smartfren 3GB",
+        "phone_or_pln": "0845857494",
+        "price": "Rp 30.000",
+        "payment": "Credit Card",
+        "purchase_date": "2025-08-27 07:22:24",
+        "status": "Pending"
+      },
+      {
+        "id": "TRX1756258344301007",
+        "user": "User9439",
+        "server": "Server-02",
+        "provider": "Indosat",
+        "nominal": "Paket Data Telkomsel 2GB",
+        "phone_or_pln": "0863507096",
+        "price": "Rp 25.000",
+        "payment": "Virtual Account",
+        "purchase_date": "2025-08-27 05:20:24",
+        "status": "Pending"
+      },
+      {
+        "id": "TRX1756258344301008",
+        "user": "User9970",
+        "server": "Server-04",
+        "provider": "Telkomsel",
+        "nominal": "Token PLN 20rb",
+        "phone_or_pln": "0837787171",
+        "price": "Rp 20.200",
+        "payment": "Transfer Bank",
+        "purchase_date": "2025-08-27 08:12:24",
+        "status": "Pending"
+      },
+      {
+        "id": "TRX1756258344301009",
+        "user": "User6819",
+        "server": "Server-01",
+        "provider": "Indosat",
+        "nominal": "Pulsa Telkomsel 5rb",
+        "phone_or_pln": "0836091506",
+        "price": "Rp 5.200",
+        "payment": "E-Wallet",
+        "purchase_date": "2025-08-27 04:50:24",
+        "status": "Pending"
       }
     ]
   },

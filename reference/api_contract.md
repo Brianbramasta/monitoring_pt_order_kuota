@@ -693,57 +693,117 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
 
 ---
 
-## 7. Monitor Transaksi (Grafik Area)
+## 7. Monitor Transaksi
 
-- **Endpoint:** `/api/v1/monitor/transactions/chart`
+- **Endpoint:** `/api/v1/monitor/transactions`
 - **Method:** `GET`
 - **Parameter Request:**
-  - `period`: Filter periode (opsional, default 'monthly'). Pilihan: `daily`, `weekly`, `monthly`, `yearly`.
-  - `product_id`: ID produk untuk filter (opsional, default produk pertama/Telkomsel?)
+  - `search`: Kata kunci pencarian (opsional)
+  - `limit`: Jumlah data per halaman (opsional, default 10)
+  - `page`: Nomor halaman (opsional, default 1)
+  - `start_date`: Tanggal mulai filter (opsional, format YYYY-MM-DD)
+  - `end_date`: Tanggal akhir filter (opsional, format YYYY-MM-DD)
+  - `periode`: Filter periode untuk chart dan data (opsional, default '4hours'). Pilihan: `4hours`, `daily`, `3days`, `weekly`, `monthly`
+    - **4 Jam**: Menampilkan data hari ini dalam blok 4 jam (6 blok untuk 24 jam)
+    - **Harian**: Menampilkan data bulan ini dalam interval harian
+    - **3 Hari**: Menampilkan data bulan ini dalam blok 3 hari
+    - **Mingguan**: Menampilkan data 3 bulan terakhir dalam blok mingguan (12 minggu)
+    - **Bulanan**: Menampilkan data tahun ini dalam blok bulanan (12 bulan)
+  - `product_id`: ID produk untuk filter chart (opsional, hanya mempengaruhi chart_data)
 - **Parameter Response:**
-  - `chart_data`: Array data grafik
+  - `recap`: Objek rekapitulasi (menampilkan semua produk)
+    - `total_today_transaction`: Total transaksi berhasil hari ini (integer/decimal)
+    - `total_retail_user`: Total pengguna retail (integer)
+    - `total_h2h_user`: Total pengguna H2H (integer)
+    - `total_today_registration`: Total pendaftar hari ini (integer)
+  - `transactions`: Array transaksi (menampilkan semua produk)
+    - `no`: Nomor urut (integer)
+    - `id`: ID transaksi (string)
+    - `user`: Nama user (string)
+    - `server`: Nama server (string)
+    - `provider`: Nama provider (string)
+    - `nominal`: Nominal transaksi (string)
+    - `phone_or_pln`: No HP/ID PLN (string)
+    - `price`: Harga (string)
+    - `payment`: Pembayaran (string)
+    - `purchase_date`: Tanggal pembelian (string, format `DD/MM/YYYY HH:mm`)
+    - `status`: Status (string)
+  - `pagination`: Objek informasi pagination
+    - `total_data`: Total seluruh data (integer)
+    - `total_pages`: Total halaman (integer)
+    - `current_page`: Halaman saat ini (integer)
+    - `limit`: Batas data per halaman (integer)
+  - `chart_data`: Array data grafik (difilter berdasarkan product_id jika ada)
     - `label`: Label waktu (misal: "Jan 2025", "22 Jun 2025")
     - `value`: Nominal Total Penjualan (decimal)
 - **Example Response (JSON - Monthly Period):**
-  ```json
-  {
-    "code": 200,
-    "status": "success",
-    "message": "Data monitor transaksi berhasil diambil",
-    "data": {
-      "chart_data": [
-        {
-          "label": "Jan 2025",
-          "value": 15000000.0
-        },
-        {
-          "label": "Feb 2025",
-          "value": 18000000.0
-        },
-        {
-          "label": "Mar 2025",
-          "value": 17500000.0
-        },
-        {
-          "label": "Apr 2025",
-          "value": 20000000.0
-        },
-        {
-          "label": "Mei 2025",
-          "value": 22000000.0
-        },
-        {
-          "label": "Jun 2025",
-          "value": 19500000.0
-        }
-      ]
-    }
+
+```json
+{
+  "code": 200,
+  "status": "success",
+  "message": "Data monitor transaksi berhasil diambil",
+  "data": {
+    "recap": {
+      "total_today_transaction": 4300000,
+      "total_retail_user": 120,
+      "total_h2h_user": 120,
+      "total_today_registration": 40
+    },
+    "transactions": [
+      {
+        "no": 1,
+        "id": "8122434",
+        "user": "daniscalindra",
+        "server": "Telkomsel",
+        "provider": "Combo Sakti",
+        "nominal": "Rp 10.000",
+        "phone_or_pln": "081234569900",
+        "price": "Rp 10.000",
+        "payment": "Saldo Akun",
+        "purchase_date": "04/08/2025 09:52",
+        "status": "IP"
+      }
+    ],
+    "pagination": {
+      "total_data": 2,
+      "total_pages": 1,
+      "current_page": 1,
+      "limit": 10
+    },
+    "chart_data": [
+      {
+        "label": "Jan 2025",
+        "value": 15000000.0
+      },
+      {
+        "label": "Feb 2025",
+        "value": 18000000.0
+      },
+      {
+        "label": "Mar 2025",
+        "value": 17500000.0
+      },
+      {
+        "label": "Apr 2025",
+        "value": 20000000.0
+      },
+      {
+        "label": "Mei 2025",
+        "value": 22000000.0
+      },
+      {
+        "label": "Jun 2025",
+        "value": 19500000.0
+      }
+    ]
   }
-  ```
+}
+```
 
 ---
 
-## 7b. Monitor QRIS
+## 8. Monitor QRIS
 
 ### Monitor QRIS (Unified Endpoint)
 
@@ -808,73 +868,3 @@ Berikut adalah rancangan kontrak API untuk masing-masing fitur yang Anda sebutka
     }
   }
   ```
-
-## 7c. Monitor Transaksi (Rekap & List)
-
-- **Endpoint:** `/api/v1/monitor/transactions`
-- **Method:** `GET`
-- **Parameter Request:**
-  - `search`: Kata kunci pencarian (opsional)
-  - `limit`: Jumlah data per halaman (opsional, default 10)
-  - `page`: Nomor halaman (opsional, default 1)
-- **Parameter Response:**
-  - `recap`: Objek rekapitulasi
-    - `total_today_transaction`: Total transaksi berhasil hari ini (integer/decimal)
-    - `total_retail_user`: Total pengguna retail (integer)
-    - `total_h2h_user`: Total pengguna H2H (integer)
-    - `total_today_registration`: Total pendaftar hari ini (integer)
-  - `transactions`: Array transaksi
-    - `no`: Nomor urut (integer)
-    - `id`: ID transaksi (string)
-    - `user`: Nama user (string)
-    - `server`: Nama server (string)
-    - `provider`: Nama provider (string)
-    - `nominal`: Nominal transaksi (string)
-    - `phone_or_pln`: No HP/ID PLN (string)
-    - `price`: Harga (string)
-    - `payment`: Pembayaran (string)
-    - `purchase_date`: Tanggal pembelian (string, format `DD/MM/YYYY HH:mm`)
-    - `status`: Status (string)
-  - `pagination`: Objek informasi pagination
-    - `total_data`: Total seluruh data (integer)
-    - `total_pages`: Total halaman (integer)
-    - `current_page`: Halaman saat ini (integer)
-    - `limit`: Batas data per halaman (integer)
-- **Example Response (JSON):**
-
-```json
-{
-  "code": 200,
-  "status": "success",
-  "message": "Data monitor transaksi berhasil diambil",
-  "data": {
-    "recap": {
-      "total_today_transaction": 4300000,
-      "total_retail_user": 120,
-      "total_h2h_user": 120,
-      "total_today_registration": 40
-    },
-    "transactions": [
-      {
-        "no": 1,
-        "id": "8122434",
-        "user": "daniscalindra",
-        "server": "Telkomsel",
-        "provider": "Combo Sakti",
-        "nominal": "Rp 10.000",
-        "phone_or_pln": "081234569900",
-        "price": "Rp 10.000",
-        "payment": "Saldo Akun",
-        "purchase_date": "04/08/2025 09:52",
-        "status": "IP"
-      }
-    ],
-    "pagination": {
-      "total_data": 2,
-      "total_pages": 1,
-      "current_page": 1,
-      "limit": 10
-    }
-  }
-}
-```

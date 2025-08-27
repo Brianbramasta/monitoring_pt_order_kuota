@@ -3,11 +3,13 @@ import apiClient from './apiClient';
 /**
  * Ambil data grafik monitor transaksi
  * @param {Object} params
- *   - period: Filter periode (opsional, default 'monthly'). Pilihan: 'daily', 'weekly', 'monthly', 'yearly'.
- *   - product_id: ID produk untuk filter (opsional, default produk pertama/Telkomsel?)
+ *   - periode: Filter periode (opsional, pilihan: '4hours', 'daily', '3days', 'weekly', 'monthly')
+ *   - product_id: ID produk untuk filter (opsional)
+ *   - start_date: Tanggal mulai filter (opsional, format YYYY-MM-DD HH:mm:ss)
+ *   - end_date: Tanggal akhir filter (opsional, format YYYY-MM-DD HH:mm:ss)
  */
 export const getTransactionChart = (params) =>
-  apiClient.get('/api/v1/monitor/transactions/chart', { params });
+  apiClient.get('/api/v1/monitor/transactions', { params });
 
 /**
  * Ambil semua data QRIS (merchant, static, deposit, dan comparison)
@@ -30,9 +32,10 @@ export const getQrisTransactions = (params) =>
  *   - search: Kata kunci pencarian (opsional)
  *   - limit: Jumlah data per halaman (opsional, default 10)
  *   - page: Nomor halaman (opsional, default 1)
- *   - period: Filter periode (opsional, pilihan: '4hours', 'daily', '3days', 'weekly', 'monthly')
+ *   - periode: Filter periode (opsional, pilihan: '4hours', 'daily', '3days', 'weekly', 'monthly')
  *   - start_date: Tanggal mulai filter (opsional, format YYYY-MM-DD HH:mm:ss)
  *   - end_date: Tanggal akhir filter (opsional, format YYYY-MM-DD HH:mm:ss)
+ *   - product_id: ID produk untuk filter chart (opsional)
  */
 export const getMonitorTransactionList = (params) =>
-  apiClient.get('/api/v1/monitor/transactions', { params }); 
+  apiClient.get('/api/v1/monitor/transactions', { params });
