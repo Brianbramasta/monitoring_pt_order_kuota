@@ -1,13 +1,14 @@
 'use client'
 import Card from '../../components/Card';
 import DynamicTable from '../../components/DynamicTable';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getFailedTransactions } from '@/services/transactions';
 import dayjs from 'dayjs';
 import RefreshButton from '@/components/RefreshButton';
 import AreaGrafik from '../../components/AreaGrafik';
 import BestSellingProductList from '../../components/BestSellingProductList';
 import TotalTransactionBarChart from '../../components/charts/TotalTransactionBarChart';
+import { io } from 'socket.io-client';
 
 // Dummy data card
 
@@ -45,6 +46,8 @@ export default function TransactionFailPage() {
   const [totalFailedTransactionsDaily, setTotalFailedTransactionsDaily] = useState([]);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [connectionStatus, setConnectionStatus] = useState('disconnected');
+  const socketRef = useRef(null);
 
   /**
  * Menghitung start_date dan end_date berdasarkan filter yang dipilih user.
@@ -99,49 +102,76 @@ const getDateRange = (filter, customStartDate = null, customEndDate = null) => {
 };
 
 /**
- * Mengambil data transaksi gagal dari API sesuai filter, pencarian, dan pagination.
- * Otomatis mengatur loading, data, totalData, dan recap.
+ * Helper function untuk memproses data response dari WebSocket atau API fallback
+ */
+const processResponseData = (responseData) => {
+  const arr = responseData?.transactions || [];
+  setData(arr.map((item, idx) => ({
+    no: item.no,
+    tanggal: item.date || '-',
+    nama_produk: item.product_name || '-',
+    nama_supplier: item.supplier_name || '-',
+    kode_produk: item.product_code || '-',
+    harga: item.price || '-',
+    jumlah: item.quantity || '-',
+    void: item.void || '-',
+  })));
+  setTotalData(responseData?.pagination?.total_data || arr.length);
+  setRecap(responseData?.recap || {});
+  setMostFailedProducts(responseData?.most_failed_products_daily || []);
+  setTopFailedPartners(responseData?.top_failed_partners_daily || []);
+  setTotalFailedTransactionsDaily(responseData?.total_failed_transactions_daily || []);
+  setChartData(responseData?.chart_data || []);
+};
+
+/**
+ * Helper function untuk reset data ketika terjadi error
+ */
+const resetData = () => {
+  setData([]);
+  setTotalData(0);
+  setRecap({});
+  setMostFailedProducts([]);
+  setTopFailedPartners([]);
+  setTotalFailedTransactionsDaily([]);
+  setChartData([]);
+};
+
+/**
+ * Mengambil data transaksi gagal melalui WebSocket atau fallback ke API
  */
 const fetchData = () => {
   setLoading(true);
   const { start_date, end_date } = getDateRange(selectedFilter, startDate, endDate);
-  getFailedTransactions({
-    search,
-    page,
-    limit: pageSize,
-    start_date,
-    end_date,
-    periode: selectedFilter,
-  })
-    .then(res => {
-      const arr = res.data.data?.transactions || [];
-      setData(arr.map((item, idx) => ({
-        no: item.no,
-        tanggal: item.date || '-',
-        nama_produk: item.product_name || '-',
-        nama_supplier: item.supplier_name || '-',
-        kode_produk: item.product_code || '-',
-        harga: item.price || '-',
-        jumlah: item.quantity || '-',
-        void: item.void || '-',
-      })));
-      setTotalData(res.data.data?.pagination?.total_data || arr.length);
-      setRecap(res.data.data?.recap || {});
-      setMostFailedProducts(res.data.data?.most_failed_products_daily || []);
-      setTopFailedPartners(res.data.data?.top_failed_partners_daily || []);
-      setTotalFailedTransactionsDaily(res.data.data?.total_failed_transactions_daily || []);
-      setChartData(res.data.data?.chart_data || []); // Add this
+  
+  // Jika WebSocket terhubung, gunakan WebSocket
+  if (socketRef.current && connectionStatus === 'connected') {
+    socketRef.current.emit('get-failed-data', {
+      search,
+      page,
+      limit: pageSize,
+      start_date,
+      end_date,
+      periode: selectedFilter,
+    });
+  } else {
+    // Fallback ke API jika WebSocket tidak tersedia
+    getFailedTransactions({
+      search,
+      page,
+      limit: pageSize,
+      start_date,
+      end_date,
+      periode: selectedFilter,
     })
-    .catch(() => {
-      setData([]);
-      setTotalData(0);
-      setRecap({});
-      setMostFailedProducts([]);
-      setTopFailedPartners([]);
-      setTotalFailedTransactionsDaily([]);
-      setChartData([]); // Add this
-    })
-    .finally(() => setLoading(false));
+      .then(res => {
+        processResponseData(res.data.data);
+      })
+      .catch(() => {
+        resetData();
+      })
+      .finally(() => setLoading(false));
+  }
 };
 
 // Handler untuk mengubah filter
@@ -151,13 +181,75 @@ const handleFilterChange = (newFilter) => {
 };
 
 useEffect(() => {
-    fetchData();
-    // Auto refresh setiap 10 detik
-    const interval = setInterval(() => {
+    // Inisialisasi WebSocket connection
+    const initializeWebSocket = () => {
+      try {
+        socketRef.current = io('http://localhost:8080', {
+          transports: ['websocket', 'polling'],
+          timeout: 5000,
+        });
+
+        socketRef.current.on('connect', () => {
+          console.log('WebSocket connected');
+          setConnectionStatus('connected');
+          // Fetch data pertama kali setelah terhubung
+          fetchData();
+        });
+
+        socketRef.current.on('disconnect', () => {
+          console.log('WebSocket disconnected');
+          setConnectionStatus('disconnected');
+        });
+
+        socketRef.current.on('connect_error', (error) => {
+          console.log('WebSocket connection error:', error);
+          setConnectionStatus('error');
+          // Fallback ke API jika WebSocket gagal
+          fetchData();
+        });
+
+        // Listen untuk data response dari server
+        socketRef.current.on('failed-data-response', (data) => {
+          if (data.success) {
+            processResponseData(data.data);
+          } else {
+            resetData();
+          }
+          setLoading(false);
+        });
+
+        // Listen untuk auto-update data setiap 10 detik dari server
+        socketRef.current.on('failed-data-update', (data) => {
+          if (data.success) {
+            processResponseData(data.data);
+          }
+        });
+
+      } catch (error) {
+        console.error('Error initializing WebSocket:', error);
+        setConnectionStatus('error');
+        // Fallback ke API
+        fetchData();
+      }
+    };
+
+    initializeWebSocket();
+
+    // Cleanup function
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+        socketRef.current = null;
+      }
+    };
+  }, []);
+
+  // Effect untuk fetch data ketika filter berubah
+  useEffect(() => {
+    if (connectionStatus === 'connected' || connectionStatus === 'error') {
       fetchData();
-    }, 10000);
-    return () => clearInterval(interval);
-  }, [search, page, pageSize, selectedFilter, startDate, endDate]);
+    }
+  }, [search, page, pageSize, selectedFilter, startDate, endDate, connectionStatus]);
 
 const cards = [
   {
